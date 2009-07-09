@@ -3,6 +3,9 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in latest revision:
 
+2009-07-09 (kstegemoller):
+- tag r1
+
 2009-06-10 (aschmitz):
 - Changes to resources/xsd/ogc/cite/cite-gmlsf1.xsd:
         Re-added the missing sf:reference property. Some tests 
