@@ -430,9 +430,9 @@
                   </xsl:choose>
               </xsl:for-each>
               <!-- verify sorting -->
-              <xsl:variable name="f1.str4" select="$response//sf:EntitéGénérique[1]/sf:str4Property" />
-              <xsl:variable name="f2.str4" select="$response//sf:EntitéGénérique[2]/sf:str4Property" />
-              <xsl:if test="(compare($f1.str4,$f2.str4) ne -1)">
+              <xsl:variable name="f1.str4" select="$response//gml:featureMember[1]/sf:EntitéGénérique/sf:str4Property" />
+              <xsl:variable name="f2.str4" select="$response//gml:featureMember[2]/sf:EntitéGénérique/sf:str4Property" />
+              <xsl:if test="(compare($f1.str4,$f2.str4) != -1)">
                   <ctl:message>FAILURE: Features are not sorted by sf:str4Property in ascending order.</ctl:message>
                   <ctl:fail/>
               </xsl:if>
