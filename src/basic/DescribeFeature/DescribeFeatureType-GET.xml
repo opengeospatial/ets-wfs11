@@ -20,7 +20,20 @@
       Run test group for DescribeFeatureType requests using the GET method. Target endpoint is {$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
       </ctl:assertion>
       <ctl:code>
-      
+   		<ctl:call-test name="wfs:DescribeFeatureType-output-format-default">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+		<ctl:call-test name="wfs:DescribeFeatureType-output-format-XMLSCHEMA">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+		<ctl:call-test name="wfs:DescribeFeatureType-output-format-gml-2.1.2">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>			
+		<ctl:call-test name="wfs:DescribeFeatureType-output-format-gml-3.1.1">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+ 		<ctl:call-test name="wfs:DescribeFeatureType-invalid-featureType">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
 		<xsl:variable name="wfs.DescribeFeatureType.get.url">
 			<xsl:value-of select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
 		</xsl:variable>	      
@@ -531,5 +544,171 @@
 				
 		</code>
 	</test>
+
+	<ctl:test name="wfs:DescribeFeatureType-output-format-default">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>The MIME returned for a DescribeFeatureType request where no specific output format is requested is "text/xml; subtype=gml/3.1.1".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+      	<ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
+		<ctl:code>
+			<xsl:variable name="RESPONSE">
+				<ctl:request>
+					<ctl:url>
+						<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+					</ctl:url>
+					<ctl:method>get</ctl:method>
+					<ctl:param name="request">DescribeFeatureType</ctl:param>					
+					<ctl:param name="service">WFS</ctl:param>
+					<ctl:param name="version">1.1.0</ctl:param>
+		            <parsers:HTTPParser>
+		               <parsers:parse>
+		                  <parsers:NullParser/>
+		               </parsers:parse>
+		            </parsers:HTTPParser>
+				</ctl:request>
+			</xsl:variable>	
+			<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/3.1.1')">
+				<ctl:fail/>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:DescribeFeatureType-output-format-XMLSCHEMA">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>When output format XMLSCHEMA is supported, the MIME returned for a DescribeFeatureType request where the output format requested is XMLSCHEMA is "text/xml; subtype=gml/2.1.2".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+      	<ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
+		<ctl:code>
+	        <xsl:choose>
+	            <xsl:when test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:Parameter[@name='outputFormat' and ows:Value='XMLSCHEMA']">
+					<xsl:variable name="RESPONSE">
+						<ctl:request>
+							<ctl:url>
+								<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+							</ctl:url>
+							<ctl:method>get</ctl:method>
+							<ctl:param name="request">DescribeFeatureType</ctl:param>					
+							<ctl:param name="service">WFS</ctl:param>
+							<ctl:param name="version">1.1.0</ctl:param>
+							<ctl:param name="outputformat">XMLSCHEMA</ctl:param>
+				            <parsers:HTTPParser>
+				               <parsers:parse>
+				                  <parsers:NullParser/>
+				               </parsers:parse>
+				            </parsers:HTTPParser>
+						</ctl:request>
+					</xsl:variable>	
+					<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/2.1.2')">
+						<ctl:fail/>
+					</xsl:if>
+	            </xsl:when>
+	            <xsl:otherwise>
+					<ctl:message>output format XMLSCHEMA is not supported</ctl:message>
+	            </xsl:otherwise>
+	         </xsl:choose>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:DescribeFeatureType-output-format-gml-2.1.2">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>When output format "text/xml; subtype=gml/2.1.2" is supported, the MIME returned for a DescribeFeatureType request where the output format requested is "text/xml; subtype=gml/2.1.2" is "text/xml; subtype=gml/2.1.2".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+      	<ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
+		<ctl:code>
+	        <xsl:choose>
+	            <xsl:when test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:Parameter[@name='outputFormat' and ows:Value='text/xml; subtype=gml/2.1.2']">
+					<xsl:variable name="RESPONSE">
+						<ctl:request>
+							<ctl:url>
+								<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+							</ctl:url>
+							<ctl:method>get</ctl:method>
+							<ctl:param name="request">DescribeFeatureType</ctl:param>					
+							<ctl:param name="service">WFS</ctl:param>
+							<ctl:param name="version">1.1.0</ctl:param>
+							<ctl:param name="outputformat">
+						         <xsl:value-of select="wfs:encode('text/xml; subtype=gml/2.1.2')"/>
+							</ctl:param>
+				            <parsers:HTTPParser>
+				               <parsers:parse>
+				                  <parsers:NullParser/>
+				               </parsers:parse>
+				            </parsers:HTTPParser>
+						</ctl:request>
+					</xsl:variable>	
+					<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/2.1.2')">
+						<ctl:fail/>
+					</xsl:if>
+	            </xsl:when>
+	            <xsl:otherwise>
+					<ctl:message>output format 'text/xml; subtype=gml/2.1.2' is not supported</ctl:message>
+	            </xsl:otherwise>
+	         </xsl:choose>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:DescribeFeatureType-output-format-gml-3.1.1">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>The MIME returned for a DescribeFeatureType request where the output format requested is "text/xml; subtype=gml/3.1.1" is "text/xml; subtype=gml/3.1.1".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+      	<ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
+		<ctl:code>
+			<xsl:variable name="RESPONSE">
+				<ctl:request>
+					<ctl:url>
+						<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+					</ctl:url>
+					<ctl:method>get</ctl:method>
+					<ctl:param name="request">DescribeFeatureType</ctl:param>					
+					<ctl:param name="service">WFS</ctl:param>
+					<ctl:param name="version">1.1.0</ctl:param>
+					<ctl:param name="outputformat">
+				         <xsl:value-of select="wfs:encode('text/xml; subtype=gml/3.1.1')"/>
+					</ctl:param>
+		            <parsers:HTTPParser>
+		               <parsers:parse>
+		                  <parsers:NullParser/>
+		               </parsers:parse>
+		            </parsers:HTTPParser>
+				</ctl:request>
+			</xsl:variable>	
+			<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/3.1.1')">
+				<ctl:fail/>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:DescribeFeatureType-invalid-featureType">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>The response for a DescribeFeatureType request with an invalid feature type is an exception.</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 8.4, p.27</ctl:link>
+		<ctl:code>
+			<xsl:variable name="RESPONSE">
+				<ctl:request>
+					<ctl:url>
+						<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+					</ctl:url>
+					<ctl:method>get</ctl:method>
+					<ctl:param name="request">DescribeFeatureType</ctl:param>					
+					<ctl:param name="service">WFS</ctl:param>
+					<ctl:param name="version">1.1.0</ctl:param>
+					<param name="typename">InValidFeatureType</param>					
+		            <parsers:HTTPParser>
+		               <parsers:parse>
+		                  <parsers:HTTPParser/>
+		               </parsers:parse>
+		            </parsers:HTTPParser>
+				</ctl:request>
+			</xsl:variable>	
+			<xsl:if test="not($RESPONSE//ows:Exception/*)">
+				<ctl:fail/>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
 		
 </ctl:package>

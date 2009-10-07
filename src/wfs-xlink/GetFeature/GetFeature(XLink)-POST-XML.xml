@@ -2,6 +2,7 @@
 <ctl:package xmlns="http://www.occamlab.com/ctl"
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:ctl="http://www.occamlab.com/ctl"
+ xmlns:parsers="http://www.occamlab.com/te/parsers"
  xmlns:ocp="http://www.occamlab.com/te/parsers"
  xmlns:tep="http://teamengine.sourceforge.net/parsers"
  xmlns:saxon="http://saxon.sf.net/" 
@@ -17,6 +18,11 @@
       containing XML entities must satisfy all applicable assertions.
       </ctl:assertion>
       <ctl:code>
+      
+		<ctl:call-test name="wfs:GetFeature-traverseXlinkExpiry">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.capabilities.doc" />
+		</ctl:call-test>
+      
         <xsl:variable name="wfs.GetFeature.post.url">
 		    <xsl:value-of select="$wfs.capabilities.doc//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href"/>
 		</xsl:variable>
@@ -653,7 +659,7 @@
 					<ctl:method>POST</ctl:method>
 				    <ctl:body>
 <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS" 
-  traverseXlinkDepth="1" xmlns:gml="http://www.opengis.net/gml">
+  traverseXlinkDepth="1">
 	<wfs:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="sf:LinkedFeature">
 		<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">
 			<ogc:PropertyIsEqualTo>
@@ -867,5 +873,45 @@
 		</xsl:choose>
 	  </ctl:code>
 	</ctl:test>	
+
+	<ctl:test name="wfs:GetFeature-traverseXlinkExpiry">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>When a GetFeature request with XLink elements is not resolved in less time than the traverseXlinkExpiry, an exception is returned.</ctl:assertion>
+		<ctl:comment>use expiry=0 to ensure failure</ctl:comment>				
+      	<ctl:link>OGC 04-094, 11.2.1, p.56</ctl:link>
+		<ctl:code>
+			<xsl:choose>
+	            <xsl:when test="not($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[wfs:Name='sf:LinkedFeature'])">
+					<ctl:message>sf:LinkedFeature does not exist</ctl:message>		        	
+	            </xsl:when>
+	            <xsl:otherwise>
+					<xsl:variable name="RESPONSE">
+						<ctl:request>
+							<ctl:url>
+								<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+							</ctl:url>
+							<ctl:method>get</ctl:method>
+							<ctl:param name="request">GetFeature</ctl:param>					
+							<ctl:param name="service">WFS</ctl:param>
+							<ctl:param name="version">1.1.0</ctl:param>
+							<param name="typename">
+								<xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[wfs:Name='sf:LinkedFeature']/wfs:Name)"/>			
+							</param>					
+							<ctl:param name="traverseXlinkExpiry">0</ctl:param>
+				            <parsers:HTTPParser>
+				               <parsers:parse>
+				                  <parsers:HTTPParser/>
+				               </parsers:parse>
+				            </parsers:HTTPParser>
+						</ctl:request>
+					</xsl:variable>	
+					<xsl:if test="not($RESPONSE//ows:Exception/*)">
+						<ctl:fail/>
+					</xsl:if>
+		
+				</xsl:otherwise>
+			</xsl:choose>
+		</ctl:code>
+	</ctl:test>
 	
 </ctl:package>

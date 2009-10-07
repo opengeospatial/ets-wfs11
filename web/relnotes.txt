@@ -3,11 +3,18 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in latest revision:
 
+2009-10-7 (cmorris):
+- Fixed sorting problem (Issue 308)
+- Made KVP Post support optional (Issue 319)
+- Made returning gml:boundedBy properties on return features optional (Issue 322)
+- Fixed bug in testing the default service attribute (Issue 321)
+- Added tests written for NSG that apply to the base WFS specification
+
 2009-09-30 (efreese):
 - Changes to wfs-1.1.0-Basic-GetFeature-tc102.1:
 	The sorting test was failing because the 2nd occurrence of sf:EntitéGénérique 
 	was not a valid XPath.  Modified the XPath to find the 2nd occurrence of 
-	gml:featureMember in order to have 2 values to compare.
+	gml:featureMember in order to have 2 values to compare. (Issue 347)
 
 
 Changes included in R1:

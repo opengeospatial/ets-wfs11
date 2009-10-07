@@ -82,10 +82,23 @@
          <xsl:variable name="minY2" select="xsd:decimal(substring-after($bbox//gml:lowerCorner, ' '))" />
          <xsl:variable name="maxY2" select="xsd:decimal(substring-after($bbox//gml:upperCorner, ' '))" />
          <xsl:choose>
+<!-- TODO: need a more sophisticated CRS matching scheme.  For now, disable CRS check.  CEM 10-1-09
             <xsl:when test="$env//@srsName != $bbox//@srsName">-1</xsl:when>
+-->
             <xsl:when test="($minX2 gt $maxX1) or ($minY2 gt $maxY1) or ($maxX2 lt $minX1) or ($maxY2 lt $minY1)">1</xsl:when>
             <xsl:otherwise>0</xsl:otherwise>
          </xsl:choose>
       </ctl:code>
    </ctl:function>
+   
+   <ctl:function name="wfs:encode">
+      <ctl:param name="s">String to encode</ctl:param>
+      <ctl:java class="java.net.URLEncoder" method="encode"/>
+   </ctl:function>
+
+   <ctl:function name="wfs:sleep">
+      <ctl:param name="milliseconds"/>
+      <ctl:java class="java.lang.Thread" method="sleep"/>
+   </ctl:function>
+   
 </ctl:package>

@@ -135,10 +135,12 @@
                 </gml:Envelope>
               </xsl:variable>
               <xsl:for-each select="$response//sf:EntitéGénérique">
-                <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 1">
-                  <ctl:message>FAILURE: Envelopes intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                  <ctl:fail/>
-                </xsl:if>
+                <xsl:if test="./gml:boundedBy">
+	                <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 1">
+	                  <ctl:message>FAILURE: Envelopes intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
+	                  <ctl:fail/>
+	                </xsl:if>
+ 	            </xsl:if>
               </xsl:for-each>
               <!-- TODO evaluate spatial relationship -->
 			</xsl:otherwise>
@@ -188,11 +190,17 @@
                 </gml:Envelope>
               </xsl:variable>
               <xsl:for-each select="$response//sf:EntitéGénérique">
-                <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 0">
-                  <ctl:message>FAILURE: Envelopes do NOT intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                  <ctl:fail/>
+                <xsl:if test="./gml:boundedBy">
+                  <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 0">
+                    <ctl:message>FAILURE: Envelopes do NOT intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
+                    <ctl:fail/>
+                  </xsl:if>
                 </xsl:if>
               </xsl:for-each>
+              <xsl:if test="not($response//sf:EntitéGénérique[sf:featureRef = 'name-f003'])">
+                        <ctl:message>FAILURE: Did not return expected feature (sf:featureRef = 'name-f003')</ctl:message>
+                        <ctl:fail/>
+              </xsl:if>
               <!-- TODO evaluate spatial relationship -->
 			</xsl:otherwise>
 		</xsl:choose>
@@ -245,10 +253,12 @@
                   <ctl:message>FAILURE: sf:dateProperty value on or before 2006-10-01Z (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
                   <ctl:fail/>
                 </xsl:if>
-                <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 0">
-                  <ctl:message>FAILURE: Envelopes do NOT intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                  <ctl:fail/>
-                </xsl:if>
+               <xsl:if test="./gml:boundedBy">
+	               <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 0">
+	                 <ctl:message>FAILURE: Envelopes do NOT intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
+	                 <ctl:fail/>
+	               </xsl:if>
+               </xsl:if>
               </xsl:for-each>
               <!-- TODO evaluate intersects relationship -->
 			</xsl:otherwise>
@@ -351,10 +361,12 @@
                 <xsl:if test="xsd:double(sf:doubleProperty) le 20.0">
                   <ctl:message>FAILURE: sf:doubleProperty &lt;= 20.0 (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
                   <ctl:fail/>
-                </xsl:if>
-                <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 1">
-                  <ctl:message>FAILURE: Envelopes intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                  <ctl:fail/>
+                </xsl:if>                
+                <xsl:if test="./gml:boundedBy">
+	                <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 1">
+	                  <ctl:message>FAILURE: Envelopes intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
+	                  <ctl:fail/>
+	                </xsl:if>
                 </xsl:if>
               </xsl:for-each>
 			</xsl:otherwise>
@@ -409,7 +421,7 @@
                     <ctl:fail/>
                   </xsl:if>
                   <xsl:choose>
-                    <xsl:when test="sf:str4Property and sf:attribut.Géométrie">
+                    <xsl:when test="sf:str4Property and sf:attribut.Géométrie and gml:boundedBy">
                       <xsl:if test="(compare(sf:str4Property, 'abc3') != 0) and (wfs:disjoint-envelopes($env,gml:boundedBy) != 0)">
                         <ctl:message>FAILURE: sf:str4Property != "abc3" AND envelopes do not intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
                         <ctl:fail/>
@@ -422,17 +434,19 @@
                       </xsl:if>
                     </xsl:when>
                     <xsl:otherwise>
-                      <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 0">
-                        <ctl:message>FAILURE: Envelopes do not intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                        <ctl:fail/>
+                      <xsl:if test="./gml:boundedBy">
+	                      <xsl:if test="wfs:disjoint-envelopes($env,gml:boundedBy) != 0">
+	                        <ctl:message>FAILURE: Envelopes do not intersect (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
+	                        <ctl:fail/>
+	                      </xsl:if>
                       </xsl:if>
                     </xsl:otherwise>
                   </xsl:choose>
               </xsl:for-each>
               <!-- verify sorting -->
-              <xsl:variable name="f1.str4" select="$response//gml:featureMember[1]/sf:EntitéGénérique/sf:str4Property" />
-              <xsl:variable name="f2.str4" select="$response//gml:featureMember[2]/sf:EntitéGénérique/sf:str4Property" />
-              <xsl:if test="(compare($f1.str4,$f2.str4) != -1)">
+              <xsl:variable name="f1.str4" select="($response//sf:EntitéGénérique)[1]/sf:str4Property" />
+              <xsl:variable name="f2.str4" select="($response//sf:EntitéGénérique)[2]/sf:str4Property" />
+              <xsl:if test="(compare($f1.str4,$f2.str4) ne -1)">
                   <ctl:message>FAILURE: Features are not sorted by sf:str4Property in ascending order.</ctl:message>
                   <ctl:fail/>
               </xsl:if>

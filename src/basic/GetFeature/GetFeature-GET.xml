@@ -20,6 +20,22 @@
       </ctl:assertion>
       <ctl:code>
 
+		<ctl:call-test name="wfs:GetFeature-output-format-default">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+		<ctl:call-test name="wfs:GetFeature-output-format-GML2">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+		<ctl:call-test name="wfs:GetFeature-output-format-gml-2.1.2">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+		<ctl:call-test name="wfs:GetFeature-extra-param">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+		<ctl:call-test name="wfs:GetFeature-result-type-results">
+			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+		</ctl:call-test>
+
 		<xsl:variable name="wfs.GetFeature.get.url">
 			<xsl:value-of select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
 		</xsl:variable>
@@ -1167,5 +1183,183 @@
 
 		</code>
 	</test>
+
+	<ctl:test name="wfs:GetFeature-output-format-default">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml; subtype=gml/3.1.1".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+		<ctl:code>
+			<xsl:variable name="RESPONSE">
+				<ctl:request>
+					<ctl:url>
+						<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+					</ctl:url>
+					<ctl:method>get</ctl:method>
+					<ctl:param name="request">GetFeature</ctl:param>					
+					<ctl:param name="service">WFS</ctl:param>
+					<ctl:param name="version">1.1.0</ctl:param>
+					<param name="typename">
+						<xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name)"/>			
+					</param>					
+		            <parsers:HTTPParser>
+		               <parsers:parse>
+		                  <parsers:NullParser/>
+		               </parsers:parse>
+		            </parsers:HTTPParser>
+				</ctl:request>
+			</xsl:variable>	
+			<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/3.1.1')">
+				<ctl:fail/>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:GetFeature-output-format-GML2">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>When output format GML2 is supported, the MIME returned for a GetFeature request where the output format requested is GML2 is "text/xml; subtype=gml/2.1.2".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+		<ctl:code>
+	        <xsl:choose>
+	            <xsl:when test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:Parameter[@name='outputFormat' and ows:Value='GML2']">
+					<xsl:variable name="RESPONSE">
+						<ctl:request>
+							<ctl:url>
+								<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+							</ctl:url>
+							<ctl:method>get</ctl:method>
+							<ctl:param name="request">GetFeature</ctl:param>					
+							<ctl:param name="service">WFS</ctl:param>
+							<ctl:param name="version">1.1.0</ctl:param>
+							<param name="typename">
+								<xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name)"/>			
+							</param>					
+							<ctl:param name="outputformat">GML2</ctl:param>
+				            <parsers:HTTPParser>
+				               <parsers:parse>
+				                  <parsers:NullParser/>
+				               </parsers:parse>
+				            </parsers:HTTPParser>
+						</ctl:request>
+					</xsl:variable>	
+					<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/2.1.2')">
+						<ctl:fail/>
+					</xsl:if>
+	            </xsl:when>
+	            <xsl:otherwise>
+					<ctl:message>output format GML2 is not supported</ctl:message>
+	            </xsl:otherwise>
+	         </xsl:choose>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:GetFeature-output-format-gml-2.1.2">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>When output format "text/xml; subtype=gml/2.1.2" is supported, the MIME returned for a GetFeature request where the output format requested is "text/xml; subtype=gml/2.1.2" is "text/xml; subtype=gml/2.1.2".</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+		<ctl:code>
+	        <xsl:choose>
+	            <xsl:when test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:Parameter[@name='outputFormat' and ows:Value='text/xml; subtype=gml/2.1.2']">
+					<xsl:variable name="RESPONSE">
+						<ctl:request>
+							<ctl:url>
+								<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+							</ctl:url>
+							<ctl:method>get</ctl:method>
+							<ctl:param name="request">GetFeature</ctl:param>					
+							<ctl:param name="service">WFS</ctl:param>
+							<ctl:param name="version">1.1.0</ctl:param>
+							<param name="typename">
+								<xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name)"/>			
+							</param>					
+							<ctl:param name="outputformat">
+								<xsl:value-of select="wfs:encode('text/xml; subtype=gml/2.1.2')"/>			
+							</ctl:param>
+				            <parsers:HTTPParser>
+				               <parsers:parse>
+				                  <parsers:NullParser/>
+				               </parsers:parse>
+				            </parsers:HTTPParser>
+						</ctl:request>
+					</xsl:variable>	
+					<xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/2.1.2')">
+						<ctl:fail/>
+					</xsl:if>
+	            </xsl:when>
+	            <xsl:otherwise>
+					<ctl:message>output format "text/xml; subtype=gml/2.1.2" is not supported</ctl:message>
+	            </xsl:otherwise>
+	         </xsl:choose>
+		</ctl:code>
+	</ctl:test>
+
+	<ctl:test name="wfs:GetFeature-extra-param">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>A valid HTTP Get request with an extra parameter not recognized by the WFS does not return an exception.</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 14.3.4, p.95</ctl:link>
+		<ctl:code>
+			<xsl:variable name="RESPONSE">
+				<ctl:request>
+					<ctl:url>
+						<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+					</ctl:url>
+					<ctl:method>get</ctl:method>
+					<ctl:param name="request">GetFeature</ctl:param>					
+					<ctl:param name="service">WFS</ctl:param>
+					<ctl:param name="version">1.1.0</ctl:param>
+					<ctl:param name="extra">Unknown</ctl:param>
+					<param name="typename">
+						<xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name)"/>			
+					</param>
+		            <parsers:HTTPParser>
+		               <parsers:parse>
+		                  <parsers:HTTPParser/>
+		               </parsers:parse>
+		            </parsers:HTTPParser>
+				</ctl:request>
+			</xsl:variable>	
+			<xsl:if test="$RESPONSE//ows:Exception/*">
+				<ctl:fail/>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+
+
+	<ctl:test name="wfs:GetFeature-result-type-results">
+		<ctl:param name="CAPABILITIES" />
+		<ctl:assertion>A GetFeature request with resultType=Results returns the actual features, not just the count of number of hits.</ctl:assertion>
+		<ctl:comment></ctl:comment>				
+      	<ctl:link>OGC 04-094, 9.3, p.38</ctl:link>
+		<ctl:code>
+			<xsl:variable name="RESPONSE">
+				<ctl:request>
+					<ctl:url>
+						<xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>			
+					</ctl:url>
+					<ctl:method>get</ctl:method>
+					<ctl:param name="request">GetFeature</ctl:param>					
+					<ctl:param name="service">WFS</ctl:param>
+					<ctl:param name="version">1.1.0</ctl:param>
+					<ctl:param name="resultType">Results</ctl:param>
+					<param name="typename">
+						<xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name)"/>			
+					</param>
+		            <parsers:HTTPParser>
+		               <parsers:parse>
+		                  <parsers:HTTPParser/>
+		               </parsers:parse>
+		            </parsers:HTTPParser>
+				</ctl:request>
+			</xsl:variable>	
+			<xsl:if test="not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
+				<ctl:fail/>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+
+
 
 </ctl:package>
