@@ -20,7 +20,7 @@
 	<xi:include href="wfs-transaction/transaction-tests.ctl"/>
 	<xi:include href="wfs-xlink/xlink-main.xml"/>
 	
-	<ctl:suite name="wfs:wfs-1.1.0-compliance-suite" version="1.1.0.2-M1">
+	<ctl:suite name="ctl:wfs-1.1.0-compliance-suite" version="1.1.0.2-M1">
 		  <ctl:title>WFS 1.1.0 Compliance Test Suite (1.1.0.2-M1)</ctl:title>
 		  <ctl:description>Verifies that a WFS 1.1.0 implementation complies with a given conformance class.</ctl:description>
           <ctl:link>docs/wfs/1.1.0/</ctl:link>
