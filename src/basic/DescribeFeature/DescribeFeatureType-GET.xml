@@ -20,6 +20,10 @@
       Run test group for DescribeFeatureType requests using the GET method. Target endpoint is {$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
       </ctl:assertion>
       <ctl:code>
+		<xsl:variable name="wfs.DescribeFeatureType.get.url">
+			<xsl:value-of select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+		</xsl:variable>	      
+
    		<ctl:call-test name="wfs:DescribeFeatureType-output-format-default">
 			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
 		</ctl:call-test>
@@ -34,10 +38,7 @@
 		</ctl:call-test>
  		<ctl:call-test name="wfs:DescribeFeatureType-invalid-featureType">
 			<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
-		<xsl:variable name="wfs.DescribeFeatureType.get.url">
-			<xsl:value-of select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
-		</xsl:variable>	      
-      
+		</ctl:call-test>
 		<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1.1">
 			<ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url"/>
 		</ctl:call-test>	
