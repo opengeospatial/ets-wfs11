@@ -1,7 +1,10 @@
 WCS 1.0.0 Test Suite Release Notes
 
 
-Changes included in latest revision:
+Changes included in this revision:
+
+2009-10-12 (kstegemoller):
+- created tag wfs-1.1.0 r2
 
 2009-10-7 (cmorris):
 - Corrected time parameter on test getcoverage_operations-getcoverage_request-time-get-kvp-1 (Issue 307)
