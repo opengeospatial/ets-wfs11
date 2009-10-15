@@ -1,4 +1,4 @@
-WCS 1.0.0 Test Suite Release Notes
+WFS 1.1.0 Test Suite Release Notes
 
 
 Changes included in this revision:
