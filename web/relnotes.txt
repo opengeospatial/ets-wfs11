@@ -6,6 +6,7 @@ Changes included in latest revision:
 2009-12-10 (cmorris):
 - Make returning a numberOfFeatures attribute optional when resultType=results (Issue 445)
 - Correct sorting in test wfs-1.1.0-Basic-GetFeature-tc50.2 (Issue 427)
+- Remove empty PropertyName element from request in wfs-1.1.0-Basic-GetFeature-tc200.2 (Issue 353)
 - Added missing namespace prefix to property in wfs-1.1.0-Basic-GetFeature-tc100.2 (Issue 351)
 
 Changes included in R2:
