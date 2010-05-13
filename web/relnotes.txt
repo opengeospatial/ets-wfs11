@@ -1,7 +1,10 @@
 WFS 1.1.0 Test Suite Release Notes
 
 
-Changes included in latest revision:
+Changes included in this revision:
+
+2010-05-13 (kstegemoller):
+- Updated release notes.
 
 2009-12-10 (cmorris):
 - Make returning a numberOfFeatures attribute optional when resultType=results (Issue 445)
