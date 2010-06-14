@@ -328,9 +328,6 @@
                         <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc42.3">
                                 <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                         </ctl:call-test>
-                        <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc42.4">
-                                <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                        </ctl:call-test>
                 </xsl:if>
                 <xsl:if test="$wfs.GetCapabilities.document//ogc:Scalar_Capabilities/ogc:ComparisonOperators/ogc:ComparisonOperator = 'NullCheck'">
                         <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc45.1">
@@ -4064,48 +4061,6 @@
                                 </xsl:otherwise>
                         </xsl:choose>
 
-                </code>
-        </test>
-
-<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc42.4">
-      <param name="wfs.GetFeature.post.url"/>
-      <assertion>Correctly evaluate the PropertyIsLike predicate expressed by a valid ogc:PropertyIsLike element.</assertion>
-      <comment>PropertyIsLike filter request, for a string-type property using the single character element and wild card character on sf:dateProperty expecting at least 2 matches.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the number of result features is &gt;= 2; (3) the result feature set contains the expected feature instance.</comment>
-      <link>filter-</link>
-      <link>OGC 04-095, 9.2, p.12</link>
-                <code>
-
-                        <xsl:variable name="response">
-                                <request>
-                                        <url>
-                                                <xsl:value-of select="$wfs.GetFeature.post.url"/>
-                                        </url>
-                                   <method>post</method>
-                                   <body>
-                                           <xi:include href="wfs-1.1.0-Basic-GetFeature-tc42.4.body.xml"/>
-                                        </body>
-                                        <p:XMLValidatingParser.GMLSF1/>
-                                </request>
-                        </xsl:variable>
-
-                        <xsl:choose>
-                                <xsl:when test="not($response/*)">
-                                <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                        <ctl:fail/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                    <xsl:if test="count($response//sf:PrimitiveGeoFeature) lt 1">
-                      <ctl:message>FAILURE: Empty response</ctl:message>
-                      <ctl:fail/>
-                    </xsl:if>
-                    <xsl:for-each select="$response//sf:PrimitiveGeoFeature">
-                      <xsl:if test="matches(sf:dateProperty,'20.*-10-.{2}') != true()">
-                        <ctl:message>FAILURE: sf:dateProperty value does not match expression "20*-10-??" (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                        <ctl:fail/>
-                      </xsl:if>
-                    </xsl:for-each>
-                                </xsl:otherwise>
-                        </xsl:choose>
                 </code>
         </test>
 
