@@ -144,7 +144,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                               <xsl:choose>
-                                <xsl:when test="$request1/ogc:ServiceExceptionReport">
+                                <xsl:when test="$request1/ows:ExceptionReport">
                                   <ctl:call-test name="ctl:SchematronValidatingParser">
                                     <ctl:with-param name="doc" select="$request1"/>
                                     <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
@@ -201,7 +201,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                               <xsl:choose>
-                                <xsl:when test="$request1/ogc:ServiceExceptionReport">
+                                <xsl:when test="$request1/ows:ExceptionReport">
                                   <ctl:call-test name="ctl:SchematronValidatingParser">
                                     <ctl:with-param name="doc" select="$request1"/>
                                     <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
@@ -258,7 +258,7 @@
                             </xsl:when>
                             <xsl:otherwise>
                               <xsl:choose>
-                                <xsl:when test="$request1/ogc:ServiceExceptionReport">
+                                <xsl:when test="$request1/ows:ExceptionReport">
                                   <ctl:call-test name="ctl:SchematronValidatingParser">
                                     <ctl:with-param name="doc" select="$request1"/>
                                     <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
