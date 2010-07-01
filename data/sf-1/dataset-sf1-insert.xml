@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wfs:Transaction service="WFS" version="1.1.0" 
-  xmlns:wfs="http://www.opengis.net/wfs" 
-  xmlns:gml="http://www.opengis.net/gml" 
-  xmlns:sf="http://cite.opengeospatial.org/gmlsf" 
+<wfs:Transaction service="WFS" version="1.1.0"
+  xmlns:wfs="http://www.opengis.net/wfs"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:sf="http://cite.opengeospatial.org/gmlsf"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  
+
   <wfs:Insert handle="SF-1 test data">
-    
+
     <sf:ComplexGeoFeature gml:id="f101">
       <gml:description>
-      Aliquam sed lorem. Nam non risus ut felis pellentesque consequat. Curabitur 
-      pede. Suspendisse potenti. Mauris lacinia. Donec risus leo, luctus at, 
-      aliquet vel, congue in, mi. Mauris pulvinar mollis felis. Etiam posuere, 
-      ante et luctus blandit, purus metus sollicitudin nisl, eget gravida lorem 
-      elit sed pede. Nunc tristique elementum sem. Nullam feugiat mauris quis 
-      tellus. Nulla cursus augue at ipsum. Mauris volutpat posuere tellus. Quisque 
-      accumsan tellus sit amet elit. Nam tempor libero id urna. Donec ac sapien. 
-      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per 
-      inceptos hymenaeos. Ut sollicitudin dapibus magna. Phasellus erat turpis, 
-      adipiscing eu, lobortis ut, convallis a, nisl. Vivamus rutrum magna eget 
+      Aliquam sed lorem. Nam non risus ut felis pellentesque consequat. Curabitur
+      pede. Suspendisse potenti. Mauris lacinia. Donec risus leo, luctus at,
+      aliquet vel, congue in, mi. Mauris pulvinar mollis felis. Etiam posuere,
+      ante et luctus blandit, purus metus sollicitudin nisl, eget gravida lorem
+      elit sed pede. Nunc tristique elementum sem. Nullam feugiat mauris quis
+      tellus. Nulla cursus augue at ipsum. Mauris volutpat posuere tellus. Quisque
+      accumsan tellus sit amet elit. Nam tempor libero id urna. Donec ac sapien.
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+      inceptos hymenaeos. Ut sollicitudin dapibus magna. Phasellus erat turpis,
+      adipiscing eu, lobortis ut, convallis a, nisl. Vivamus rutrum magna eget
       metus consectetuer ultrices. Sed ac nisi tincidunt risus euismod condimentum.
       </gml:description>
       <gml:name codeSpace="http://cite.opengeospatial.org/gmlsf">name-f101</gml:name>
       <sf:geometryProperty>
-        <gml:LineString srsName="urn:x-ogc:def:crs:EPSG:4979">
+        <gml:LineString srsName="urn:ogc:def:crs:EPSG::4979">
           <gml:posList>46.074 9.799 600.2 46.652 10.466 781.4</gml:posList>
         </gml:LineString>
       </sf:geometryProperty>
@@ -60,19 +60,19 @@
 
     <sf:ComplexGeoFeature gml:id="f102">
       <gml:description>
-      Integer euismod risus. Class aptent taciti sociosqu ad litora torquent per 
+      Integer euismod risus. Class aptent taciti sociosqu ad litora torquent per
       conubia nostra, per inceptos hymenaeos. Phasellus nec risus.
       </gml:description>
       <gml:name codeSpace="http://cite.opengeospatial.org/gmlsf">name-f102</gml:name>
       <gml:name>Vivamus blandit</gml:name>
       <sf:geometryProperty>
-        <gml:Curve srsName="urn:x-ogc:def:crs:EPSG:4979">
+        <gml:Curve srsName="urn:ogc:def:crs:EPSG::4979">
           <gml:segments>
             <gml:LineStringSegment interpolation="linear">
-              <gml:posList>45.174 2.899 45.652 2.466 45.891 2.899</gml:posList>
+              <gml:posList>45.174 2.899 601 45.652 2.466 504 45.891 2.899 876</gml:posList>
             </gml:LineStringSegment>
             <gml:LineStringSegment interpolation="linear">
-              <gml:posList>45.891 2.899 48.174 2.899 48.652 2.466 48.891 2.899</gml:posList>
+              <gml:posList>45.891 2.899 587 48.174 2.899 702 48.652 2.466 676 48.891 2.899 699</gml:posList>
             </gml:LineStringSegment>
           </gml:segments>
         </gml:Curve>
@@ -92,11 +92,11 @@
         </sf:Event>
       </sf:auditTrail>
     </sf:ComplexGeoFeature>
-    
+
     <sf:ComplexGeoFeature gml:id="f103">
       <gml:name codeSpace="http://cite.opengeospatial.org/gmlsf">name-f103</gml:name>
       <sf:geometryProperty>
-        <gml:Surface srsName="urn:x-ogc:def:crs:EPSG:4326">
+        <gml:Surface srsName="urn:ogc:def:crs:EPSG::4326">
           <gml:patches>
             <gml:PolygonPatch interpolation="planar">
               <gml:exterior>
