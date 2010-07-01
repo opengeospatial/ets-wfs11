@@ -37,6 +37,8 @@
                 </xsl:variable>
                 <xsl:variable name="kvp-post-supported" select="boolean($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/ows:Constraint[@name='InputFormat' and ows:Value='application/x-www-form-urlencoded'])"/>
 
+                <xsl:variable name="wfs.between.supported" select="boolean($wfs.GetCapabilities.document//ogc:Filter_Capabilities/ogc:Scalar_Capabilities/ogc:ComparisonOperators/ogc:ComparisonOperator[contains(text(),'Between')])" />
+
                 <xsl:variable name="wfs.PrimitiveGeoFeature.DefaultSRS">
                         <xsl:value-of select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType[wfs:Name='sf:PrimitiveGeoFeature']/wfs:DefaultSRS"/>
                 </xsl:variable>
@@ -280,18 +282,25 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc40.4">
                         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.1">
-                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.2">
-                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.3">
-                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.4">
-                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                </ctl:call-test>
+                <xsl:choose>
+                  <xsl:when test="$wfs.between.supported">
+                    <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.1">
+                      <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                    </ctl:call-test>
+                    <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.2">
+                      <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                    </ctl:call-test>
+                    <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.3">
+                      <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                    </ctl:call-test>
+                    <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc41.4">
+                      <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                    </ctl:call-test>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <ctl:message>PropertyIsBetween is not supported, skipping tests wfs:wfs-1.1.0-Basic-GetFeature-tc41.1 through 41.4.</ctl:message>
+                  </xsl:otherwise>
+                </xsl:choose>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc43.1">
                         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                 </ctl:call-test>

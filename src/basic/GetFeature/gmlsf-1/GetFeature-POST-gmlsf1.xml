@@ -22,6 +22,8 @@
                         <xsl:value-of select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href"/>
                 </xsl:variable>
 
+                <xsl:variable name="wfs.between.supported" select="boolean($wfs.GetCapabilities.document//ogc:Filter_Capabilities/ogc:Scalar_Capabilities/ogc:ComparisonOperators/ogc:ComparisonOperator[contains(text(),'Between')])" />
+
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc400.1">
                         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                 </ctl:call-test>
@@ -76,9 +78,16 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc405.9">
                         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc405.10">
-                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                </ctl:call-test>
+                <xsl:choose>
+                  <xsl:when test="$wfs.between.supported">
+                    <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc405.10">
+                      <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                    </ctl:call-test>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <ctl:message>PropertyIsBetween is not supported, skipping test wfs:wfs-1.1.0-Basic-GetFeature-tc405.10.</ctl:message>
+                  </xsl:otherwise>
+                </xsl:choose>
 
       </ctl:code>
     </ctl:test>
