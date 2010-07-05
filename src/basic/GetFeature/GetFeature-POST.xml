@@ -1157,8 +1157,8 @@
 
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc14.1">
       <param name="wfs.GetFeature.post.url"/>
-      <assertion>The geometry representations in the response must correspond to the CRS specified in the @srsName attribute, or the service default if not specified or unknown. Use values as recommended in OGC 06-023 (e.g. 'urn:x-ogc:def:crs:EPSG:6.10.2:4326').</assertion>
-      <comment>GetFeature with the srs 'urn:x-ogc:def:crs:EPSG:4326'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a wfs:FeatureCollection document; (3)  the response srs must be that which was requested.</comment>
+      <assertion>The geometry representations in the response must correspond to the CRS specified in the @srsName attribute, or the service default if not specified or unknown. Use values as recommended in RFC 5165 (e.g. 'urn:ogc:def:crs:EPSG:6.10.2:4326').</assertion>
+      <comment>GetFeature with the srs 'urn:ogc:def:crs:EPSG::4326'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a wfs:FeatureCollection document; (3)  the response srs must be that which was requested.</comment>
       <link>wfs-1.1.0-Basic-GetFeature-atc8</link>
       <link>OGC 04-094, 9.2, p.36</link>
                 <code>
@@ -1187,7 +1187,7 @@
                     <ctl:message>FAILURE: Expected 5 sf:PrimitiveGeoFeature instances in response (<xsl:value-of select="$featureCount"/> were included)</ctl:message>
                     <ctl:fail/>
                   </xsl:if>
-                                  <xsl:variable name="expression">//@srsName='urn:x-ogc:def:crs:EPSG:4326'</xsl:variable>
+                                  <xsl:variable name="expression">//@srsName='urn:ogc:def:crs:EPSG::4326'</xsl:variable>
                                   <ctl:call-test name="ctl:assert-xpath">
                                                 <ctl:with-param name="expr" select="$expression"/>
                                                 <ctl:with-param name="doc" select="$request1"/>
@@ -1200,8 +1200,8 @@
 
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc14.2">
       <param name="wfs.GetFeature.post.url"/>
-      <assertion>The geometry representations in the response must correspond to the CRS specified in the @srsName attribute, or the service default if not specified or unknown. Use values as recommended in OGC 06-023 (e.g. 'urn:x-ogc:def:crs:EPSG:6.10.2:4326').</assertion>
-      <comment>GetFeature with the bogus srs 'urn:x-ogc:def:crs:EPSG:9.99.9:99999'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a ows:ExceptionReport document.</comment>
+      <assertion>The geometry representations in the response must correspond to the CRS specified in the @srsName attribute, or the service default if not specified or unknown. Use values as recommended in RFC 5165 (e.g. 'urn:ogc:def:crs:EPSG:6.10.2:4326').</assertion>
+      <comment>GetFeature with the bogus srs 'urn:ogc:def:crs:EPSG:9.99.9:99999'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a ows:ExceptionReport document.</comment>
       <link>wfs-1.1.0-Basic-GetFeature-atc8</link>
       <link>OGC 04-094, 9.2, p.36</link>
                 <code>
@@ -1547,7 +1547,7 @@
 
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc17.1">
       <param name="wfs.GetFeature.post.url"/>
-      <assertion>A reference to a coordinate reference system (CRS) shall be a URI value that conforms to a known URI scheme. Provide a URL for definitions that can be accessed from an online source; otherwise provide a URN that SHOULD conform to the syntax described in OGC 06-023.</assertion>
+      <assertion>A reference to a coordinate reference system (CRS) shall be a URI value that conforms to a known URI scheme. Provide a URL for definitions that can be accessed from an online source; otherwise provide a URN that SHOULD conform to the syntax described in RFC 5165.</assertion>
       <comment>GetFeature with the srs as a URN.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a wfs:FeatureCollection document; (3) the response must use the srs that was requested.</comment>
       <link>ows-1.0.0-common-atc6</link>
       <link>OGC 05-008c1, 10.3.1, p.43</link>
@@ -1577,7 +1577,7 @@
                                                 <ctl:with-param name="expr" select="$expression"/>
                                                 <ctl:with-param name="doc" select="$request1"/>
                                         </ctl:call-test>
-                                        <xsl:variable name="expression">//@srsName='urn:x-ogc:def:crs:EPSG:4326'</xsl:variable>
+                                        <xsl:variable name="expression">//@srsName='urn:ogc:def:crs:EPSG::4326'</xsl:variable>
                                         <ctl:call-test name="ctl:assert-xpath">
                                                 <ctl:with-param name="expr" select="$expression"/>
                                                 <ctl:with-param name="doc" select="$request1"/>
@@ -1590,7 +1590,7 @@
 
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc17.2">
       <param name="wfs.GetFeature.post.url"/>
-      <assertion>A reference to a coordinate reference system (CRS) shall be a URI value that conforms to a known URI scheme. Provide a URL for definitions that can be accessed from an online source; otherwise provide a URN that SHOULD conform to the syntax described in OGC 06-023.</assertion>
+      <assertion>A reference to a coordinate reference system (CRS) shall be a URI value that conforms to a known URI scheme. Provide a URL for definitions that can be accessed from an online source; otherwise provide a URN that SHOULD conform to the syntax described in RFC 5165.</assertion>
       <comment>GetFeature with the srs as a URI (not valid, only as a URN).  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a ows:ExceptionReport document.</comment>
       <link>ows-1.0.0-common-atc6</link>
       <link>OGC 05-008c1, 10.3.1, p.43</link>
@@ -2033,7 +2033,7 @@
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc25.1">
       <param name="wfs.GetFeature.post.url"/>
       <assertion>An unsupported CRS shall generate an exception report.</assertion>
-      <comment>GetFeature with a a bogus CRS 'urn:x-ogc:def:crs:ASDF:9.99:9999'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document.</comment>
+      <comment>GetFeature with a a bogus CRS 'urn:ogc:def:crs:ASDF:9.99:9999'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document.</comment>
       <link>filter-</link>
       <link>OGC 04-095, 8.3, p.12</link>
                 <code>
@@ -4318,8 +4318,8 @@
                     <ctl:fail/>
                   </xsl:if>
                   <xsl:for-each select="$request1//@srsName">
-                    <xsl:if test=". != 'urn:x-ogc:def:crs:EPSG:4326'">
-                                                <ctl:message>FAILURE: @srsName="<xsl:value-of select="."/>" does not match expected value ("urn:x-ogc:def:crs:EPSG:4326")</ctl:message>
+                    <xsl:if test=". != 'urn:ogc:def:crs:EPSG::4326'">
+                                                <ctl:message>FAILURE: @srsName="<xsl:value-of select="."/>" does not match expected value ("urn:ogc:def:crs:EPSG::4326")</ctl:message>
                                                 <ctl:fail/>
                                         </xsl:if>
                   </xsl:for-each>

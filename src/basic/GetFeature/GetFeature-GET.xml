@@ -131,7 +131,7 @@
                                         <param name="version">1.1.0</param>
                                         <param name="request">GetFeature</param>
                                         <param name="typename">sf:PrimitiveGeoFeature</param>
-                                        <param name="bbox">34.94,-10.52,71.96,32.19,urn:x-ogc:def:crs:EPSG:4326</param>
+                                        <param name="bbox">34.94,-10.52,71.96,32.19,urn:ogc:def:crs:EPSG::4326</param>
                                         <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
                                         <p:XMLValidatingParser.GMLSF1/>
                                 </request>

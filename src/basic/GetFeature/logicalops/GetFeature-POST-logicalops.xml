@@ -129,7 +129,7 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="env">
-                <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:4326">
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
                   <gml:lowerCorner>34.0 16.0</gml:lowerCorner>
                   <gml:upperCorner>40.0 19.0</gml:upperCorner>
                 </gml:Envelope>
@@ -184,7 +184,7 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="env">
-                <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:4326">
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
                   <gml:lowerCorner>55.0 -2.5</gml:lowerCorner>
                   <gml:upperCorner>65.0 2.5</gml:upperCorner>
                 </gml:Envelope>
@@ -243,7 +243,7 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="env">
-                <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:4326">
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
                   <gml:lowerCorner>36.0 -1.0</gml:lowerCorner>
                   <gml:upperCorner>42.0 4.0</gml:upperCorner>
                 </gml:Envelope>
@@ -352,7 +352,7 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="env">
-                <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:4326">
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
                   <gml:lowerCorner>40.0 -5.0</gml:lowerCorner>
                   <gml:upperCorner>50.0 -1.0</gml:upperCorner>
                 </gml:Envelope>
@@ -410,7 +410,7 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="env">
-                <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:4326">
+                <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
                   <gml:lowerCorner>34.0 15.0</gml:lowerCorner>
                   <gml:upperCorner>40.0 19.0</gml:upperCorner>
                 </gml:Envelope>
