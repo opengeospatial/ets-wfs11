@@ -677,7 +677,7 @@
                             </parsers:HTTPParser>
                                 </ctl:request>
                         </xsl:variable>
-                        <xsl:if test="not(starts-with($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/3.1.1'))">
+                        <xsl:if test="not(starts-with($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml; subtype=gml/3.1.1'))">
                                 <ctl:fail/>
                         </xsl:if>
                 </ctl:code>
