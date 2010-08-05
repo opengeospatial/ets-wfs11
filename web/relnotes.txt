@@ -3,6 +3,67 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
+Changes included in R4:
+
+2010-08-05 (kstegemoller):
+- Updated release notes.
+
+2010-08-03 (aschmitz):
+- fix for issue #551
+
+2010-07-27 (aschmitz):
+- fixed issue #550
+- fixed issue #547
+
+2010-07-21 (aschmitz):
+- fixed issue #547
+
+2010-07-13 (aschmitz):
+- fixed typos in variable reference
+- missing namespace prefix in filter
+
+2010-07-09 (aschmitz):
+- issue #543
+- issue #542
+- corrected typo
+- issue #544
+- fixed another occurrence of the old x-ogc urn scheme
+- issue #545
+- updated this instance with the one used in ../wfs/...
+
+2010-07-05 (aschmitz):
+- changed all ogc urns to use the new form as specified in RFC 5165
+- implemented fix as outlined in issue #206
+
+2010-07-01 (aschmitz):
+- changed EPSG urns to use :: if no version is given
+- changed EPSG urns to use ogc instead of x-ogc
+- added z values to EPSG:4979 geometries
+- reverted change of urn notation
+- implemented the changes outlined in issue #349
+- partially fixed issue #317 by only conditionally running the between tests
+- adapted crs urns to up-to-date form
+
+2010-06-25 (aschmitz):
+- fixed issue #380
+- fixed issue #354 by allowing for exceptions in tests 8.1/2/3
+- fixed namespace/local name error when testing for exceptions
+
+2010-06-18 (aschmitz):
+- Always url-encode as UTF-8
+- Do not run test wfs:wfs-1.1.0-Basic-GetFeature-tc200.4 if Circles are actually supported (issue #426).
+
+2010-06-14 (aschmitz):
+- fixed issue #523
+- updated not to refer to non-existing files, added note for sf-2 test data
+- fixed issue #431 to include the latest wfs schemas
+- fixed issue #429
+- fixed issue #426 by removing the too strong tests
+- removed test Basic-GetFeature-tc42.4 as noted in issue #422
+- fixed issue #419 as outlined in the tracker
+
+Changes included in R3:
+
 2010-05-13 (kstegemoller):
 - Updated release notes.
 
