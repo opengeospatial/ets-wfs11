@@ -349,7 +349,7 @@
             <xsl:choose>
               <xsl:when test="$response/ows:ExceptionReport">
                 <ctl:call-test name="ctl:SchematronValidatingParser">
-                  <ctl:with-param name="doc" select="$request1"/>
+                  <ctl:with-param name="doc" select="$response"/>
                   <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                   <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
                 </ctl:call-test>
