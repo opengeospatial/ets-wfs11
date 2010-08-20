@@ -1,7 +1,12 @@
 WFS 1.1.0 Test Suite Release Notes
 
-
 Changes included in this revision:
+
+2010-08-20 (kstegemoller):
+- Updated release notes.
+
+2010-08-18 (aschmitz):
+ - fixed typo in variable name in GetFeature-POST-logicalops.xml
 
 Changes included in R4:
 
