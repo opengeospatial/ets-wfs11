@@ -3,6 +3,12 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
+2010-09-17 (kstegemoller):
+- Updated release notes.
+
+2010-09-16 (aschmitz):
+- fixed another occurrence of an empty PropertyName element when using the BBOX filter by supplying a non-existant one (test 203.3)
+
 2010-09-10 (kstegemoller):
 - Updated release notes.
 
