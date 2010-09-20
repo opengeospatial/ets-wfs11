@@ -3,6 +3,12 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
+2010-09-20 (kstegemoller):
+- Updated release notes.
+
+2010-09-20 (aschmitz):
+- added missing colon in srs urn for wfs-1.1.0-Basic-GetFeature-tc38.4
+
 2010-09-17 (kstegemoller):
 - Updated release notes.
 
