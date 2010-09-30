@@ -3,6 +3,12 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
+2010-09-30 (kstegemoller):
+- Updated release notes.
+
+2010-09-30 (aschmitz):
+- check for substrings when comparing mime types (to cope with additional charset options) in GetFeature tests
+
 2010-09-20 (kstegemoller):
 - Updated release notes.
 
