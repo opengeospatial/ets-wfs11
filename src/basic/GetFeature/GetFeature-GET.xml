@@ -1278,7 +1278,9 @@
                                             </parsers:HTTPParser>
                                                 </ctl:request>
                                         </xsl:variable>
-                                        <xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/2.1.2')">
+                                        <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+                                        <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')"/>
+                                        <xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/2.1.2'))">
                                                 <ctl:fail/>
                                         </xsl:if>
                     </xsl:when>
@@ -1319,7 +1321,9 @@
                                             </parsers:HTTPParser>
                                                 </ctl:request>
                                         </xsl:variable>
-                                        <xsl:if test="not($RESPONSE/response/headers/header[lower-case(@name) = 'content-type']= 'text/xml; subtype=gml/2.1.2')">
+                                        <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+                                        <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')"/>
+                                        <xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/2.1.2'))">
                                                 <ctl:fail/>
                                         </xsl:if>
                     </xsl:when>
