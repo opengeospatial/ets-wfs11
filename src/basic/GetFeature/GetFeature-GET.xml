@@ -1382,7 +1382,7 @@
                                         <ctl:param name="request">GetFeature</ctl:param>
                                         <ctl:param name="service">WFS</ctl:param>
                                         <ctl:param name="version">1.1.0</ctl:param>
-                                        <ctl:param name="resultType">Results</ctl:param>
+                                        <ctl:param name="resultType">results</ctl:param>
                                         <param name="typename">
                                                 <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
                                         </param>
