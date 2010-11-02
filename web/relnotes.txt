@@ -3,6 +3,15 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
+2010-11-02 (kstegemoller):
+- Updated release notes.
+
+2010-11-02 (aschmitz):
+- added missing namespace prefix for property specification in filter (issue #351)
+
+2010-10-25 (aschmitz):
+- allow for dates without time zone (issue #562)
+
 2010-10-22 (kstegemoller):
 - Updated release notes.
 
