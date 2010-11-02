@@ -8,7 +8,7 @@
       <ogc:Not>
         <ogc:Not>
           <ogc:BBOX>
-            <ogc:PropertyName>attribut.Géométrie</ogc:PropertyName>
+            <ogc:PropertyName>sf:attribut.Géométrie</ogc:PropertyName>
             <gml:Envelope srsName="urn:ogc:def:crs:EPSG::4326">
               <gml:lowerCorner>55.0 -2.5</gml:lowerCorner>
               <gml:upperCorner>65.0 2.5</gml:upperCorner>
