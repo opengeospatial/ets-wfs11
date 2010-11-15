@@ -3,7 +3,10 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
-2010-11-02 (kstegemoller):
+
+=== Changes included in R4 ===
+
+2010-11-15 (kstegemoller):
 - Updated release notes.
 
 2010-11-02 (aschmitz):
@@ -12,42 +15,27 @@ Changes included in this revision:
 2010-10-25 (aschmitz):
 - allow for dates without time zone (issue #562)
 
-2010-10-22 (kstegemoller):
-- Updated release notes.
-
 2010-10-18 (aschmitz):
 - do not use empty <PropertyName /> element, leave it off instead
 
 2010-10-15 (lbermudez):
 - change case of value for parameter resultType: 'Results' to 'results'. http://lists.opengeospatial.org/pipermail/cite-forum/2010-October/000272.html 
 
-2010-09-30 (kstegemoller):
-- Updated release notes.
-
 2010-09-30 (aschmitz):
 - check for substrings when comparing mime types (to cope with additional charset options) in GetFeature tests
 
-2010-09-20 (kstegemoller):
-- Updated release notes.
+2010-09-21 (HMA):
+- Updated version of TEAM Engine (r430) - added/updated SOAP and logging support.
 
 2010-09-20 (aschmitz):
 - added missing colon in srs urn for wfs-1.1.0-Basic-GetFeature-tc38.4
 
-2010-09-17 (kstegemoller):
-- Updated release notes.
-
 2010-09-16 (aschmitz):
 - fixed another occurrence of an empty PropertyName element when using the BBOX filter by supplying a non-existant one (test 203.3)
-
-2010-09-10 (kstegemoller):
-- Updated release notes.
 
 2010-09-02 (aschmitz):
 - partly fixed #554 by adding a version parameter
 - changed several 2.0.0 version bugs to 'BOGUS' (issue #558)
-
-2010-08-27 (kstegemoller):
-- Updated "Latest" release notes.
 
 2010-08-24 (aschmitz):
 - switched to two-argument URL encode function, always encode as UTF-8
@@ -56,14 +44,8 @@ Changes included in this revision:
 2010-08-23 (aschmitz):
 - removed the empty PropertyName elements as outlined in issue #543
 
-2010-08-20 (kstegemoller):
-- Updated release notes.
-
 2010-08-18 (aschmitz):
 - fixed typo in variable name in GetFeature-POST-logicalops.xml
-
-
-=== Changes included in R4 ===
 
 2010-08-05 (kstegemoller):
 - Updated release notes.
