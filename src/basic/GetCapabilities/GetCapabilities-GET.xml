@@ -988,7 +988,7 @@
                 <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc15.2">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>Version negotiation using AcceptVersions parameter (preference ordering): Return service metadata corresponding to the most preferred version that is supported. If none of the requested versions are supported, the server must generate an exception with code 'VersionNegotiationFailed'.</assertion>
-      <comment>GetCapabilities with no version and service of 'WFS'.  With AcceptVersion, using a bogus version number ('2006-10-25').  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document; (3) the ExceptionReport shall have the 'VersionNegotiationFailed' exception code.</comment>
+      <comment>GetCapabilities with version of '1.1.0' and service of 'WFS'.  With AcceptVersion, using a bogus version number ('2006-10-25').  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document; (3) the ExceptionReport shall have the 'VersionNegotiationFailed' exception code.</comment>
       <link>ows-1.0.0-metadata-atc4</link>
       <link>OGC 05-008c1, 7.3.2, p.16</link>
                 <code>
