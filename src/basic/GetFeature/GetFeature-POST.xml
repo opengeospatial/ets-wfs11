@@ -617,7 +617,7 @@
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5.3">
       <param name="wfs.GetFeature.post.url"/>
       <assertion>The response entity must be schema valid and include any optional feature properties requested by the client. The document element must be a wfs:FeatureCollection.</assertion>
-      <comment>Looking for the mandatory property sf:measurand, as well as other mandatory elements, (no optional properties should not be included in the response).  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) the response must have properties specified the propertyName(s) requested and no other optional properties.</comment>
+      <comment>Looking for the mandatory property sf:measurand, as well as other mandatory elements, (no optional properties should be included in the response).  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) the response must have properties specified the propertyName(s) requested and no other optional properties.</comment>
       <link>wfs-1.1.0-Basic-GetFeature-atc5</link>
       <link>OGC 04-094, 9.2, p.37</link>
                 <code>
