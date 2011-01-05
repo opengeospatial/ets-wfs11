@@ -1383,7 +1383,7 @@
 <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc16.1">
       <param name="wfs.GetFeature.post.url"/>
       <assertion>All OGC web services must generate an exception report in response to an invalid request or whenever a condition arises that prevents request processing. A valid XML response entity must conform to the declaration of the ows:ExceptionReport element.  The values of common information items must be constrained as indicated in Tables 17-19. Additional service-specific exception codes may be defined as needed.</assertion>
-      <comment>GetFeature with a bogus version '11-02-2006', causing the InvalidParameterValue exception.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a ows:ExceptionReport document; (3)  the exception must have the 'OperationNotSupported' exception code; (4) the exception must have the @locator value of the unsupported operation ('GetFeature').</comment>
+      <comment>GetFeature with a bogus version '11-02-2006', causing the InvalidParameterValue exception.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is a ows:ExceptionReport document; (3)  the exception must have the 'InvalidParameterValue' exception code; (4) the exception must have the @locator value of the unsupported operation ('GetFeature').</comment>
       <link>ows-1.0.0-exception-atc1</link>
       <link>OGC 05-008c1, 8.3, p.34</link>
                 <code>
