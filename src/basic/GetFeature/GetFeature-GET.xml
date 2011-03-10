@@ -52,9 +52,6 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc10.1">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.1">
-                        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                </ctl:call-test>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
@@ -86,9 +83,6 @@
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>-->
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc44.1">
-                        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc44.2">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1">
@@ -325,50 +319,6 @@
                 </code>
         </test>
 
-        <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.1">
-      <param name="wfs.GetFeature.get.url"/>
-      <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities: service, request, version.</assertion>
-      <comment>GetFeature with a service='WFS', EMPTY version parameter, and request='GetFeature'.  Pass if an exception report is returned.</comment>
-      <link>ows-1.0.0-common-atc4</link>
-      <link>OGC 05-008c1, 9.2.1, p.36 (Table 20)</link>
-                <code>
-
-                        <xsl:variable name="request1">
-                                <request>
-                                        <url>
-                                                <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                        </url>
-                                        <method>get</method>
-                                        <param name="service">WFS</param>
-                                        <param name="version"></param>
-                                        <param name="request">GetFeature</param>
-                                        <param name="typename">sf:PrimitiveGeoFeature</param>
-                                        <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                        <p:XMLValidatingParser.GMLSF1/>
-                                </request>
-                        </xsl:variable>
-
-                        <xsl:choose>
-                                <xsl:when test="not($request1/*)">
-                                        <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                        <ctl:fail/>
-                            </xsl:when>
-                                <xsl:otherwise>
-                    <ctl:call-test name="ctl:SchematronValidatingParser">
-                                                <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-                                                <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
-                                        </ctl:call-test>
-                    <xsl:if test="not(lower-case($request1//ows:Exception/@locator) = 'version')">
-                      <ctl:message>
-                      FAILURE: ows:Exception/@locator is absent or does not identify the missing version parameter value.
-                      </ctl:message>
-                      <ctl:fail/>
-                    </xsl:if>
-                                </xsl:otherwise>
-                        </xsl:choose>
-                </code>
-        </test>
 
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
       <param name="wfs.GetFeature.get.url"/>
@@ -877,51 +827,6 @@
                                 </xsl:otherwise>
                         </xsl:choose>
 
-                </code>
-        </test>
-
-        <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc44.2">
-      <param name="wfs.GetFeature.get.url"/>
-      <assertion>Version number specified in a given request must correspond to a version supported by the service.</assertion>
-      <comment>GetFeature with a bogus version of '2006-11-14'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document.</comment>
-      <link>wfs-1.1.0-Basic-atc1</link>
-      <link>OGC 04-094, 6.2.3, p.9</link>
-                <code>
-
-                        <xsl:variable name="request1">
-                                <request>
-                                        <url>
-                                                <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                        </url>
-                                        <method>get</method>
-                                        <param name="service">WFS</param>
-                                        <param name="version">2006-11-14</param>
-                                        <param name="request">GetFeature</param>
-                                        <param name="typename">sf:PrimitiveGeoFeature</param>
-                                        <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                        <p:XMLValidatingParser.OWS/>
-                                </request>
-                        </xsl:variable>
-
-                        <xsl:choose>
-                                <xsl:when test="not($request1/*)">
-                                <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                        <ctl:fail/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                                        <ctl:call-test name="ctl:SchematronValidatingParser">
-                                                <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-                                                <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
-                                        </ctl:call-test>
-                    <xsl:if test="not(lower-case($request1//ows:Exception/@locator) = 'version')">
-                      <ctl:message>
-                      FAILURE: ows:Exception/@locator is absent or does not identify the invalid version parameter value.
-                      </ctl:message>
-                      <ctl:fail/>
-                    </xsl:if>
-                                </xsl:otherwise>
-                        </xsl:choose>
                 </code>
         </test>
 
