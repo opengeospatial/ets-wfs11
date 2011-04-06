@@ -46,9 +46,6 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3.5">
                         <ctl:with-param name="wfs.DescribeFeatureType.post.url" select="$wfs.DescribeFeatureType.post.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3.6">
-                        <ctl:with-param name="wfs.DescribeFeatureType.post.url" select="$wfs.DescribeFeatureType.post.url"/>
-                </ctl:call-test>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc6.1">
                         <ctl:with-param name="wfs.DescribeFeatureType.post.url" select="$wfs.DescribeFeatureType.post.url"/>
                 </ctl:call-test>
