@@ -4,6 +4,13 @@ WFS 1.1.0 Test Suite Release Notes
 Changes included in this revision:
 
 
+=== Changes included in R6 ===
+
+2011-08-11 summary (kstegemoller)
+- Fixed issue 613 "Invalid Parameter Name requires InvalidParameterValue exception code"
+- Fixed issue 571 "AuditTrailPropertyType is not GMLSF1 compliant"
+- Updated release notes.
+
 === Changes included in R4 ===
 
 2010-11-15 (kstegemoller):
