@@ -3825,7 +3825,7 @@
                         <ctl:fail/>
                       </xsl:if>
                       <xsl:for-each select="$response//sf:dateProperty">
-                        <xsl:if test="(xsd:date(.) lt xsd:date('2006-09-01Z')) or (xsd:date(.) gt xsd:date('2006-11-01Z'))">
+                        <xsl:if test="(text() lt '2006-09-01') or (text() gt '2006-11-01')">
                           <ctl:message>FAILURE: sf:dateProperty value is not in interval 2006-09-01Z/2006-11-01Z (gml:id = <xsl:value-of select="../@gml:id"/>)</ctl:message>
                           <ctl:fail/>
                         </xsl:if>
