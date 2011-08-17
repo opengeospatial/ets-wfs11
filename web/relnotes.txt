@@ -4,6 +4,12 @@ WFS 1.1.0 Test Suite Release Notes
 Changes included in this revision:
 
 
+=== Changes included in R7 ===
+
+2011-08-11 summary (aschmitz)
+- fixed date comparison issue (#615)
+- Updated release notes.
+
 === Changes included in R6 ===
 
 2011-08-11 summary (kstegemoller)
