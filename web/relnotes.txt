@@ -3,11 +3,15 @@ WFS 1.1.0 Test Suite Release Notes
 
 Changes included in this revision:
 
+=== Changes included in R8 ===
+2012-01-23 summary (aschmitz)
+- Fixed polygon orientations (issue #626 - r4286 and r4287) 
+- Updated release notes.
 
 === Changes included in R7 ===
 
 2011-08-11 summary (aschmitz)
-- fixed date comparison issue (#615)
+- Fixed date comparison issue (#615)
 - Updated release notes.
 
 === Changes included in R6 ===
