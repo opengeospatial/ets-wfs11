@@ -7,7 +7,7 @@
   xmlns:sf="http://cite.opengeospatial.org/gmlsf"
   xmlns:xlink="http://www.w3.org/1999/xlink">
 	<wfs:Insert handle="ins-1">
-      <sf:PrimitiveGeoFeature gml:id="cite.gmlsf0-f13">
+      <sf:PrimitiveGeoFeature gml:id="cite.gmlsf0-f131">
         <gml:description>
         Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
         cubilia Curae; maecenas elu dictum.
