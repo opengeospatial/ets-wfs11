@@ -1343,6 +1343,8 @@
                                         <method>GET</method>
                                         <param name="service">WFS</param>
                                         <param name="request">GetCapabilities</param>
+                                        <param name="acceptversions">1.1.0</param>
+                                        <param name="version">1.1.0</param>
                     <param name="sections"></param>
                                         <p:XMLValidatingParser.GMLSF1/>
                                 </request>
