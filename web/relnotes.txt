@@ -1,7 +1,12 @@
 WFS 1.1.0 Test Suite Release Notes
 
+Summary of Changes
 
-Changes included in this revision:
+=== Changes included in R9 ===
+2012-04-05
+4575 - fixed issue #646 (GET-part) 
+4545 - fixed issue #643 
+4581 - removed repeated main.crl file  in src 
 
 === Changes included in R8 ===
 2012-01-23 summary (aschmitz)
