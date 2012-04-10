@@ -729,13 +729,21 @@
                                                 <xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='LockFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href"/>
                                         </ctl:url>
                                         <ctl:method>get</ctl:method>
-                                        <ctl:param name="request">LockFeature</ctl:param>
-                                        <ctl:param name="service">WFS</ctl:param>
-                                        <ctl:param name="version">1.1.0</ctl:param>
-                                        <ctl:param name="Lock">Invalid</ctl:param>
-                                        <param name="typename">
-                                                <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name, 'UTF-8')"/>
-                                        </param>
+                                        <body>
+                                        <wfs:LockFeature service="WFS" version="1.1.0"
+                                          expiry="1"
+                                          lockAction="INVALID"
+                                          xmlns:wfs="http://www.opengis.net/wfs"
+                                          xmlns:gml="http://www.opengis.net/gml"
+
+                                          xmlns:sf="http://cite.opengeospatial.org/gmlsf">
+                                          <wfs:Lock typeName="sf:PrimitiveGeoFeature" >
+                                                  <ogc:Filter>
+                                                        <ogc:GmlObjectId gml:id="PrimitiveGeoFeature.00"/>
+                                                  </ogc:Filter>
+                                          </wfs:Lock>
+                                        </wfs:LockFeature>
+                                        </body>
                             <parsers:HTTPParser>
                                <parsers:parse>
                                   <parsers:HTTPParser/>
