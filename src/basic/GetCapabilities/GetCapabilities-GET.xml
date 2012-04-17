@@ -1425,7 +1425,7 @@
       <ctl:param name="wfs.GetCapabilities.get.url"/>
       <ctl:param name="wfs.GetCapabilities.formats"/>
       <ctl:assertion>
-      The response to a GetCapabilities request containing an AcceptVersions
+      The response to a GetCapabilities request containing an AcceptFormats
       parameter specifying a supported format must include a response entity
       that corresponds to the requested media type.
       </ctl:assertion>
