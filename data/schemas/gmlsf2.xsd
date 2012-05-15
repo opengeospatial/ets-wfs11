@@ -19,7 +19,7 @@
    <!-- =========================================================== -->
    <include schemaLocation="./gmlsf-deps.xsd" />
    <import namespace="http://www.w3.org/1999/xlink"
-   schemaLocation="http://schemas.opengis.net/xlink/1.0.0/xlinks.xsd"/>
+   schemaLocation="../../resources/xsd/w3c/xlink/1999/xlink.xsd"/>
    <!-- =========================================================== -->
    <!-- === Subset of geometryAggregates.xsd for this profile ===== -->
    <!-- =========================================================== -->
