@@ -122,7 +122,7 @@
 					<ctl:with-param name="doc"><xsl:copy-of select="$doc"/></ctl:with-param>
 					<ctl:with-param name="instruction">				
 						<parsers:schemas>
-							<parsers:schema type="resource">xsd/ogc/xlink/1.0.0/xlinks.xsd</parsers:schema>
+							<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>
 							<parsers:schema type="resource">xsd/ogc/ows/1.0.0/ows-1.0.0.xsd</parsers:schema>					
 							<parsers:schema type="resource">xsd/ogc/cite/gmlsf2.xsd</parsers:schema>					
 							<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter-1.1.0.xsd</parsers:schema>
@@ -142,7 +142,7 @@
 					<ctl:with-param name="doc"><xsl:copy-of select="$doc"/></ctl:with-param>
 					<ctl:with-param name="instruction">				
 						<parsers:schemas>
-							<parsers:schema type="resource">xsd/ogc/xlink/1.0.0/xlinks.xsd</parsers:schema>
+							<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>
 							<parsers:schema type="resource">xsd/ogc/ows/1.0.0/ows-1.0.0.xsd</parsers:schema>					
 							<parsers:schema type="resource">xsd/ogc/cite/gmlsf.xsd</parsers:schema>					
 							<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter-1.1.0.xsd</parsers:schema>
@@ -159,7 +159,7 @@
 		<ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
 			<ctl:with-param name="schemas_links">
 				<parsers:schemas>
-					<parsers:schema type="resource">xsd/ogc/xlink/1.0.0/xlinks.xsd</parsers:schema>
+					<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>
 					<parsers:schema type="resource">xsd/ogc/ows/1.0.0/ows-1.0.0.xsd</parsers:schema>					
 					<parsers:schema type="resource">xsd/ogc/cite/gmlsf2.xsd</parsers:schema>					
 					<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter-1.1.0.xsd</parsers:schema>
@@ -174,7 +174,7 @@
 		<ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
 			<ctl:with-param name="schemas_links">
 				<parsers:schemas>
-					<parsers:schema type="resource">xsd/ogc/xlink/1.0.0/xlinks.xsd</parsers:schema>
+					<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>
 					<parsers:schema type="resource">xsd/ogc/ows/1.0.0/ows-1.0.0.xsd</parsers:schema>					
 					<parsers:schema type="resource">xsd/ogc/cite/gmlsf.xsd</parsers:schema>					
 					<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter-1.1.0.xsd</parsers:schema>
@@ -189,7 +189,7 @@
 		<ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
 			<ctl:with-param name="schemas_links">
 				<parsers:schemas>
-					<parsers:schema type="resource">xsd/ogc/xlink/1.0.0/xlinks.xsd</parsers:schema>				
+					<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>				
 					<parsers:schema type="resource">xsd/ogc/ows/1.0.0/ows-1.0.0.xsd</parsers:schema>
 				</parsers:schemas>
 			</ctl:with-param>
