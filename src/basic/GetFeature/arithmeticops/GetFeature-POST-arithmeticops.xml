@@ -371,7 +371,7 @@
 <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc304.1">
       <param name="wfs.GetFeature.post.url"/>
       <assertion>All supported (including arithmetic) functions should be defined in the service capabilities document. A defined function accepts 0 or more arguments and returns a single value.</assertion>
-      <comment>Arithmetic function Div, using PropertyIsEqualTo to find a feature with an sf:doubleProperty of a feature / 9999.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the number of result features is &gt;= 1; (3) the result feature set contains the expected feature instances (0).</comment>
+      <comment>Arithmetic function Div, using PropertyIsEqualTo to find a feature with an sf:doubleProperty of a feature / 9999.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the number of result features is &eq;= 0; (3) the result feature set contains the expected feature instances (0).</comment>
       <link>filter-1.1.0-functions-atc300</link>
       <link>OGC 04-095, 15.1, p.17</link>
 		<code>
