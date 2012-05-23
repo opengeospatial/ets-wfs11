@@ -1016,7 +1016,7 @@
             allowing it to act as a pointer.
          </documentation>
       </annotation>
-      <attributeGroup ref="xlink:simpleLink"/>
+      <attributeGroup ref="xlink:simpleAttrs"/>
    </attributeGroup>
    <!-- =========================================================== -->
    <element name="name" type="gml:CodeType">
