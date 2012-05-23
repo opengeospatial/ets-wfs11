@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+?xml version="1.0" encoding="ISO-8859-1"?>
 <schema
    targetNamespace="http://www.opengis.net/gml"
    xmlns:gml="http://www.opengis.net/gml"
@@ -1015,7 +1015,7 @@
             allowing it to act as a pointer.
          </documentation>
       </annotation>
-      <attributeGroup ref="xlink:simpleLink"/>
+      <attributeGroup ref="xlink:simpleAttrs"/>
    </attributeGroup>
    <!-- =========================================================== -->
    <element name="name" type="gml:CodeType">

@@ -434,7 +434,7 @@ b)  If the bounding box is continuous across the value discontinuity but is not 
 			<documentation>Reference to on-line resource from which data can be obtained. </documentation>
 			<documentation>For OWS use in the service metadata document, the CI_OnlineResource class was XML encoded as the attributeGroup "xlink:simpleLink", as used in GML. </documentation>
 		</annotation>
-		<attributeGroup ref="xlink:simpleLink"/>
+		<attributeGroup ref="xlink:simpleAttrs"/>
 	</complexType>
 	<!-- ========================================================== -->
 	<complexType name="TelephoneType">
