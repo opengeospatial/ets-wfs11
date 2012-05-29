@@ -1086,7 +1086,7 @@
                                                                   xmlns:gml="http://www.opengis.net/gml"
                                                                   xmlns:ogc="http://www.opengis.net/ogc"
                                                                   xmlns:sf="http://cite.opengeospatial.org/gmlsf">
-                                                                <wfs:LockID>InvalidLockId</wfs:LockID>
+                                                                <wfs:LockId>InvalidLockId</wfs:LockId>
                                                             <wfs:Update handle="upd-1" typeName="sf:PrimitiveGeoFeature">
                                                               <wfs:Property>
                                                                 <wfs:Name>gml:description</wfs:Name>
