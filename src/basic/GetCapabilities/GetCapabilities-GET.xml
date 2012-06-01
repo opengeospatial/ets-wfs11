@@ -578,7 +578,7 @@
                         <xsl:variable name="request1">
                                 <request>
                                         <url>
-                                                <xsl:value-of select="concat($wfs.GetCapabilities.get.url,'#request=GetCapabilities,service=WFS')"/>
+                                                <xsl:value-of select="concat($wfs.GetCapabilities.get.url,'#request=GetCapabilities,service=WFS,version=1.1.0')"/>
                                         </url>
                                         <method>get</method>
                                         <p:XMLValidatingParser.GMLSF1/>

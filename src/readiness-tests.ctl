@@ -73,6 +73,7 @@
                   <ctl:fail />
               </xsl:when>
               <xsl:otherwise>
+<ctl:message>vopr request</ctl:message>
                 <xsl:variable name="response1">
 				  <ctl:request>
 					<ctl:url>
@@ -85,6 +86,7 @@
 					<p:XMLValidatingParser.GMLSF1/>
 				  </ctl:request>
 			    </xsl:variable>
+<ctl:message>nach req1</ctl:message>
 				<xsl:variable name="response2">
 				  <xsl:choose>
 							<xsl:when test="not($GetFeature.post.url = '')">
@@ -116,6 +118,7 @@
 							  </ctl:request>
                             </xsl:otherwise>
 				  </xsl:choose>
+<ctl:message>nach req2</ctl:message>
 				</xsl:variable>
 
                 <xsl:choose>
