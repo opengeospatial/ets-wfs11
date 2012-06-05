@@ -253,8 +253,7 @@
                                         <param name="service">WFS</param>
                                         <param name="typename">sf:PrimitiveGeoFeature</param>
                                         <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                        <p:XMLValidatingParser.OWS/>
-                                </request>
+                               </request>
                         </xsl:variable>
 
                         <xsl:choose>
@@ -263,7 +262,7 @@
                                         <ctl:fail/>
                             </xsl:when>
                                 <xsl:otherwise>
-                                        <xsl:variable name="expression">//ows:ExceptionReport</xsl:variable>
+                                        <xsl:variable name="expression">//*[local-name() = 'ExceptionReport']</xsl:variable> 
                                         <ctl:call-test name="ctl:assert-xpath">
                                                 <ctl:with-param name="expr" select="$expression"/>
                                                 <ctl:with-param name="doc" select="$request1"/>

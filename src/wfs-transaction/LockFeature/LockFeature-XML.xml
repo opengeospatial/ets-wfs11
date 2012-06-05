@@ -728,7 +728,7 @@
                                         <ctl:url>
                                                 <xsl:value-of select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='LockFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href"/>
                                         </ctl:url>
-                                        <ctl:method>get</ctl:method>
+                                        <ctl:method>post</ctl:method>
                                         <body>
                                         <wfs:LockFeature service="WFS" version="1.1.0"
                                           expiry="1"
