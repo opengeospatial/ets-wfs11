@@ -16,5 +16,8 @@
 	<source>ctl/all.xml</source>
 	<resources>resources</resources>
 	<web>web</web>
+<revision>
+		<name>r10</name>
+	</revision>
 </config>
 
