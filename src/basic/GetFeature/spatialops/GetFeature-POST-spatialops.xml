@@ -1275,7 +1275,7 @@
     <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc209.3">
       <ctl:param name="wfs.GetFeature.post.url"/>
       <ctl:assertion>
-      The response to a GetFeature request that specifies the EPSG:32621
+      The response to a GetFeature request that specifies the EPSG:32631
       CRS, but with an incorrect BBOX that is outside of the UTM zone, should
       return an exception.
       </ctl:assertion>
