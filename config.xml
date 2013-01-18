@@ -14,7 +14,7 @@
         <description>Checks WFS implementations for conformance to OGC 04-094.</description>
       </suite>
       <revision>
-        <name>r10</name>
+        <name>r11</name>
         <sources>
           <source>wfs/1.1.0/src</source>
         </sources>
