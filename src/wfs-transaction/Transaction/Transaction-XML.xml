@@ -168,7 +168,7 @@
                 <xsl:variable name="totalInserted" select="$response//wfs:totalInserted" />
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
                             <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                     </ctl:call-test>
                 <xsl:if test="$totalInserted != 3">
@@ -220,7 +220,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
                             <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                     </ctl:call-test>
                 <xsl:variable name="totalInserted" select="$response//wfs:totalInserted" />
@@ -270,7 +270,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                             <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
                     </ctl:call-test>
               </xsl:otherwise>
@@ -313,7 +313,7 @@
               <xsl:when test="not($supports.atomic.trx)">
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
                             <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                     </ctl:call-test>
                 <xsl:if test="count($response//wfs:InsertResults/*) != 1">
@@ -334,7 +334,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                             <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                     </ctl:call-test>
               </xsl:otherwise>
@@ -375,7 +375,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
                             <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                     </ctl:call-test>
                 <xsl:variable name="totalInserted" select="$response//wfs:totalInserted" />
@@ -495,7 +495,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                             <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
                     </ctl:call-test>
               </xsl:otherwise>
@@ -745,7 +745,7 @@
                                         <xsl:when test="$supports.atomic.trx">
                                                 <ctl:call-test name="ctl:SchematronValidatingParser">
                                                         <ctl:with-param name="doc" select="$response2" />
-                                                        <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                        <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                         <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                                                 </ctl:call-test>
                                         </xsl:when>
@@ -854,7 +854,7 @@
                     <xsl:otherwise>
                       <ctl:call-test name="ctl:SchematronValidatingParser">
                         <ctl:with-param name="doc" select="$response2" />
-                        <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                        <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                         <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
                       </ctl:call-test>
                     </xsl:otherwise>
@@ -974,7 +974,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
                     </ctl:call-test>
               </xsl:otherwise>

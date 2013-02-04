@@ -65,7 +65,7 @@
                 </xsl:if>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
 		            <ctl:with-param name="doc" select="$response" />
-		            <ctl:with-param name="schema">sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
+		            <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
 		            <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
 	            </ctl:call-test>
                 <ctl:call-test name="wfs:GetFeatureById-KVP">
@@ -118,7 +118,7 @@
                 </xsl:if>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
 		            <ctl:with-param name="doc" select="$response" />
-		            <ctl:with-param name="schema">sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
+		            <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
 		            <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
 	            </ctl:call-test>
                 <!-- Retrieve second inserted feature -->

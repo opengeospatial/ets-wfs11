@@ -18,7 +18,7 @@
 	<!-- Used to call the schematron validator outside the request element, i.e.: -->
 	<!--<ctl:call-test name="ctl:SchematronValidatingParser">
 		<ctl:with-param name="doc" select="$cap-doc"/>
-		<ctl:with-param name="schematronFile">sch/wfs/1.1.0/WFSCapabilities.sch</ctl:with-param>
+		<ctl:with-param name="schematronFile">/sch/wfs/1.1.0/WFSCapabilities.sch</ctl:with-param>
 		<ctl:with-param name="phase">Default</ctl:with-param>
 	</ctl:call-test>-->
 	<ctl:test name="ctl:SchematronValidatingParser">
@@ -209,7 +209,7 @@
 	<!-- Schematron validator used in request element, pass in information for schematron schema to use, i.e.: -->
 	<!--<p:SchematronValidatingParser>
 			<parsers:schemas>
-				<parsers:schema type="resource" phase="Default">sch/wfs/1.1.0/WFSCapabilities.sch</parsers:schema>
+				<parsers:schema type="resource" phase="Default">/sch/wfs/1.1.0/WFSCapabilities.sch</parsers:schema>
 			</parsers:schemas>
 		</p:SchematronValidatingParser>-->
 	<ctl:parser name="p:SchematronValidatingParser">
@@ -223,7 +223,7 @@
 		<ctl:java class="com.occamlab.te.parsers.SchematronValidatingParser" method="parse" initialized="true">
 			<ctl:with-param name="schema_link">
 					<parsers:schemas>
-						<parsers:schema type="resource" phase="Default">sch/wfs/1.1.0/WFSCapabilities.sch</parsers:schema>
+						<parsers:schema type="resource" phase="Default">/sch/wfs/1.1.0/WFSCapabilities.sch</parsers:schema>
 					</parsers:schemas>
 			</ctl:with-param>
 		</ctl:java>

@@ -983,7 +983,7 @@
                             <xsl:otherwise>
                                   <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$request1" />
-                            <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                             <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
                       </ctl:call-test>
                                 </xsl:otherwise>
@@ -1365,7 +1365,7 @@
                             <xsl:otherwise>
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">OperationNotSupportedPhase</ctl:with-param>
                                         </ctl:call-test>
                                 </xsl:otherwise>
@@ -1403,21 +1403,21 @@
                                 <xsl:when test="$request1//@exceptionCode='MissingParameterValue'">
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
                                         </ctl:call-test>
                             </xsl:when>
                                 <xsl:when test="$request1//@exceptionCode='InvalidParameterValue'">
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
                                         </ctl:call-test>
                             </xsl:when>
                             <xsl:otherwise>
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">NoApplicableCodePhase</ctl:with-param>
                                         </ctl:call-test>
                                 </xsl:otherwise>
@@ -1455,21 +1455,21 @@
                                 <xsl:when test="$request1//@exceptionCode='MissingParameterValue'">
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
                                         </ctl:call-test>
                             </xsl:when>
                                 <xsl:when test="$request1//@exceptionCode='InvalidParameterValue'">
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
                                         </ctl:call-test>
                             </xsl:when>
                             <xsl:otherwise>
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">NoApplicableCodePhase</ctl:with-param>
                                         </ctl:call-test>
                                 </xsl:otherwise>

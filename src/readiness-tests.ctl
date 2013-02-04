@@ -36,14 +36,14 @@
             <xsl:when test="string-length($wfs-transaction) gt 0">
               <ctl:call-test name="ctl:SchematronValidatingParser">
 		        <ctl:with-param name="doc" select="$wfs.GetCapabilities.document" />
-		        <ctl:with-param name="schema">sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
+		        <ctl:with-param name="schema">/sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
 		        <ctl:with-param name="phase">RequiredTransactionBindingsPhase</ctl:with-param>
 	          </ctl:call-test>
             </xsl:when>
             <xsl:otherwise>
               <ctl:call-test name="ctl:SchematronValidatingParser">
 		        <ctl:with-param name="doc" select="$wfs.GetCapabilities.document" />
-		        <ctl:with-param name="schema">sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
+		        <ctl:with-param name="schema">/sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
 		        <ctl:with-param name="phase">RequiredBasicElementsPhase</ctl:with-param>
 	          </ctl:call-test>
             </xsl:otherwise>

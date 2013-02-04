@@ -128,7 +128,7 @@
 					<xsl:when test="$supports.atomic.trx">
 						<ctl:call-test name="ctl:SchematronValidatingParser">
 							<ctl:with-param name="doc" select="$response2" />
-							<ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+							<ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
 							<ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
 						</ctl:call-test>
 					</xsl:when>
@@ -224,7 +224,7 @@
 			    </xsl:variable>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
 		            <ctl:with-param name="doc" select="$response2" />
-		            <ctl:with-param name="schema">sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+		            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
 		            <ctl:with-param name="phase">DefaultPhase</ctl:with-param>
 	            </ctl:call-test>
               </xsl:otherwise>
