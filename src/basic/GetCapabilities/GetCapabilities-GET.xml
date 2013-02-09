@@ -1314,7 +1314,7 @@
                             <xsl:otherwise>
                                         <ctl:call-test name="ctl:SchematronValidatingParser">
                                                 <ctl:with-param name="doc" select="$request1"/>
-                                                <ctl:with-param name="schema">sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
+                                                <ctl:with-param name="schema">/sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
                                                 <ctl:with-param name="phase">RequiredBasicElementsPhase</ctl:with-param>
                                         </ctl:call-test>
                                 </xsl:otherwise>
@@ -1358,7 +1358,7 @@
               <xsl:otherwise>
                 <ctl:call-test name="ctl:SchematronValidatingParser">
                             <ctl:with-param name="doc" select="$response" />
-                            <ctl:with-param name="schema">sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
+                            <ctl:with-param name="schema">/sch/wfs/1.1.0/Capabilities.sch</ctl:with-param>
                             <ctl:with-param name="phase">AbbreviatedContentPhase</ctl:with-param>
                     </ctl:call-test>
               </xsl:otherwise>
