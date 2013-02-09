@@ -2,6 +2,14 @@ WFS 1.1.0 Test Suite Release Notes
 
 Summary of Changes
 
+Changes in r11 (2013-02-08)
+---------------------------
+- Updated config.xml for TEAM-Engine v4
+- Added prefix to default namespace declaration (xmlns:xsd="http://www.w3.org/2001/XMLSchema") 
+  in functions.xml
+- Fixed classpath references for Schematron schemas.
+
+
 === Changes included in R10 ===
 2012-07-18
 - Update test suite for new xlink policy
