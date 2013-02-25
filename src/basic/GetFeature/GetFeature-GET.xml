@@ -1256,6 +1256,7 @@
                                         <param name="typename">
                                                 <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
                                         </param>
+                                        <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
                             <parsers:HTTPParser>
                                <parsers:parse>
                                   <parsers:HTTPParser/>
@@ -1289,6 +1290,7 @@
                                         <param name="typename">
                                                 <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
                                         </param>
+                                        <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
                             <parsers:HTTPParser>
                                <parsers:parse>
                                   <parsers:HTTPParser/>
