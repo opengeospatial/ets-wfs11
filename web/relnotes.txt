@@ -2,6 +2,13 @@ WFS 1.1.0 Test Suite Release Notes
 
 Summary of Changes
 
+Changes in r12 (2013-03-22)
+---------------------------
+- add namespace parameter to GetFeature-extra-param, GetFeature-result-type-results, fixing issue 772
+- repair filter expressions following issue 773
+- Added test data archives (referenced from overview doc); removed broken spec link.
+
+
 Changes in r11 (2013-02-08)
 ---------------------------
 - Updated config.xml for TEAM-Engine v4
