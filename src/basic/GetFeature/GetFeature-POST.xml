@@ -2326,7 +2326,7 @@
                                 <xsl:otherwise>
 
             <xsl:variable name="gml.id">
-              <xsl:value-of select="$request1//sf:PrimitiveGeoFeature[1]/@gml:id"/>
+              <xsl:value-of select="$request1/descendant::sf:PrimitiveGeoFeature[1]/@gml:id"/>
             </xsl:variable>
 
                         <xsl:variable name="request2">
