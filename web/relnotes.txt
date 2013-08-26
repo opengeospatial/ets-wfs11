@@ -2,6 +2,10 @@ WFS 1.1.0 Test Suite Release Notes
 
 Summary of Changes
 
+Changes in r13 (2013-08-36)
+---------------------------
+- Solved issue 792
+
 Changes in r12 (2013-03-22)
 ---------------------------
 - add namespace parameter to GetFeature-extra-param, GetFeature-result-type-results, fixing issue 772
