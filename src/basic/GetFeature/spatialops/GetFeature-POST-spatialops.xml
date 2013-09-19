@@ -1221,13 +1221,13 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="pos" select="$response//sf:PrimitiveGeoFeature/sf:pointProperty/gml:Point/gml:pos" />
-              <xsl:if test="not($pos = '34.94 -10.52')">
+              <xsl:if test="not($pos = '34.94 -10.52') or not(normalize-space($pos)='34.94 -10.52')">
                 <ctl:message>FAILURE: Expected gml:pos of "34.94 -10.52" (found: <xsl:value-of select="$pos"/>).</ctl:message>
                 <ctl:fail/>
               </xsl:if>
                         </xsl:otherwise>
                 </xsl:choose>
-          </ctl:code>
+          </ctl:code> 
     </ctl:test>
 
     <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc209.2">
