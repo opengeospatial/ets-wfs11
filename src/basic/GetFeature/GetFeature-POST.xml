@@ -633,7 +633,7 @@
                                 <xsl:when test="not($request1/*)">
                                 <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
                                         <ctl:fail/>
-                            </xsl:when>
+                            </xsl:when> The second gml:id gets NULL value in the test request (dynamically set).
                             <xsl:otherwise>
                                         <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
                                         <ctl:call-test name="ctl:assert-xpath">
@@ -4035,10 +4035,10 @@
                                 <xsl:otherwise>
 
             <xsl:variable name="gml.id1">
-              <xsl:value-of select="$request1//sf:EntitéGénérique[1]/@gml:id" />
+              <xsl:value-of select="$request1//gml:featureMember[1]/sf:EntitéGénérique/@gml:id" />
             </xsl:variable>
             <xsl:variable name="gml.id2">
-              <xsl:value-of select="$request1//sf:EntitéGénérique[2]/@gml:id" />
+              <xsl:value-of select="$request1//gml:featureMember[2]/sf:EntitéGénérique/@gml:id" />
             </xsl:variable>
 
                         <xsl:variable name="request2">
