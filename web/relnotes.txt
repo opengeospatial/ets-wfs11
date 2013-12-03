@@ -2,6 +2,11 @@ WFS 1.1.0 Test Suite Release Notes
 
 Summary of Changes
 
+r14 (2013-12-03)
+---------------------------
+- Resolved CITE-898 (BBOX in WGS84).
+
+
 Changes in r13 (2013-08-36)
 ---------------------------
 - Solved issue 792
