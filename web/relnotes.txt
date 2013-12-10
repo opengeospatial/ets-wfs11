@@ -5,8 +5,7 @@ Summary of Changes
 r15 (2013-12-10)
 --------------------------
 - CITE-915 - check if idgen is supported for transactions
-- CITE 913 - image parser
-- CITE 912 - handling queryable attribute in GFI requests 
+- CITE 898 - Reversed fix for 898 until WG provides better guidance.
 
 r14 (2013-12-03)
 ---------------------------
