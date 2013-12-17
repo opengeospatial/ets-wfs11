@@ -85,18 +85,18 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc44.1">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1">
+                <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                </ctl:call-test>
+                </ctl:call-test>-->
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.1">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.2">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1">
+                <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                </ctl:call-test>
+                </ctl:call-test>-->
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc50.1">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 </ctl:call-test>
@@ -827,7 +827,7 @@
 
                 </code>
         </test>
-
+<!--
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1">
       <param name="wfs.GetFeature.get.url"/>
       <assertion>KVP URI encoding must be properly escaped for escape and special characters.</assertion>
@@ -845,7 +845,7 @@
                                         <param name="service">WFS</param>
                                         <param name="version">1.1.0</param>
                                         <param name="request">GetFeature</param>
-                                        <!--<param name="typename">sf:EntitéGénérique</param>-->
+                                        <param name="typename">sf:EntitéGénérique</param>
                                         <param name="typename">sf:Entit%C3%A9G%C3%A9n%C3%A9rique</param>
                                         <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
                                         <p:XMLValidatingParser.GMLSF1/>
@@ -878,7 +878,7 @@
 
                 </code>
         </test>
-
+-->
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.1">
       <param name="wfs.GetFeature.get.url"/>
       <assertion>IIf a request is unrecognizable or the service cannot process the request, a valid exception report must be returned.</assertion>
@@ -960,6 +960,7 @@
                 </code>
         </test>
 
+<!--
 <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1">
       <param name="wfs.GetFeature.get.url"/>
       <assertion>Correctly select the objects specified by the list of supplied identifiers. The  identification scheme is service-specific, but valid identifiers must substitute for ogc:_Id.</assertion>
@@ -1031,7 +1032,7 @@
 
                 </code>
         </test>
-
+-->
    <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc50.1">
       <param name="wfs.GetFeature.get.url"/>
       <assertion>When the SortBy parameter is used the resulting feature set must be properly sorted according to the sort criteria.</assertion>
