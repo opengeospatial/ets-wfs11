@@ -628,12 +628,13 @@
                                         <p:XMLValidatingParser.GMLSF1/>
                                 </request>
                         </xsl:variable>
-
+						<xsl:comment>The second gml:id gets NULL value in the test request (dynamically set).</xsl:comment>
                         <xsl:choose>
-                                <xsl:when test="not($request1/*)">
+                            <xsl:when test="not($request1/*)">
                                 <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
                                         <ctl:fail/>
-                            </xsl:when> The second gml:id gets NULL value in the test request (dynamically set).
+                            </xsl:when> 
+                            
                             <xsl:otherwise>
                                         <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
                                         <ctl:call-test name="ctl:assert-xpath">
