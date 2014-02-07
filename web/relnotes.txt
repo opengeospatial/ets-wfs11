@@ -1,6 +1,19 @@
 WFS 1.1.0 Test Suite Release Notes
 
 Summary of Changes
+===================
+
+r17 (2014-02-07)
+-------------------------
+- Accepted 6215 commit  - Resolving CITE-898 issue (BBOX in WSG84).
+- Fixed issue CITE 914, 916 - XSLT compile issue due to a text comment.
+- Added a note in the welcome main form to the reference implementation page.
+
+
+r16 (2013-12-17)
+--------------------------
+- Resolved 855
+- Resolved 875
 
 r15 (2013-12-10)
 --------------------------
@@ -18,8 +31,8 @@ Changes in r13 (2013-08-36)
 
 Changes in r12 (2013-03-22)
 ---------------------------
-- add namespace parameter to GetFeature-extra-param, GetFeature-result-type-results, fixing issue 772
-- repair filter expressions following issue 773
+- Added namespace parameter to GetFeature-extra-param, GetFeature-result-type-results, fixing issue 772
+- Repaired filter expressions following issue 773
 - Added test data archives (referenced from overview doc); removed broken spec link.
 
 
@@ -31,16 +44,16 @@ Changes in r11 (2013-02-08)
 - Fixed classpath references for Schematron schemas.
 
 
-=== Changes included in R10 ===
-2012-07-18
-- Update test suite for new xlink policy
+Changes included in R10 (2012-07-18)
+---------------------------------------
+- Updated test suite for new xlink policy
 - Fixed handling for WFS 2.0.0 enabled instances
 
-=== Changes included in R9 ===
-2012-04-05
-4575 - fixed issue #646 (GET-part) 
-4545 - fixed issue #643 
-4581 - removed repeated main.crl file  in src 
+Changes included in R9 (2012-04-05)
+--------------------------------------
+- 4575 - fixed issue #646 (GET-part) 
+- 4545 - fixed issue #643 
+- 4581 - removed repeated main.crl file  in src 
 
 === Changes included in R8 ===
 2012-01-23 summary (aschmitz)
@@ -213,7 +226,7 @@ Changes in r11 (2013-02-08)
 
 2009-09-30 (efreese):
 - Changes to wfs-1.1.0-Basic-GetFeature-tc102.1:
-	The sorting test was failing because the 2nd occurrence of sf:Entit�G�n�rique 
+	The sorting test was failing because the 2nd occurrence of sf:Entit���G���n���rique 
 	was not a valid XPath.  Modified the XPath to find the 2nd occurrence of 
 	gml:featureMember in order to have 2 values to compare. (Issue 347)
 
