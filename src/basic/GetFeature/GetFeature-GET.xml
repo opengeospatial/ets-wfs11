@@ -166,8 +166,12 @@
 
 <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.2">
       <param name="wfs.GetFeature.get.url"/>
-      <assertion>A KVP parameter value that denotes a bounding box shall conform to the general syntax specified in subclause 10.2.3. If no CRS reference is provided, a service-defined default value must be assumed.</assertion>
-      <comment>GetFeature with BBOX KVP parameter (without the CRS specified, service default is expected).  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) more than one feature is in the response.</comment>
+      <assertion>A KVP parameter value that denotes a bounding box shall conform to the general syntax specified in clause 
+      14.3.3 (and OWS Common 1.0, 10.2.3). If no CRS reference is specified for the BBOX, it is WGS 84 longitude-latitude 
+      (http://www.opengis.net/def/crs/OGC/1.3/CRS84).</assertion>
+      <comment>GetFeature with BBOX KVP parameter (without the CRS specified, CRS84 default). Pass if all of the following 
+      conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; 
+      (3) more than one feature is in the response.</comment>
       <link>ows-1.0.0-common-atc5</link>
       <link>OGC 05-008c1, 10.2.3, p.39</link>
                 <code>
@@ -182,7 +186,7 @@
                                         <param name="version">1.1.0</param>
                                         <param name="request">GetFeature</param>
                                         <param name="typename">sf:PrimitiveGeoFeature</param>
-                                        <param name="bbox">34.94,-10.52,71.96,32.19</param>
+                                        <param name="bbox">-10.52,34.94,32.19,71.96</param>
                                         <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
                                         <p:XMLValidatingParser.GMLSF1/>
                                 </request>
