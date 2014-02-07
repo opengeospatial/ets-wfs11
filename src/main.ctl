@@ -36,6 +36,7 @@
                  location of an OGC capabilities document for the WFS implementation 
                  under test (this can refer to a static document or to a service endpoint).
                  </p>
+                 <p>Examples of reference implementations that can be tested can be found at the <a href="http://cite.opengeospatial.org/reference">CITE wiki</a>.</p>
                  <blockquote>
                     <table border="1" padding="4" bgcolor="#00ffff">
                        <tr>
