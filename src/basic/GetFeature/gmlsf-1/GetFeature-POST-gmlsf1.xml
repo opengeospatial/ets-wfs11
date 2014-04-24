@@ -563,12 +563,13 @@
                       <ctl:message>FAILURE: Expected one sf:ComplexGeoFeature instance in response (<xsl:value-of select="$featureCount"/> features included)</ctl:message>
                       <ctl:fail/>
                     </xsl:if>
-                    <xsl:for-each select="$request1//sf:ComplexGeoFeature">
-                      <xsl:if test="compare(gml:name, 'name-f102') != 0">
-                        <ctl:message>FAILURE: gml:name != "name-f102" (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
-                        <ctl:fail/>
-                      </xsl:if>
-                   </xsl:for-each>
+
+                      <xsl:for-each select="$request1//sf:ComplexGeoFeature/gml:name">
+                        <xsl:if test="compare(gml:name, 'name-f102') != 0">
+                          <ctl:message>FAILURE: gml:name != "name-f102" (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
+                          <ctl:fail/>
+                        </xsl:if>
+                      </xsl:for-each>
                                 </xsl:otherwise>
                         </xsl:choose>
                 </code>
@@ -606,7 +607,7 @@
                       <ctl:message>FAILURE: Expected one sf:ComplexGeoFeature instance in response (<xsl:value-of select="$featureCount"/> features included)</ctl:message>
                       <ctl:fail/>
                     </xsl:if>
-                    <xsl:for-each select="$request1//sf:ComplexGeoFeature">
+                    <xsl:for-each select="$request1//sf:ComplexGeoFeature/gml:name">
                       <xsl:if test="not(boolean(gml:name[text() = 'Vivamus blandit']))">
                         <ctl:message>FAILURE: gml:name != "Vivamus blandit" (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
                         <ctl:fail/>
