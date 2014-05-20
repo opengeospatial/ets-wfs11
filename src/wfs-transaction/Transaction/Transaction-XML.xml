@@ -61,10 +61,14 @@
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc1.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+		<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+		<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc2.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+		<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+		<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc2.2">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
@@ -79,6 +83,7 @@
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                 <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+		<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc5.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
@@ -90,6 +95,8 @@
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc7.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+		<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc7.2">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
@@ -101,6 +108,7 @@
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc9.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+		<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                 <ctl:with-param name="supports.atomic.trx" select="$supports.atomic.trx"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc10.1">
@@ -141,6 +149,8 @@
     <test name="wfs:wfs-1.1.0-Transaction-tc1.1">
         <param name="wfs.Transaction.post.url"/>
         <param name="wfs.GetFeature.get.url"/>
+        <param name="wfs.GetFeature.post.url"/>
+	<ctl:param name="wfs.GetCapabilities.document" />
         <assertion>
             The response to a transaction request containing an insert statement must
             include a listing of identifiers for all successfully inserted features.
@@ -179,13 +189,27 @@
                         <ctl:message>FAILURE: Expected totalInserted = 3 (reported total is <xsl:value-of select="$totalInserted"/>)</ctl:message>
                         <ctl:fail/>
                     </xsl:if>
-                    <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
+		  <xsl:choose>
+                    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href">                    
+	              <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
                         <ctl:call-test name="wfs:GetFeatureById-KVP">
                             <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                             <ctl:with-param name="id" select="./@fid"/>
                             <ctl:with-param name="empty.response" select="'false'" />
                         </ctl:call-test>
-                    </xsl:for-each>
+                      </xsl:for-each>
+		    </xsl:when>
+	            <xsl:otherwise>
+		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
+                        <ctl:call-test name="wfs:GetFeatureByName">
+                          <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                          <ctl:with-param name="type" select="$response//gml:featureMembers/*"/>
+                          <ctl:with-param name="name.value" select="./gml:name" />
+                          <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+                      </xsl:for-each>
+		    </xsl:otherwise>
+		  </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </code>
@@ -194,6 +218,8 @@
     <test name="wfs:wfs-1.1.0-Transaction-tc2.1">
         <param name="wfs.Transaction.post.url"/>
         <param name="wfs.GetFeature.get.url"/>
+        <param name="wfs.GetFeature.post.url"/>
+	<ctl:param name="wfs.GetCapabilities.document" />
         <assertion>
             The global srsName attribute must be applied to all submitted geometries
             which do not specify an alternative supported CRS.
@@ -232,11 +258,23 @@
                         <ctl:message>FAILURE: Expected totalInserted = 1 (reported total is <xsl:value-of select="$totalInserted"/>)</ctl:message>
                         <ctl:fail/>
                     </xsl:if>
+		    <xsl:choose>
+		    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"> 
                     <ctl:call-test name="wfs:GetFeatureById-KVP">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                         <ctl:with-param name="id" select="$response//wfs:InsertResults/wfs:Feature[1]/ogc:FeatureId/@fid"/>
                         <ctl:with-param name="empty.response" select="'false'" />
                     </ctl:call-test>
+		    </xsl:when>
+	            <xsl:otherwise>
+		    <ctl:call-test name="wfs:GetFeatureByName">
+                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                        <ctl:with-param name="type" select="$response//gml:featureMembers/*[1]"/>
+                        <ctl:with-param name="name.value" select="./gml:name" />
+                        <ctl:with-param name="empty.response" select="'true'" />
+                    </ctl:call-test>
+		    </xsl:otherwise>
+		  </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </code>
@@ -350,6 +388,7 @@
         <param name="wfs.Transaction.post.url"/>
         <param name="wfs.GetFeature.get.url"/>
         <param name="wfs.GetFeature.post.url"/>
+	<ctl:param name="wfs.GetCapabilities.document" />
         <assertion>
             Transaction statements must be processed in document order.
         </assertion>
@@ -397,12 +436,16 @@
                         <ctl:message>FAILURE: Expected totalDeleted = 1 (reported total is <xsl:value-of select="$totalDeleted"/>)</ctl:message>
                         <ctl:fail/>
                     </xsl:if>
+	            <xsl:choose>
+		    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"> 
                     <!-- Attempt to retrieve feature in insert list that was subsequently deleted -->
                     <ctl:call-test name="wfs:GetFeatureById-KVP">
                         <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
                         <ctl:with-param name="id" select="$response//wfs:InsertResults/wfs:Feature[1]/ogc:FeatureId/@fid"/>
                         <ctl:with-param name="empty.response" select="'true'" />
                     </ctl:call-test>
+		    </xsl:when>
+	            <xsl:otherwise>
                     <!-- Should have been deleted -->
                     <ctl:call-test name="wfs:GetFeatureByName">
                         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
@@ -410,6 +453,8 @@
                         <ctl:with-param name="name.value" select="'cite.gmlsf0-f07'" />
                         <ctl:with-param name="empty.response" select="'true'" />
                     </ctl:call-test>
+	          </xsl:otherwise>
+	        </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
         </code>
@@ -509,7 +554,7 @@
 
     <test name="wfs:wfs-1.1.0-Transaction-tc7.1">
         <param name="wfs.Transaction.post.url"/>
-        <param name="wfs.GetFeature.get.url"/>
+        <param name="wfs.GetFeature.post.url"/>
         <assertion>
             The response to a Transaction request that updates a complex property
             value must report how many features were updated.
@@ -554,19 +599,16 @@
                         <xsl:value-of select="$response//wfs:InsertResults/wfs:Feature[1]/ogc:FeatureId/@fid"/>
                     </xsl:variable>
                     <xsl:variable name="response2">
-                        <ctl:request>
-                            <ctl:url>
-                                <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                            </ctl:url>
-                            <ctl:method>GET</ctl:method>
-                            <ctl:param name="service">WFS</ctl:param>
-                            <ctl:param name="version">1.1.0</ctl:param>
-                            <ctl:param name="request">GetFeature</ctl:param>
-                            <ctl:param name="featureid">
-                                <xsl:value-of select="encode-for-uri($fid)"/>
-                            </ctl:param>
-                            <p:XMLValidatingParser.GMLSF1/>
-                        </ctl:request>
+                        <request>
+                    <url>
+                        <xsl:value-of select="$wfs.GetFeature.post.url"/>
+                    </url>
+                    <method>POST</method>
+                    <body>
+                        <xi:include href="./wfs-1.1.0-Transaction-tc7.1-2.body.xml"/>
+                    </body>
+                    <p:XMLValidatingParser.GMLSF1/>
+                </request>
                     </xsl:variable>
                     <xsl:if test="local-name($response2//sf:attribut.Géométrie/*) != 'MultiSurface'">
                         <ctl:message>FAILURE: Expected geometry value is gml:MultiSurface (feature gml:id="<xsl:value-of select="$fid"/>")</ctl:message>
@@ -697,7 +739,7 @@
 
     <test name="wfs:wfs-1.1.0-Transaction-tc9.1">
         <param name="wfs.Transaction.post.url"/>
-        <param name="wfs.GetFeature.get.url" />
+        <param name="wfs.GetFeature.post.url" />
         <ctl:param name="supports.atomic.trx" />
         <assertion>
             An update request that attempts to remove a required feature property must
@@ -772,19 +814,16 @@
 
                     <!-- Confirm that update failed -->
                     <xsl:variable name="response3">
-                        <ctl:request>
-                            <ctl:url>
-                                <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                            </ctl:url>
-                            <ctl:method>GET</ctl:method>
-                            <ctl:param name="service">WFS</ctl:param>
-                            <ctl:param name="version">1.1.0</ctl:param>
-                            <ctl:param name="request">GetFeature</ctl:param>
-                            <ctl:param name="featureid">
-                                <xsl:value-of select="encode-for-uri($fid)"/>
-                            </ctl:param>
-                            <p:XMLValidatingParser.GMLSF1/>
-                        </ctl:request>
+                        <request>
+                    <url>
+                        <xsl:value-of select="$wfs.GetFeature.post.url"/>
+                    </url>
+                    <method>POST</method>
+                    <body>
+                        <xi:include href="./wfs-1.1.0-Transaction-tc7.1-2.body.xml"/>
+                    </body>
+                    <p:XMLValidatingParser.GMLSF1/>
+                </request>
                     </xsl:variable>
                     <xsl:if test="xsd:double($response3//sf:AggregateGeoFeature/sf:doubleProperty) != xsd:double('2.4510E4')">
                         <ctl:message>FAILURE: Expected sf:doubleProperty = 2.4510E4 (<xsl:value-of select="$fid"/>.</ctl:message>
@@ -876,7 +915,7 @@
 
     <test name="wfs:wfs-1.1.0-Transaction-tc11.1">
         <param name="wfs.Transaction.post.url"/>
-        <param name="wfs.GetFeature.get.url" />
+        <param name="wfs.GetFeature.post.url" />
         <assertion>
             In response to an update request that does not include a value for an optional
             property, the property shall be removed.
@@ -931,19 +970,16 @@
                         <ctl:fail/>
                     </xsl:if>
                     <xsl:variable name="response3">
-                        <ctl:request>
-                            <ctl:url>
-                                <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                            </ctl:url>
-                            <ctl:method>GET</ctl:method>
-                            <ctl:param name="service">WFS</ctl:param>
-                            <ctl:param name="version">1.1.0</ctl:param>
-                            <ctl:param name="request">GetFeature</ctl:param>
-                            <ctl:param name="featureid">
-                                <xsl:value-of select="encode-for-uri($fid)"/>
-                            </ctl:param>
-                            <p:XMLValidatingParser.GMLSF1/>
-                        </ctl:request>
+                        <request>
+                    <url>
+                        <xsl:value-of select="$wfs.GetFeature.post.url"/>
+                    </url>
+                    <method>POST</method>
+                    <body>
+                        <xi:include href="./wfs-1.1.0-Transaction-tc7.1-2.body.xml"/>
+                    </body>
+                    <p:XMLValidatingParser.GMLSF1/>
+                </request>
                     </xsl:variable>
                     <xsl:if test="count($response3//sf:PrimitiveGeoFeature/gml:name) != 0">
                         <ctl:message>FAILURE: Expected no gml:name properties (<xsl:value-of select="$fid"/>)</ctl:message>
