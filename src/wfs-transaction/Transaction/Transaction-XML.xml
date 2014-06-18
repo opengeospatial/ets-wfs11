@@ -117,7 +117,7 @@
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc11.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
-                <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.post.url"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc12.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
@@ -412,6 +412,28 @@
             </xsl:variable>
             <xsl:choose>
                 <xsl:when test="not($response/*)">
+                    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href">                    
+	              <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
+                        <ctl:call-test name="wfs:GetFeatureById-KVP">
+                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                            <ctl:with-param name="id" select="./@fid"/>
+                            <ctl:with-param name="empty.response" select="'false'" />
+                        </ctl:call-test>
+                      </xsl:for-each>
+		    </xsl:when>
+	            <xsl:otherwise>
+		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
+                        <ctl:call-test name="wfs:GetFeatureByName">
+                          <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                          <ctl:with-param name="type" select="$response//gml:featureMembers/*"/>
+                          <ctl:with-param name="name.value" select="./gml:name" />
+                          <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+                      </xsl:for-each>
+		    </xsl:otherwise>
+		  </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
                     <ctl:message>FAILURE: Missing response entity.</ctl:message>
                     <ctl:fail/>
                 </xsl:when>
@@ -1091,21 +1113,52 @@
                         <ctl:fail/>
                     </xsl:if>
                     <!-- check all three features were deleted -->
-                    <ctl:call-test name="wfs:GetFeatureById-KVP">
-                        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                        <ctl:with-param name="id" select="$fid1"/>
-                        <ctl:with-param name="empty.response" select="'true'" />
-                    </ctl:call-test>
-                    <ctl:call-test name="wfs:GetFeatureById-KVP">
-                        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                        <ctl:with-param name="id" select="$fid2"/>
-                        <ctl:with-param name="empty.response" select="'true'" />
-                    </ctl:call-test>
-                    <ctl:call-test name="wfs:GetFeatureById-KVP">
-                        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                        <ctl:with-param name="id" select="$fid3"/>
-                        <ctl:with-param name="empty.response" select="'true'" />
-                    </ctl:call-test>
+                  <xsl:choose>
+                    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href">                    
+	              <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
+                        <ctl:call-test name="wfs:GetFeatureById-KVP">
+                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                            <ctl:with-param name="id" select="$fid1"/>
+                            <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+			<ctl:call-test name="wfs:GetFeatureById-KVP">
+                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                            <ctl:with-param name="id" select="$fid2"/>
+                            <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+			<ctl:call-test name="wfs:GetFeatureById-KVP">
+                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                            <ctl:with-param name="id" select="$fid3"/>
+                            <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+                      </xsl:for-each>
+		    </xsl:when>
+	            <xsl:otherwise>
+		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
+                        <ctl:call-test name="wfs:GetFeatureByName">
+                          <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                          <ctl:with-param name="type" select="$response//gml:featureMembers/gml:featureMember[1]/*"/>
+                          <ctl:with-param name="name.value" select="./gml:name" />
+                          <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+			<ctl:call-test name="wfs:GetFeatureByName">
+                          <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                          <ctl:with-param name="type" select="$response//gml:featureMembers/gml:featureMember[2]/*"/>
+                          <ctl:with-param name="name.value" select="./gml:name" />
+                          <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+			<ctl:call-test name="wfs:GetFeatureByName">
+                          <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                          <ctl:with-param name="type" select="$response//gml:featureMembers/gml:featureMember[3]/*"/>
+                          <ctl:with-param name="name.value" select="./gml:name" />
+                          <ctl:with-param name="empty.response" select="'true'" />
+                        </ctl:call-test>
+                      </xsl:for-each>
+		    </xsl:otherwise>
+		  </xsl:choose>
+                </xsl:otherwise>
+            </xsl:choose>
+                    
                 </xsl:otherwise>
             </xsl:choose>
         </code>
