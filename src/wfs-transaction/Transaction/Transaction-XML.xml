@@ -421,6 +421,7 @@
                         </ctl:call-test>
                       </xsl:for-each>
 		    </xsl:when>
+                </xsl:when>
 	            <xsl:otherwise>
 		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
                         <ctl:call-test name="wfs:GetFeatureByName">
@@ -432,11 +433,6 @@
                       </xsl:for-each>
 		    </xsl:otherwise>
 		  </xsl:choose>
-                </xsl:otherwise>
-            </xsl:choose>
-                    <ctl:message>FAILURE: Missing response entity.</ctl:message>
-                    <ctl:fail/>
-                </xsl:when>
                 <xsl:otherwise>
                     <ctl:call-test name="ctl:SchematronValidatingParser">
                         <ctl:with-param name="doc" select="$response" />
@@ -478,7 +474,6 @@
 	          </xsl:otherwise>
 	        </xsl:choose>
                 </xsl:otherwise>
-            </xsl:choose>
         </code>
     </test>
 
@@ -1158,9 +1153,7 @@
 		  </xsl:choose>
                 </xsl:otherwise>
             </xsl:choose>
-                    
-                </xsl:otherwise>
-            </xsl:choose>
+
         </code>
     </test>
 
