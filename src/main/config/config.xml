@@ -16,7 +16,7 @@
       <revision>
         <name>r19</name>
         <sources>
-          <source>wfs/1.1.0/src</source>
+          <source>wfs/1.1.0/ctl</source>
         </sources>
         <resources>wfs/1.1.0/resources</resources>
         <webdir>wfs/1.1.0/web</webdir>
