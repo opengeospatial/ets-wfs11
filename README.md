@@ -2,9 +2,13 @@
 
 The OGC OGC Web Feature Service Test-Suite provides the Executable Test Script (ETS) to test implementations against the following specification(s):
 
-- OGC xxx Specification, [OGC 00-000r0](http://portal.opengeospatial.org/files/?artifact_id=00)
+  * _Web Feature Service Implementation Specification_, version 1.1.0 [[OGC 04-094]](https://portal.opengeospatial.org/files/?artifact_id=8339)
+  * _Filter Encoding Implementation Specification_, version 1.1.0 [[OGC 04-095]](http://portal.opengeospatial.org/files/?artifact_id=8340)
+  * _OpenGIS Web Services Common Specification_, version 1.0.0 [[OGC 05-008c1]](https://portal.opengeospatial.org/files/?artifact_id=8798)
+  * _Geography Markup Language (GML) -- Simple features profile_, version 1.0.0 [[OGC 06-049r1]](http://portal.opengeospatial.org/files/?artifact_id=15201)
 
-Detailed information about this test suite is available at  http://htmlpreview.github.com/?https://github.com/opengeospatial/ets-wfs11/blob/master/src/main/web/index.html
+Detailed information about this test suite is available [here]( http://htmlpreview.github.com/?https://github.com/opengeospatial/ets-wfs11/blob/master/src/main/web/index.html)
+
 ## License
 
 [Apache 2.0 License](LICENSE.md)
