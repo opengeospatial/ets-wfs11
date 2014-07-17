@@ -120,7 +120,7 @@
 				  </xsl:choose>
 <ctl:message>nach req2</ctl:message>
 				</xsl:variable>
-
+<!--
                 <xsl:choose>
                   <xsl:when test="not($response1/*)">
                     <ctl:message>
@@ -147,7 +147,7 @@
                     </ctl:message>
                     <ctl:fail/>
                   </xsl:when>
-                  <xsl:otherwise>
+                  <xsl:otherwise>-->
 					 <ctl:call-test name="wfs:basic-main">
 						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>
@@ -164,8 +164,8 @@
 							<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
 						</ctl:call-test>
                      </xsl:if>
-				  </xsl:otherwise>
-				</xsl:choose>
+				<!--  </xsl:otherwise>
+				</xsl:choose>-->
               </xsl:otherwise>
             </xsl:choose>
 		</ctl:code>

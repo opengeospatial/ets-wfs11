@@ -3,6 +3,13 @@ WFS 1.1.0 Test Suite Release Notes
 Summary of Changes
 ===================
 
+r18 (2014-06-10)
+-------------------------
+- update transactional tcs dont to use GET KVP
+- fix issue 876 trailing zeros cut
+- fix 405.1 and 405.2 compare method
+
+
 r17 (2014-02-07)
 -------------------------
 - Accepted 6215 commit  - Resolving CITE-898 issue (BBOX in WSG84).
@@ -226,7 +233,7 @@ Changes included in R9 (2012-04-05)
 
 2009-09-30 (efreese):
 - Changes to wfs-1.1.0-Basic-GetFeature-tc102.1:
-	The sorting test was failing because the 2nd occurrence of sf:Entit���G���n���rique 
+	The sorting test was failing because the 2nd occurrence of sf:Entit���������G���������n���������rique 
 	was not a valid XPath.  Modified the XPath to find the 2nd occurrence of 
 	gml:featureMember in order to have 2 values to compare. (Issue 347)
 
