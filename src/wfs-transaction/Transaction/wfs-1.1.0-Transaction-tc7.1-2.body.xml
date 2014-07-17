@@ -5,7 +5,7 @@
   xmlns:ogc="http://www.opengis.net/ogc"
   xmlns:gml="http://www.opengis.net/gml"
   xmlns:sf="http://cite.opengeospatial.org/gmlsf">
-	<wfs:Query typeName="sf:Entit?G?n?rique">
+	<wfs:Query typeName="sf:EntitéGénérique">
 <ogc:Filter>
 <ogc:GmlObjectId gml:id="encode-for-uri($fid)"/>
 </ogc:Filter>
