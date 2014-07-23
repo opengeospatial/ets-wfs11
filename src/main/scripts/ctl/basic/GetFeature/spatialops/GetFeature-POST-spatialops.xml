@@ -1221,8 +1221,7 @@
                 <ctl:fail/>
               </xsl:if>
               <xsl:variable name="pos" select="$response//sf:PrimitiveGeoFeature/sf:pointProperty/gml:Point/gml:pos" />
-              <xsl:variable name="pos.components" select="tokenize($pos, ' ')"/>
-              <xsl:if test="not(number($pos.components[1]) = 34.94) and not(number($pos.components[2]) = -10.52)">
+              <xsl:if test="not($pos = '34.94 -10.52') or not(normalize-space($pos)='34.94 -10.52')">
                 <ctl:message>FAILURE: Expected gml:pos of "34.94 -10.52" (found: <xsl:value-of select="$pos"/>).</ctl:message>
                 <ctl:fail/>
               </xsl:if>

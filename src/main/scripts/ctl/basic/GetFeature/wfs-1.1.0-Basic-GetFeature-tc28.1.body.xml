@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:ogc="http://www.opengis.net/ogc" version="1.1.0" service="WFS">
-        <wfs:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="sf:PrimitiveGeoFeature">
+        <wfs:Query xmlns:Feature_Service="http://ags.cr.usgs.gov/ArcGIS/services/Feature_Service/MapServer/WFSServer" typeName="Feature_Service:Countries_2006_ESRI_Poly">
                 <ogc:Filter>
                         <ogc:BBOX>
                                 <ogc:PropertyName>sf:pointProperty</ogc:PropertyName>

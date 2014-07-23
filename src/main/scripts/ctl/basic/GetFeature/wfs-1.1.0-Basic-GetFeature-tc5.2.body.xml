@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <foo:GetFeature xmlns:foo="http://www.opengis.net/wfs"
   xmlns:gml="http://www.opengis.net/gml" version="1.1.0" service="WFS">
-	<foo:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf"
-      typeName="sf:PrimitiveGeoFeature"
+	<foo:Query xmlns:Feature_Service="http://ags.cr.usgs.gov/ArcGIS/services/Feature_Service/MapServer/WFSServer"
+      typeName="Feature_Service:Countries_2006_ESRI_Poly"
       srsName="urn:ogc:def:crs:EPSG::4326">
-		<foo:PropertyName>sf:dateProperty</foo:PropertyName>
+		<foo:PropertyName>Feature_Service:Shape</foo:PropertyName>
 	</foo:Query>
 </foo:GetFeature>
