@@ -11,6 +11,12 @@
   Verifies conformance of implementations to OGC Web Feature Service.
   </description>
   <url>https://github.com/opengeospatial/ets-wfs11</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://opensource.org/licenses/Apache-2.0</url>
+    </license>
+  </licenses>
 
   <organization>
     <name>Open Geospatial Consortium</name>
@@ -35,37 +41,6 @@
   </properties>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <!-- Dummy plugin to configure Eclipse m2e plug-in only -->
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-remote-resources-plugin</artifactId>
-                    <versionRange>[1.5,)</versionRange>
-                    <goals>
-                      <goal>process</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <execute>
-                      <runOnIncremental>false</runOnIncremental>
-                    </execute>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -108,18 +83,15 @@
             </goals>
           </execution>
         </executions>
-        <!--
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.doxia</groupId>
-            <artifactId>doxia-module-markdown</artifactId>
-            <version>1.5</version>
+            <artifactId>doxia-module-xhtml</artifactId>
+            <version>1.6</version>
           </dependency>
         </dependencies>
-        -->
         <configuration>
           <relativizeDecorationLinks>false</relativizeDecorationLinks>
-          <generateReports>false</generateReports>
         </configuration>
       </plugin>
       <plugin>
@@ -182,6 +154,8 @@
         <reportSets>
           <reportSet>
             <reports>
+              <report>license</report>
+              <report>issue-tracking</report>
             </reports>
           </reportSet>
         </reportSets>

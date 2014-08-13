@@ -16,10 +16,6 @@
       <outputDirectory>ctl</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/src/main/web</directory>
-      <outputDirectory>web</outputDirectory>
-    </fileSet>
-    <fileSet>
       <directory>${project.basedir}/src/main/resources</directory>
       <outputDirectory>resources</outputDirectory>
       <excludes>
