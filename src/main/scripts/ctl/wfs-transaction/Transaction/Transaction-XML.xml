@@ -410,30 +410,7 @@
                     <p:XMLValidatingParser.GMLSF1 />
                 </request>
             </xsl:variable>
-            <xsl:choose>
-                <xsl:when test="not($response/*)">
-                    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href">                    
-	              <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
-                        <ctl:call-test name="wfs:GetFeatureById-KVP">
-                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                            <ctl:with-param name="id" select="./@fid"/>
-                            <ctl:with-param name="empty.response" select="'false'" />
-                        </ctl:call-test>
-                      </xsl:for-each>
-		    </xsl:when>
-                </xsl:when>
-	            <xsl:otherwise>
-		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
-                        <ctl:call-test name="wfs:GetFeatureByName">
-                          <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                          <ctl:with-param name="type" select="$response//gml:featureMembers/*"/>
-                          <ctl:with-param name="name.value" select="./gml:name" />
-                          <ctl:with-param name="empty.response" select="'true'" />
-                        </ctl:call-test>
-                      </xsl:for-each>
-		    </xsl:otherwise>
-		  </xsl:choose>
-                <xsl:otherwise>
+
                     <ctl:call-test name="ctl:SchematronValidatingParser">
                         <ctl:with-param name="doc" select="$response" />
                         <ctl:with-param name="schema">/sch/wfs/1.1.0/Transaction.sch</ctl:with-param>
@@ -454,26 +431,6 @@
                         <ctl:message>FAILURE: Expected totalDeleted = 1 (reported total is <xsl:value-of select="$totalDeleted"/>)</ctl:message>
                         <ctl:fail/>
                     </xsl:if>
-	            <xsl:choose>
-		    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"> 
-                    <!-- Attempt to retrieve feature in insert list that was subsequently deleted -->
-                    <ctl:call-test name="wfs:GetFeatureById-KVP">
-                        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                        <ctl:with-param name="id" select="$response//wfs:InsertResults/wfs:Feature[1]/ogc:FeatureId/@fid"/>
-                        <ctl:with-param name="empty.response" select="'true'" />
-                    </ctl:call-test>
-		    </xsl:when>
-	            <xsl:otherwise>
-                    <!-- Should have been deleted -->
-                    <ctl:call-test name="wfs:GetFeatureByName">
-                        <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
-                        <ctl:with-param name="type" select="'sf:PrimitiveGeoFeature'"/>
-                        <ctl:with-param name="name.value" select="'cite.gmlsf0-f07'" />
-                        <ctl:with-param name="empty.response" select="'true'" />
-                    </ctl:call-test>
-	          </xsl:otherwise>
-	        </xsl:choose>
-                </xsl:otherwise>
         </code>
     </test>
 

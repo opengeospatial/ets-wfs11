@@ -14,12 +14,12 @@
         <description>Checks WFS implementations for conformance to OGC 04-094.</description>
       </suite>
       <revision>
-        <name>r19</name>
+        <name>${project.version}</name>
         <sources>
-          <source>wfs/1.1.0/ctl</source>
+          <source>wfs/${spec-version}/ctl</source>
         </sources>
-        <resources>wfs/1.1.0/resources</resources>
-        <webdir>wfs/1.1.0/web</webdir>
+        <resources>wfs/${spec-version}/resources</resources>
+        <webdir>wfs/${spec-version}/site</webdir>
       </revision>
     </version>
   </standard>
