@@ -7,7 +7,7 @@ The OGC OGC Web Feature Service Test-Suite provides the Executable Test Script (
   * _OpenGIS Web Services Common Specification_, version 1.0.0 [[OGC 05-008c1]](https://portal.opengeospatial.org/files/?artifact_id=8798)
   * _Geography Markup Language (GML) -- Simple features profile_, version 1.0.0 [[OGC 06-049r1]](http://portal.opengeospatial.org/files/?artifact_id=15201)
 
-Detailed information about this test suite is available [here]( http://htmlpreview.github.com/?https://github.com/opengeospatial/ets-wfs11/blob/master/src/main/web/index.html)
+Detailed information about this test suite is available [here](http://opengeospatial.github.io/ets-wfs11/)
 
 ## License
 
