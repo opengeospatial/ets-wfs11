@@ -1,14 +1,11 @@
-<<<<<<< HEAD
 *.DS_Store
 target/*
-=======
 # Eclipse config
 .project
 .classpath
 .settings/
-
 # Maven output
 target/
 pom.xml.releaseBackup
 release.properties
->>>>>>> 2fd54e09265ddb4eba11ded2846d0af2bca6959e
+
