@@ -117,7 +117,9 @@
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc11.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
-                <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.post.url"/>
+                <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                <ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
             </ctl:call-test>
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc12.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
@@ -125,6 +127,8 @@
             <ctl:call-test name="wfs:wfs-1.1.0-Transaction-tc13.1">
                 <ctl:with-param name="wfs.Transaction.post.url" select="$wfs.Transaction.post.url"/>
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+                <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+                <ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
             </ctl:call-test>
 
             <xsl:if test="$gmlsf.level = 'sf-1'">
@@ -889,7 +893,9 @@
 
     <test name="wfs:wfs-1.1.0-Transaction-tc11.1">
         <param name="wfs.Transaction.post.url"/>
-        <param name="wfs.GetFeature.post.url" />
+        <param name="wfs.GetFeature.get.url"/>
+        <param name="wfs.GetFeature.post.url"/>
+        <ctl:param name="wfs.GetCapabilities.document" />
         <assertion>
             In response to an update request that does not include a value for an optional
             property, the property shall be removed.
@@ -1006,7 +1012,9 @@
 
     <test name="wfs:wfs-1.1.0-Transaction-tc13.1">
         <param name="wfs.Transaction.post.url"/>
-        <param name="wfs.GetFeature.get.url" />
+        <param name="wfs.GetFeature.get.url"/>
+        <param name="wfs.GetFeature.post.url"/>
+        <ctl:param name="wfs.GetCapabilities.document" />
         <assertion>
             In response to a valid delete request, all matching features shall be deleted.
         </assertion>
@@ -1065,27 +1073,7 @@
                         <ctl:fail/>
                     </xsl:if>
                     <!-- check all three features were deleted -->
-                  <xsl:choose>
-                    <xsl:when test="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href">                    
-	              <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
-                        <ctl:call-test name="wfs:GetFeatureById-KVP">
-                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                            <ctl:with-param name="id" select="$fid1"/>
-                            <ctl:with-param name="empty.response" select="'true'" />
-                        </ctl:call-test>
-			<ctl:call-test name="wfs:GetFeatureById-KVP">
-                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                            <ctl:with-param name="id" select="$fid2"/>
-                            <ctl:with-param name="empty.response" select="'true'" />
-                        </ctl:call-test>
-			<ctl:call-test name="wfs:GetFeatureById-KVP">
-                            <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-                            <ctl:with-param name="id" select="$fid3"/>
-                            <ctl:with-param name="empty.response" select="'true'" />
-                        </ctl:call-test>
-                      </xsl:for-each>
-		    </xsl:when>
-	            <xsl:otherwise>
+
 		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
                         <ctl:call-test name="wfs:GetFeatureByName">
                           <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
@@ -1106,9 +1094,7 @@
                           <ctl:with-param name="empty.response" select="'true'" />
                         </ctl:call-test>
                       </xsl:for-each>
-		    </xsl:otherwise>
-		  </xsl:choose>
-                </xsl:otherwise>
+            </xsl:otherwise>
             </xsl:choose>
 
         </code>
