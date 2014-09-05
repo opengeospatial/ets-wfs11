@@ -1,6 +1,6 @@
 # OGC OGC Web Feature Service Test-Suite
 
-The OGC OGC Web Feature Service Test-Suite provides the Executable Test Script (ETS) to test implementations against the following specification(s):
+The OGC Web Feature Service Test-Suite provides the Executable Test Script (ETS) to verfiy implementations against the following specification(s):
 
   * _Web Feature Service Implementation Specification_, version 1.1.0 [[OGC 04-094]](https://portal.opengeospatial.org/files/?artifact_id=8339)
   * _Filter Encoding Implementation Specification_, version 1.1.0 [[OGC 04-095]](http://portal.opengeospatial.org/files/?artifact_id=8340)
