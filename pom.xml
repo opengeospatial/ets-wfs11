@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-wfs11</artifactId>
   <groupId>org.opengis.cite</groupId>
@@ -8,7 +7,7 @@
 
   <name>Conformance Test Suite - OGC Web Feature Service 1.1.0</name>
   <description>
-  Verifies conformance of implementations to OGC Web Map Service.
+  Verifies conformance of implementations to OGC Web Feature Service.
   </description>
   <url>https://github.com/opengeospatial/ets-wfs11</url>
   <licenses>
@@ -79,7 +78,7 @@
             <descriptor>src/assembly/ctl.xml</descriptor>
           </descriptors>
         </configuration>
-         <executions>
+        <executions>
           <execution>
             <phase>package</phase>
             <goals>
@@ -89,8 +88,15 @@
         </executions>
       </plugin>
       <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-         </plugin>
+         <artifactId>maven-release-plugin</artifactId>
+         <version>2.5</version>
+         <configuration>
+            <tagNameFormat>@{project.version}</tagNameFormat>
+            <useReleaseProfile>false</useReleaseProfile>
+            <releaseProfiles>release</releaseProfiles>
+            <goals>deploy</goals>
+         </configuration>
+      </plugin>
       <plugin>     
         <artifactId>maven-site-plugin</artifactId>
         <executions>
@@ -105,7 +111,7 @@
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.doxia</groupId>
-            <artifactId>doxia-module-markdown</artifactId>
+            <artifactId>doxia-module-xhtml</artifactId>
             <version>1.6</version>
           </dependency>
         </dependencies>
