@@ -7,7 +7,7 @@
   xmlns:sf="http://cite.opengeospatial.org/gmlsf">
 	<wfs:Query typeName="sf:EntitéGénérique">
 <ogc:Filter>
-<ogc:GmlObjectId gml:id="encode-for-uri($fid)"/>
+<ogc:GmlObjectId gml:id="{$fid}"/>
 </ogc:Filter>
 </wfs:Query>
 </wfs:GetFeature>
