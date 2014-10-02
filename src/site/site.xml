@@ -20,6 +20,9 @@
     <src>./img/ogc-logo.png</src>
     <href>http://cite.opengeospatial.org/</href>
   </bannerLeft>
+    <bannerRight>
+    <name>${project.name}</name>
+  </bannerRight>
 
   <body>
     <links>
