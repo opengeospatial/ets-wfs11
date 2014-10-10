@@ -547,7 +547,7 @@
 
         <ctl:test name="wfs:DescribeFeatureType-output-format-default">
                 <ctl:param name="CAPABILITIES" />
-                <ctl:assertion>The MIME returned for a DescribeFeatureType request where no specific output format is requested is "text/xml; subtype=gml/3.1.1".</ctl:assertion>
+                <ctl:assertion>The MIME returned for a DescribeFeatureType request where no specific output format must contain "text/xml".</ctl:assertion>
                 <ctl:comment></ctl:comment>
         <ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
         <ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
@@ -568,7 +568,7 @@
                             </parsers:HTTPParser>
                                 </ctl:request>
                         </xsl:variable>
-                        <xsl:if test="not(starts-with($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml; subtype=gml/3.1.1'))">
+			<xsl:if test="not(contains($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml'))">
                                 <ctl:fail/>
                         </xsl:if>
                 </ctl:code>
