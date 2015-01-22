@@ -1,4 +1,4 @@
-# BasicGetCapabilities-GET-tc6
+# BasicGetCapabilities-GET-tc7
 
 **Purpose**: A valid http URL value shall conform to the syntax specified in RFC 2616. http_URL = 'http:' '' host [ ':' port ] [ abs_path [ '?' query ]]
 
