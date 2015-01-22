@@ -10,8 +10,9 @@ Execute the following Test Steps:
 
 **Conditions**
 
-* Response complies to xml schema: http://schemas.opengis# BasicGetCapabilities-GET-tc10
-
+* Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd 
+* Response contains [wfs:WFS_Capabilities](#wfs:WFS_Capabilities) 
+* 
 **Reference(s)**: OGC 05-008c1, 7.1, p.10
 
 **Test type**: Automated
