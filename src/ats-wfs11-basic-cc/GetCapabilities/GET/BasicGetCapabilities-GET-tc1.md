@@ -29,5 +29,5 @@ The namespace prefixes used as described in [README.md](./README.md#namespaces).
 
 Abbreviation                                   |  XPath expression (relative to wfs:WFS_Capabilities)
 -----------------------------------------------| -------------------------------------------------------------------------
-wfs:WFS_Capabilities <a name="wfs:WFS_Capabilities"></a>   | //wfs:WFS_Capabilities[1]
+wfs:WFS_Capabilities <a name="wfs:WFS_Capabilities"></a>   | /wfs:WFS_Capabilities[1]
 
