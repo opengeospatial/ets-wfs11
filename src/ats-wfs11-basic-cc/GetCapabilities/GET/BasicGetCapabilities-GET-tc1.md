@@ -10,9 +10,8 @@ Execute the following Test Steps:
 
 **Conditions**
 
- Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd
- 
- Response contains [wfs:WFS_Capabilities](#wfs:WFS_Capabilities) element.
+* Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd
+* Response contains [wfs:WFS_Capabilities](#wfs:WFS_Capabilities) element.
 
 
 **Reference(s)**: OGC 04-094, 13.1, p.79
