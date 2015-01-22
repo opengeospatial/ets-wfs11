@@ -9,6 +9,7 @@ Execute the following Test Steps:
 * Send the following GetCapabilities request by GET: wfs.GetCapabilities.get.url?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetCapabilities
 
 **Conditions**
+
  Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd
  Response contains [wfs:WFS_Capabilities](#wfs:WFS_Capabilities) element.
 
