@@ -14,7 +14,7 @@ Execute the following Test Steps:
 * Response contains [wfs:WFS_Capabilities/@version=1.1.0](#wfs:WFS_Capabilities).
 
 
-**Reference(s)**: OGC 04-094, 13.1, p.79
+**Reference(s)**: OGC 04-094, 6.2.3, p.9
 
 **Test type**: Automated
 
