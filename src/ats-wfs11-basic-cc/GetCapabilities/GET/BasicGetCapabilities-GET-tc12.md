@@ -13,7 +13,7 @@ Execute the following Test Steps:
 * Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd 
 * Response contains [wfs:WFS_Capabilities/@version='1.1.0'](#wfs:WFS_Capabilities/@version='1.1.0') 
 
-**Reference(s)**: OGC 05-008c1, 7.1, p.10
+**Reference(s)**: OGC 05-008c1, 7.3.2, p.16
 
 **Test type**: Automated
 
