@@ -12,7 +12,7 @@ Execute the following Test Steps:
 
 **Conditions**
 
-* Response for DescribeFeatureType complies to xml schema: http://schemas.opengis.net/gml/3.1.1/base/gml.xsd for each request
+* Response for DescribeFeatureType complies to xml schema: http://schemas.opengis.net/ows/1.1.0/owsExceptionReport.xsd for each request
 * Response for DescribeFeatureType contains [ows:Exception](#ows:Exception) for each request
 
 **Reference(s)**: OGC 04-094, 8.4, p.27
