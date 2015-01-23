@@ -1,6 +1,6 @@
 # BasicDescribeFeatureType-GET-tc4
 
-**Purpose**:  <ctl:assertion>The MIME returned for a DescribeFeatureType request where no specific output format is requested is "text/xml; subtype=gml/3.1.1".
+**Purpose**:  The MIME returned for a DescribeFeatureType request where no specific output format is requested is "text/xml; subtype=gml/3.1.1".
 
 **Test method**
 
