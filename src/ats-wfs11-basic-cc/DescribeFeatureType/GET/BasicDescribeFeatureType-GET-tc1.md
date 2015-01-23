@@ -26,7 +26,7 @@ former ETS tc: wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4.1
 
 The namespace prefixes used as described in [README.md](./README.md#namespaces).
 
-Abbreviation                                   |  XPath expression (relative to wfs:WFS_Capabilities)
+Abbreviation                                   |  XPath expression (relative to )
 -----------------------------------------------| -------------------------------------------------------------------------
-wfs:WFS_Capabilities <a name="wfs:WFS_Capabilities"></a>   | /wfs:WFS_Capabilities
+  | 
 
