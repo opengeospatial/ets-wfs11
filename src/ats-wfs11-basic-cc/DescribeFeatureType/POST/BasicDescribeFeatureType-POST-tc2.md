@@ -6,7 +6,7 @@
 
 Execute the following Test Steps:
 
-* Send the following DescribeFeatureType request by POST: wfs.DescribeFeatureType.get.url
+* Send the following DescribeFeatureType request by POST: wfs.DescribeFeatureType.post.url
 
   ```
   <wfs:DescribeFeatureType service="WFS"  xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0">
