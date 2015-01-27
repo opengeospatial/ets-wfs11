@@ -1,6 +1,7 @@
 # BasicGetFeature-POST-tc3
 
 **Purpose**: If @maxFeatures > 0, then the number of features included in the response shall not exceed the specified number. Members of a feature collection do NOT count toward the total
+
 **Test method**
 
 Execute the following Test Steps:
@@ -21,7 +22,7 @@ Execute the following Test Steps:
 
 
 
-**Reference(s)**: OGC 04-094, 9.3, p.38 
+**Reference(s)**: OGC 04-094, 9.2, p.35 
 
 **Test type**: Automated
 
