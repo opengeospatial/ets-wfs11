@@ -1,6 +1,6 @@
 # BasicGetFeature-GET-tc6
 
-**Purpose**: XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the AbbreviatedRelativeLocationPath construct is required
+**Purpose**: A valid filter expression must conform to the content model declared for the ogc:Filter element
 
 **Test method**
 
@@ -15,13 +15,13 @@ Execute the following Test Steps:
 
 
 
-**Reference(s)**: OGC 04-095, 7.4.2, p.18 
+**Reference(s)**: OGC 04-095, 7.2, p.9 
 
 **Test type**: Automated
 
 **Notes**
 
-former ETS tc: wfs:wfs-1.1.0-Basic-GetFeature-tc30.x
+former ETS tc: wfs:wfs-1.1.0-Basic-GetFeature-tc31.1
 
 
 ## Contextual XPath references
