@@ -1,4 +1,4 @@
-# BasicGetFeature-GET-tc4
+# BasicGetFeature-GET-tc5
 
 **Purpose**: XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the AbbreviatedRelativeLocationPath construct is required
 
