@@ -8,7 +8,8 @@ Execute the following Test Steps:
 
 * Send the following GetFeature request by GET: wfs.GetFeature.get.url?SERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&typename=$ftname
 * Send the following GetFeature request by GET: wfs.GetFeature.get.url?SeERVICE=WFS&VERSION=1.1.0&REQUEST=GetFeature&typename=$ftname
-* Send the following GetFeature request by GET: wfs.GetFeature.get.url?SeERVICE=WFS&VeERSION=1.1.0&REQUEST=GetFeature&typename=$ftname
+* Send the following GetFeature request by GET: wfs.GetFeature.get.url?SERVICE=WFS&VeERSION=1.1.0&REQUEST=GetFeature&typename=$ftname
+* Send the following GetFeature request by GET: wfs.GetFeature.get.url?SERVICE=WFS&VERSION=1.1.0&ReEQUEST=GetFeature&typename=$ftname
 
 **Conditions**
 
