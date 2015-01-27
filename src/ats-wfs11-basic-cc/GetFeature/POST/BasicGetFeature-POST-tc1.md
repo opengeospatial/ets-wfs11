@@ -7,6 +7,7 @@
 Execute the following Test Steps:
 
 * Send the following GetFeature request by POST:
+ 
   ```
     <?xml version="1.0" encoding="UTF-8"?>
     <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
