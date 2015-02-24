@@ -77,6 +77,47 @@
       </ctl:code>
     </ctl:test>
 
+    <ctl:test name="wfs:run-DescribeFeatureType-basic-cc-GET">
+		<param name="wfs.GetCapabilities.document" />
+		<param name="gmlsf.profile.level" />
+		<ctl:assertion>
+			Run basic conformance class test group for DescribeFeatureType requests using the GET method.
+			Target endpoint is
+			{$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
+		</ctl:assertion>
+		<ctl:code>
+			<xsl:variable name="wfs.DescribeFeatureType.get.url">
+				<xsl:value-of
+					select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+			</xsl:variable>
+			<ctl:call-test name="wfs:DescribeFeatureType-output-format-default">
+				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:DescribeFeatureType-invalid-featureType">
+				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4.1">
+				<ctl:with-param name="wfs.DescribeFeatureType.get.url"
+					select="$wfs.DescribeFeatureType.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc8.1">
+				<ctl:with-param name="wfs.DescribeFeatureType.get.url"
+					select="$wfs.DescribeFeatureType.get.url" />
+				<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc12.1">
+				<ctl:with-param name="wfs.DescribeFeatureType.get.url"
+					select="$wfs.DescribeFeatureType.get.url" />
+			</ctl:call-test>
+			<xsl:if test="gmlsf.profile.level = 'sf-1'">
+				<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc10.2">
+					<ctl:with-param name="wfs.DescribeFeatureType.get.url"
+						select="$wfs.DescribeFeatureType.get.url" />
+				</ctl:call-test>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+    
         <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1.1">
       <param name="wfs.DescribeFeatureType.get.url"/>
       <assertion>A valid namespace binding expressed by the namespace parameter in a KVP string shall conform to the syntax specified in subclause 14.4.</assertion>

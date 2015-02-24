@@ -69,6 +69,43 @@
       </ctl:code>
     </ctl:test>
 
+	    <ctl:test name="wfs:run-DescribeFeatureType-basic-cc-POST">
+		<param name="wfs.GetCapabilities.document" />
+		<param name="gmlsf.profile.level" />
+		<ctl:assertion>
+			Run basic conformance class test group for DescribeFeatureType requests using the POST method.
+			Target endpoint is
+			{$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Post/@xlink:href}.
+		</ctl:assertion>
+		<ctl:code>
+			<xsl:variable name="wfs.DescribeFeatureType.post.url">
+				<xsl:value-of
+					select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Post/@xlink:href" />
+			</xsl:variable>
+			<xsl:variable name="kvp-post-supported"
+				select="boolean($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Post/ows:Constraint[@name='InputFormat' and ows:Value='application/x-www-form-urlencoded'])" />
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3.1">
+				<ctl:with-param name="wfs.DescribeFeatureType.post.url"
+					select="$wfs.DescribeFeatureType.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc7.1">
+				<ctl:with-param name="wfs.DescribeFeatureType.post.url"
+					select="$wfs.DescribeFeatureType.post.url" />
+				<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc11.1">
+				<ctl:with-param name="wfs.DescribeFeatureType.post.url"
+					select="$wfs.DescribeFeatureType.post.url" />
+			</ctl:call-test>
+			<xsl:if test="gmlsf.profile.level = 'sf-1'">
+				<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc9.2">
+					<ctl:with-param name="wfs.DescribeFeatureType.post.url"
+						select="$wfs.DescribeFeatureType.post.url" />
+				</ctl:call-test>
+			</xsl:if>
+		</ctl:code>
+	</ctl:test>
+    
    <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc2.1">
       <param name="wfs.DescribeFeatureType.post.url"/>
       <assertion>The Content-Type of all POST KVP-encoded request entities must be 'application/x-www-form-urlencoded'.</assertion>
