@@ -49,7 +49,14 @@
                        </tr>
                     </table>
                  </blockquote>
-			  
+
+   				<input type="radio" id="conformance.class.basic.option" name="conformance.class" value="basic" checked="checked" 
+   						onclick="if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> Basic<br/>
+    			<input type="radio" id="conformance.class.full.option" name="conformance.class" value="full" 
+    			 		onclick="if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> Full<br/>
+
+				<span id="conformance.class.full.options" style="margin-left: 30px; display: none;">
+					
                  <h3>Supported conformance classes</h3>
                  <p>
                  A conformance class denotes a set of functional capabilities provided by the WFS under test.
@@ -99,14 +106,14 @@
                        </tr>
                     </table>
                  </blockquote>
-			  <p>
-                 <div bgcolor="#ffffcc"><strong> WARNING </strong> Don't forget to add the test data!</div>
+				</span>
+				<p>
+					 <div bgcolor="#ffffcc"><strong> WARNING </strong> Don't forget to add the test data!</div>
                  </p>
                  <br />
                  <input type="submit" value="Start"/>
               </body>
            </ctl:form>
-
 	</ctl:suite>
 
    <ctl:test name="wfs:wfs-main">
@@ -114,12 +121,14 @@
       <ctl:param name="wfs-transaction"/>
       <ctl:param name="wfs-xlink"/>
       <ctl:param name="profile"/>
+      <ctl:param name="conformance.class"/>
       <ctl:assertion>WFS 1.1.0 Tests</ctl:assertion>
       <ctl:code>
 
 		<!-- Get user input: -->
 		<xsl:variable name="wfs.GetCapabilities.get.url" select="$capabilities-url"/>
 		<xsl:variable name="gmlsf.profile.level" select="$profile"/>
+		<xsl:variable name="conformance.class" select="$conformance.class"/>
 
 		<!--TODO: Get GMLSF profile level from DescribeFeatureType and XPath expression (gmlsf conformance level 0 or 1) rather than user input-->
 
@@ -154,6 +163,7 @@
 						<ctl:with-param name="wfs-transaction" select="$wfs-transaction"/>
                         <ctl:with-param name="wfs-xlink" select="$wfs-xlink"/>
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>	
+						<ctl:with-param name="conformance.class" select="$conformance.class"/>	
 					</ctl:call-test>
  					
 				</xsl:otherwise>
