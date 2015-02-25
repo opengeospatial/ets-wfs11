@@ -367,6 +367,95 @@
       </ctl:code>
     </ctl:test>
 
+	<ctl:test name="wfs:run-GetFeature-basic-cc-POST">
+		<ctl:param name="wfs.GetCapabilities.document" />
+		<ctl:param name="gmlsf.profile.level" />
+		<ctl:param name="wfs-xlink" />
+		<ctl:assertion>
+			Run basic conformance class test group for GetFeature requests using the
+			POST method. Target endpoint is
+			{$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href}.
+		</ctl:assertion>
+		<ctl:code>
+			<xsl:variable name="wfs.GetFeature.post.url">
+				<xsl:value-of
+					select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href" />
+			</xsl:variable>
+			<xsl:variable name="kvp-post-supported"
+				select="boolean($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/ows:Constraint[@name='InputFormat' and ows:Value='application/x-www-form-urlencoded'])" />
+
+			<xsl:variable name="wfs.between.supported"
+				select="boolean($wfs.GetCapabilities.document//ogc:Filter_Capabilities/ogc:Scalar_Capabilities/ogc:ComparisonOperators/ogc:ComparisonOperator[contains(text(),'Between')])" />
+
+			<xsl:variable name="wfs.PrimitiveGeoFeature.DefaultSRS">
+				<xsl:value-of
+					select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType[wfs:Name='sf:PrimitiveGeoFeature']/wfs:DefaultSRS" />
+			</xsl:variable>
+
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc2.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5.2">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5.3">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc9.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc9.2">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc11.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc11.2">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc11.3">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc11.4">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc11.5">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc13.1">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc13.2">
+				<ctl:with-param name="wfs.GetFeature.post.url"
+					select="$wfs.GetFeature.post.url" />
+			</ctl:call-test>
+		</ctl:code>
+	</ctl:test>
+
+
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1.1">
       <param name="wfs.GetFeature.post.url"/>
       <assertion>The default output format is XML that complies with GML 3.1.1.</assertion>
