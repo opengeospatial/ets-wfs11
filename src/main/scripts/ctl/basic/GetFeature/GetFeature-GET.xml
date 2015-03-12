@@ -1412,13 +1412,13 @@
 									<ctl:with-param name="expr" select="$expression" />
 									<ctl:with-param name="doc" select="$RESPONSE" />
 								</ctl:call-test>
-		                        <xsl:if test="$RESPONSE//wfs:FeatureCollection/@timeStamp and not($RESPONSE//wfs:FeatureCollection/@timeStamp = '')">
+		                        <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@timeStamp) or ($RESPONSE//wfs:FeatureCollection/@timeStamp = '')">
 						              <ctl:message>
 				                      	FAILURE: //wfs:FeatureCollection/@timeStamp is absent or not populated.
 				                      </ctl:message>
 		                            <ctl:fail/>
 		                        </xsl:if>
-		                        <xsl:if test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE/wfs:FeatureCollection/@numberOfFeatures = '')">
+		                        <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures) or ($RESPONSE/wfs:FeatureCollection/@numberOfFeatures = '')">
 						              <ctl:message>
 				                      	FAILURE: //wfs:FeatureCollection/@numberOfFeatures is absent or not populated.
 				                      </ctl:message>
