@@ -130,7 +130,16 @@
 				<xsl:value-of
 					select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
 			</xsl:variable>
-	
+			
+			<xsl:variable name="wfs.FeatureType.names">
+				<xsl:for-each select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType">
+					<xsl:value-of select="wfs:Name" />
+					<xsl:if test="position() != last()">
+						<xsl:text>, </xsl:text>
+					</xsl:if>
+				</xsl:for-each>
+			</xsl:variable>
+			
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 			</ctl:call-test>
@@ -159,6 +168,7 @@
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+				<ctl:with-param name="wfs.FeatureType.names" select="$wfs.FeatureType.names" />
 			</ctl:call-test>
 		</ctl:code>
 	</ctl:test>
@@ -1371,10 +1381,14 @@
 
         <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
       		<param name="wfs.GetFeature.get.url"/>
+      		<param name="wfs.FeatureType.names" />
 			<ctl:assertion>A web feature service must generate a wfs:FeatureCollection element with no content (i.e. empty) but must populate the values of the timeStamp attribute and the numberOfFeatures attribute.</ctl:assertion>
 			<ctl:comment></ctl:comment>
 			<ctl:link>OGC 04-094, 9.3, p. 38</ctl:link>
 			<code>
+				<xsl:variable name="FIRSTFEATURETYPE">
+					<xsl:value-of select="tokenize($wfs.FeatureType.names, ',')[1]" />
+				</xsl:variable>
 				<xsl:variable name="RESPONSE">
 					<request>
 						<url>
@@ -1384,11 +1398,16 @@
 						<param name="service">WFS</param>
 						<param name="version">1.1.0</param>
 						<param name="request">GetFeature</param>
-						<!-- ??? $ftname -->
-						<param name="typename">sf:PrimitiveGeoFeature</param>
+						<param name="typename"><xsl:value-of select="$FIRSTFEATURETYPE" /></param>
 						<param name="resulttype">hits</param>
-						<param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-						<!-- ??? -->
+						<!--  TODO: is namespace required? how to find the namespace url? -->
+						<!-- 
+						<param name="namespace">
+							<xsl:if test="contains( $FIRSTFEATURETYPE, ':')">
+								<xsl:value-of select="concat('xmlns(', tokenize($FIRSTFEATURETYPE, ':')[1], '=', namespace-uri($FIRSTFEATURETYPE), ')')" />	
+							</xsl:if>
+						</param>
+						 -->
 						<p:XMLValidatingParser.GMLSF1 />
 					</request>
 				</xsl:variable>
@@ -1398,39 +1417,26 @@
 						<ctl:fail />
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:choose>
-							<xsl:when test="$RESPONSE/ows:ExceptionReport">
-								<ctl:call-test name="ctl:SchematronValidatingParser">
-									<ctl:with-param name="doc" select="$RESPONSE" />
-									<ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-									<ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
-								</ctl:call-test>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-								<ctl:call-test name="ctl:assert-xpath">
-									<ctl:with-param name="expr" select="$expression" />
-									<ctl:with-param name="doc" select="$RESPONSE" />
-								</ctl:call-test>
-		                        <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@timeStamp) or ($RESPONSE//wfs:FeatureCollection/@timeStamp = '')">
-						              <ctl:message>
-				                      	FAILURE: //wfs:FeatureCollection/@timeStamp is absent or not populated.
-				                      </ctl:message>
-		                            <ctl:fail/>
-		                        </xsl:if>
-		                        <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures) or ($RESPONSE/wfs:FeatureCollection/@numberOfFeatures = '')">
-						              <ctl:message>
-				                      	FAILURE: //wfs:FeatureCollection/@numberOfFeatures is absent or not populated.
-				                      </ctl:message>
-		                            <ctl:fail/>
-		                        </xsl:if>
-							</xsl:otherwise>
-						</xsl:choose>
+						<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+						<ctl:call-test name="ctl:assert-xpath">
+							<ctl:with-param name="expr" select="$expression" />
+							<ctl:with-param name="doc" select="$RESPONSE" />
+						</ctl:call-test>
+                        <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@timeStamp) or ($RESPONSE//wfs:FeatureCollection/@timeStamp = '')">
+				              <ctl:message>
+		                      	FAILURE: //wfs:FeatureCollection/@timeStamp is absent or not populated.
+		                      </ctl:message>
+                            <ctl:fail/>
+                        </xsl:if>
+                        <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures) or ($RESPONSE/wfs:FeatureCollection/@numberOfFeatures = '')">
+				              <ctl:message>
+		                      	FAILURE: //wfs:FeatureCollection/@numberOfFeatures is absent or not populated.
+		                      </ctl:message>
+                            <ctl:fail/>
+                        </xsl:if>
 					</xsl:otherwise>
 				</xsl:choose>
 			</code>
 		</ctl:test>
-
-
 
 </ctl:package>
