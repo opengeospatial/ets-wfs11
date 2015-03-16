@@ -139,6 +139,22 @@
 					</xsl:if>
 				</xsl:for-each>
 			</xsl:variable>
+
+            <xsl:variable name="wfs.FeatureType.names.namespaces">
+                 <xsl:for-each select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType">
+                     <xsl:for-each select="wfs:Name/namespace::*">
+                         <xsl:value-of select="name()" />
+                         <xsl:text>:</xsl:text>
+                         <xsl:value-of select="." />
+                         <xsl:if test="position() != last()">
+                             <xsl:text>, </xsl:text>
+                         </xsl:if>
+                     </xsl:for-each>
+                     <xsl:if test="position() != last()">
+                         <xsl:text>; </xsl:text>
+                     </xsl:if>
+                 </xsl:for-each>
+            </xsl:variable>
 			
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
@@ -169,6 +185,7 @@
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 				<ctl:with-param name="wfs.FeatureType.names" select="$wfs.FeatureType.names" />
+                <ctl:with-param name="wfs.FeatureType.names.namespaces" select="$wfs.FeatureType.names.namespaces" />
 			</ctl:call-test>
 		</ctl:code>
 	</ctl:test>
@@ -570,7 +587,6 @@
       <link>filter-1.1.0-common-atc2</link>
       <link>OGC 04-095, 6.3.2, p.5</link>
                 <code>
-
                         <xsl:variable name="request1">
                                 <request>
                                         <url>
@@ -1382,13 +1398,24 @@
         <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
       		<param name="wfs.GetFeature.get.url"/>
       		<param name="wfs.FeatureType.names" />
+            <param name="wfs.FeatureType.names.namespaces" />
 			<ctl:assertion>A web feature service must generate a wfs:FeatureCollection element with no content (i.e. empty) but must populate the values of the timeStamp attribute and the numberOfFeatures attribute.</ctl:assertion>
 			<ctl:comment></ctl:comment>
 			<ctl:link>OGC 04-094, 9.3, p. 38</ctl:link>
 			<code>
 				<xsl:variable name="FIRSTFEATURETYPE">
-					<xsl:value-of select="tokenize($wfs.FeatureType.names, ',')[1]" />
+					<xsl:value-of select="tokenize($wfs.FeatureType.names, ', ')[1]" />
 				</xsl:variable>
+                <xsl:variable name="FIRSTFEATURETYPENAMESPACE">
+                    <xsl:if test="contains( $FIRSTFEATURETYPE, ':')">
+                        <xsl:variable name="firstNamespaces" select="tokenize($wfs.FeatureType.names.namespaces, '; ')[1]" />
+                        <xsl:for-each select="tokenize($firstNamespaces, ', ')">
+                            <xsl:if test="tokenize($FIRSTFEATURETYPE, ':')[1] = tokenize(., ':')[1]">
+                                <xsl:value-of select="." />
+                            </xsl:if>
+                        </xsl:for-each>
+                    </xsl:if>
+                </xsl:variable>
 				<xsl:variable name="RESPONSE">
 					<request>
 						<url>
@@ -1400,14 +1427,11 @@
 						<param name="request">GetFeature</param>
 						<param name="typename"><xsl:value-of select="$FIRSTFEATURETYPE" /></param>
 						<param name="resulttype">hits</param>
-						<!--  TODO: is namespace required? how to find the namespace url? -->
-						<!-- 
 						<param name="namespace">
 							<xsl:if test="contains( $FIRSTFEATURETYPE, ':')">
-								<xsl:value-of select="concat('xmlns(', tokenize($FIRSTFEATURETYPE, ':')[1], '=', namespace-uri($FIRSTFEATURETYPE), ')')" />	
+								<xsl:value-of select="concat('xmlns(', $FIRSTFEATURETYPENAMESPACE, ')')" />
 							</xsl:if>
 						</param>
-						 -->
 						<p:XMLValidatingParser.GMLSF1 />
 					</request>
 				</xsl:variable>
