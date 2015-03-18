@@ -141,9 +141,6 @@
                 </xsl:if>
             </xsl:variable>
 
-			<ctl:call-test name="wfs:GetFeature-output-format-default">
-				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
-			</ctl:call-test>
 			<ctl:call-test name="wfs:GetFeature-extra-param">
 				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
 			</ctl:call-test>
@@ -161,6 +158,11 @@
 				</ctl:call-test> -->
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc31.1">
                 <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+                <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc4">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
@@ -1393,6 +1395,65 @@
                 </ctl:code>
         </ctl:test>
 
+		<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1">
+			<param name="wfs.GetFeature.get.url" />
+			<param name="wfs.FeatureType.names.first" />
+			<param name="wfs.FeatureType.names.first.namespace" />
+			<assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml;
+				subtype=gml/3.1.1".
+			</assertion>
+			<comment></comment>
+			<link>OGC 04-094, 9.3, p.38</link>
+			<code>
+				<xsl:variable name="RESPONSE">
+					<request>
+						<url>
+							<xsl:value-of select="$wfs.GetFeature.get.url" />
+						</url>
+						<method>get</method>
+						<param name="request">GetFeature</param>
+						<param name="service">WFS</param>
+						<param name="version">1.1.0</param>
+						<param name="typename">
+							<xsl:value-of select="$wfs.FeatureType.names.first" />
+						</param>
+						<param name="resulttype">hits</param>
+						<param name="namespace">
+							<xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
+								<xsl:value-of
+									select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
+							</xsl:if>
+						</param>
+						<parsers:HTTPParser>
+							<parsers:parse>
+								<p:XMLValidatingParser.GMLSF1 />
+							</parsers:parse>
+						</parsers:HTTPParser>
+					</request>
+				</xsl:variable>
+				<xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+				<xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')" />
+				<xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/3.1.1'))">
+					<fail />
+				</xsl:if>
+				
+				<xsl:variable name="content" select="$RESPONSE/response/content" />
+				<xsl:choose>
+					<xsl:when test="not($content/*)">
+						<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+						<ctl:fail />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+						<ctl:call-test name="ctl:assert-xpath">
+							<ctl:with-param name="expr" select="$expression" />
+							<ctl:with-param name="doc" select="$content" />
+						</ctl:call-test>
+					</xsl:otherwise>
+				</xsl:choose>
+				
+			</code>
+		</test>
 
 		<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc4">
 			<param name="wfs.GetFeature.get.url" />
