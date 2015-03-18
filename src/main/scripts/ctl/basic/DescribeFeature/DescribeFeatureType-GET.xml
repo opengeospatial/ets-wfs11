@@ -141,9 +141,11 @@
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc2">
 				<ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc12.1">
-				<ctl:with-param name="wfs.DescribeFeatureType.get.url"
-					select="$wfs.DescribeFeatureType.get.url" />
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">
+				<ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+                <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+				<ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<xsl:if test="gmlsf.profile.level = 'sf-1'">
 				<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc10.2">
@@ -830,6 +832,74 @@
 				</xsl:otherwise>
 			</xsl:choose>
 
+		</code>
+	</test>
+        
+	<test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">
+		<param name="wfs.DescribeFeatureType.get.url" />
+		<param name="CAPABILITIES" />
+        <param name="wfs.FeatureType.names.first" />
+        <param name="wfs.FeatureType.names.first.namespace" />
+		<assertion>A request with no TypeName elements shall produce a response that includes definitions of all supported feature types in the requested schema language.</assertion>
+		<comment>DescribeFeatureType with the namespace KVP parameter (escaped by engine). Pass if the following
+			condition is true: (1) the response is schema valid; (2) the root document is an xsd:schema document. IS: now tests
+			all FeatureTypeNames advertised in GetCapabiltiesResponse.</comment>
+		<link>wfs-1.1.0-Basic-atc6</link>
+		<link>OGC 04-094, 14.4, p.96</link>
+		<code>
+			<xsl:variable name="describeFeatureTypeRequest">
+				<request>
+					<url>
+						<xsl:value-of select="$wfs.DescribeFeatureType.get.url" />
+					</url>
+					<method>get</method>
+					<param name="service">WFS</param>
+					<param name="version">1.1.0</param>
+					<param name="request">DescribeFeatureType</param>
+					<p:XMLValidatingParser.XMLSchema />
+				</request>
+			</xsl:variable>
+			<xsl:variable name="targetNamespace">
+				<xsl:value-of select="$describeFeatureTypeRequest/xsd:schema/@targetNamespace" />
+			</xsl:variable>
+
+			<xsl:choose>
+				<xsl:when test="not($describeFeatureTypeRequest/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">//xsd:schema</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$describeFeatureTypeRequest" />
+					</ctl:call-test>
+		
+					<xsl:for-each select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType">
+						<xsl:variable name="iteration" select="position()" />
+						<xsl:variable name="ftname">
+							<xsl:value-of select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name" />
+						</xsl:variable>
+						<xsl:variable name="prefix">
+							<xsl:value-of select="substring-before($ftname , ':')" />
+						</xsl:variable>
+						<xsl:variable name="namespace">
+							<xsl:value-of select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name/namespace::*[name()=$prefix]" />
+						</xsl:variable>
+						<xsl:variable name="localName">
+							<xsl:value-of select="substring-after($ftname , ':')" />
+						</xsl:variable>
+						<xsl:if test="not($describeFeatureTypeRequest/xsd:schema/xsd:element[@name = $localName])">
+							<ctl:message>FAILURE: Feature Type <xsl:value-of select="$localName"/> is not described in DescribeFeatureType response but listed in capabilities document.</ctl:message>
+							<ctl:fail />
+						</xsl:if>
+						<xsl:if test="$namespace != $targetNamespace">
+							<ctl:message>FAILURE: Namespace binding of FeatureType <xsl:value-of select="$ftname"/> is not as expected: should be <xsl:value-of select="$namespace"/> but is <xsl:value-of select="$targetNamespace"/>. __<xsl:value-of select="$ftname/namespace::*"/>__</ctl:message>
+							<ctl:fail />
+						</xsl:if>
+					</xsl:for-each>
+				</xsl:otherwise>
+			</xsl:choose>
 		</code>
 	</test>
 	
