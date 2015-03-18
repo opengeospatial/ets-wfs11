@@ -894,7 +894,7 @@
 							<ctl:fail />
 						</xsl:if>
 						<xsl:if test="$namespace != $targetNamespace">
-							<ctl:message>FAILURE: Namespace binding of FeatureType <xsl:value-of select="$ftname"/> is not as expected: should be <xsl:value-of select="$namespace"/> but is <xsl:value-of select="$targetNamespace"/>. __<xsl:value-of select="$ftname/namespace::*"/>__</ctl:message>
+							<ctl:message>FAILURE: Namespace binding of FeatureType <xsl:value-of select="$ftname"/> is not as expected: should be <xsl:value-of select="$namespace"/> but is <xsl:value-of select="$targetNamespace"/>.</ctl:message>
 							<ctl:fail />
 						</xsl:if>
 					</xsl:for-each>
