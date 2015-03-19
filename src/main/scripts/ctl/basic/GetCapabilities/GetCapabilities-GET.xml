@@ -65,13 +65,13 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10.3">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11.1">
+                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc12.1">
+                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13.1">
+                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13.2">
@@ -89,7 +89,7 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc15.2">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc16.1">
+                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc16.2">
@@ -101,10 +101,10 @@
                 <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc16.5">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc17.1">
+                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc14">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
-                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc18.1">
+                <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc15">
                         <ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>
                 </ctl:call-test>
 
@@ -197,15 +197,15 @@
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11.1">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc12.1">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13.1">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
@@ -213,15 +213,15 @@
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc16.1">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc17.1">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc14">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc18.1">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc15">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
@@ -811,7 +811,7 @@
                 </code>
         </test>
 
-        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11.1">
+        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>A response message containing an entity body must contain a Content-Type entity header field that correctly indicates the media type of the message body.</assertion>
       <comment>Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document; (3) the response Content-Type header must be 'application/xml' or 'text/xml' for XML entities.</comment>
@@ -855,7 +855,7 @@
                 </code>
         </test>
 
-                <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc12.1">
+                <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>All OGC web services must implement the GetCapabilities request to provide an XML representation of service metadata.</assertion>
       <comment>Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document.</comment>
@@ -893,7 +893,7 @@
                 </code>
         </test>
 
-                <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13.1">
+                <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>A KVP-encoded GetCapabilities request shall include the following query parameters: service=WxS request=GetCapabilities, where WxS is a mnemonic label for a service type. See Table 2 for definitions of optional query parameters.</assertion>
       <comment>GetCapabilities with version of '1.1.0' and service of 'WFS'.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document; (3) the response version must be what was requested.</comment>
@@ -1128,7 +1128,7 @@
                 </code>
         </test>
 
-        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc16.1">
+        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>In the event that a GetCapabilities request cannot be processed for any reason, the response entity shall include an exception report. The exception code must be one of those listed in Table 5.</assertion>
       <comment>GetCapabilities with no service parameter.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document; (3) the ExceptionReport shall have the 'MissingParameterValue' exception code; (4) theExceptionReport @locator value shall be that of the missing parameter.</comment>
@@ -1342,7 +1342,7 @@
                 </code>
         </test>
 
-        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc17.1">
+        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc14">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>A valid service metadata document must conform to a content model based on the ows:CapabilitiesBaseType definition. Additional service-specific elements may be defined as needed.</assertion>
       <comment>Pass if all of the following conditions are true: (1) the response is schema valid (containing all required elements); (2) the root document is an ows:ExceptionReport document.</comment>
@@ -1380,7 +1380,7 @@
                 </code>
         </test>
 
-        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc18.1">
+        <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc15">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>A complete service metadata document must include mandatory parameters and constraints in the OperationsMetadata section.</assertion>
       <comment>Pass if the response is schema valid and includes a complete wfs:WFS_Capabilities document.</comment>
@@ -1548,5 +1548,5 @@
           </xsl:for-each>
                 </ctl:code>
         </ctl:test>
-
+        
 </ctl:package>
