@@ -153,15 +153,7 @@
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc4.1">
-				<ctl:with-param name="wfs.GetCapabilities.get.url"
-					select="$wfs.GetCapabilities.get.url" />
-			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc4.2">
-				<ctl:with-param name="wfs.GetCapabilities.get.url"
-					select="$wfs.GetCapabilities.get.url" />
-			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc4.3">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc3">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
@@ -1536,6 +1528,181 @@
           </xsl:for-each>
                 </ctl:code>
         </ctl:test>
+
+	<test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc3">
+		<param name="wfs.GetCapabilities.get.url" />
+		<assertion>Host names in a URI are case-insensitive.</assertion>
+		<comment>GetCapabilities with host URI in [1] all uppercase, [2] all mixed-case [3] all lowercase. Pass if all of the
+			following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities
+			document.</comment>
+		<link>wfs-1.1.0-Basic-atc2</link>
+		<link>OGC 04-094, 6.3.1, p.10</link>
+		<link>RFC 3986, 3.2.2</link>
+		<code>
+			<xsl:variable name="url1">
+				<xsl:choose>
+					<xsl:when
+						test="boolean(starts-with($wfs.GetCapabilities.get.url,'http://') or starts-with($wfs.GetCapabilities.get.url,'https://'))">
+						<xsl:variable name="after_slashes">
+							<xsl:value-of select="substring-after($wfs.GetCapabilities.get.url,'//')" />
+						</xsl:variable>
+						<xsl:variable name="prefix">
+							<xsl:value-of select="substring-before($wfs.GetCapabilities.get.url,'//')" />
+						</xsl:variable>
+						<xsl:variable name="stripped_uri">
+							<xsl:value-of select="substring-before($after_slashes,'/')" />
+						</xsl:variable>
+						<xsl:variable name="postfix">
+							<xsl:value-of select="substring-after($after_slashes,'/')" />
+						</xsl:variable>
+						<xsl:variable name="uppercase_uri">
+							<xsl:value-of select="translate($stripped_uri,'abcdefghijklmnopqrstuvwxyz','ABCDEFGHIJKLMNOPQRSTUVWXYZ')" />
+						</xsl:variable>
+						<xsl:value-of select="concat($prefix,'//',$uppercase_uri,'/',$postfix)" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$wfs.GetCapabilities.get.url" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="request1">
+				<request>
+					<url>
+						<xsl:value-of select="$url1" />
+					</url>
+					<method>get</method>
+					<param name="service">WFS</param>
+					<param name="version">1.1.0</param>
+					<param name="request">GetCapabilities</param>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+
+			<xsl:variable name="url2">
+				<xsl:choose>
+					<xsl:when
+						test="boolean(starts-with($wfs.GetCapabilities.get.url,'http://') or starts-with($wfs.GetCapabilities.get.url,'https://'))">
+						<xsl:variable name="after_slashes">
+							<xsl:value-of select="substring-after($wfs.GetCapabilities.get.url,'//')" />
+						</xsl:variable>
+						<xsl:variable name="prefix">
+							<xsl:value-of select="substring-before($wfs.GetCapabilities.get.url,'//')" />
+						</xsl:variable>
+						<xsl:variable name="stripped_uri">
+							<xsl:value-of select="substring-before($after_slashes,'/')" />
+						</xsl:variable>
+						<xsl:variable name="postfix">
+							<xsl:value-of select="substring-after($after_slashes,'/')" />
+						</xsl:variable>
+						<xsl:variable name="uppercase_uri">
+							<xsl:value-of select="translate($stripped_uri,'abcdefghijklmnopqrstuvwxyz','AbCDeFghIJklMnoPQrSTUVwxYZ')" />
+						</xsl:variable>
+						<xsl:value-of select="concat($prefix,'//',$uppercase_uri,'/',$postfix)" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$wfs.GetCapabilities.get.url" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="request2">
+				<request>
+					<url>
+						<xsl:value-of select="$url2" />
+					</url>
+					<method>get</method>
+					<param name="service">WFS</param>
+					<param name="version">1.1.0</param>
+					<param name="request">GetCapabilities</param>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+			
+			<xsl:variable name="url3">
+				<xsl:choose>
+					<xsl:when
+						test="boolean(starts-with($wfs.GetCapabilities.get.url,'http://') or starts-with($wfs.GetCapabilities.get.url,'https://'))">
+						<xsl:variable name="after_slashes">
+							<xsl:value-of select="substring-after($wfs.GetCapabilities.get.url,'//')" />
+						</xsl:variable>
+						<xsl:variable name="prefix">
+							<xsl:value-of select="substring-before($wfs.GetCapabilities.get.url,'//')" />
+						</xsl:variable>
+						<xsl:variable name="stripped_uri">
+							<xsl:value-of select="substring-before($after_slashes,'/')" />
+						</xsl:variable>
+						<xsl:variable name="postfix">
+							<xsl:value-of select="substring-after($after_slashes,'/')" />
+						</xsl:variable>
+						<xsl:variable name="uppercase_uri">
+							<xsl:value-of select="translate($stripped_uri,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')" />
+						</xsl:variable>
+						<xsl:value-of select="concat($prefix,'//',$uppercase_uri,'/',$postfix)" />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$wfs.GetCapabilities.get.url" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="request3">
+				<request>
+					<url>
+						<xsl:value-of select="$url3" />
+					</url>
+					<method>get</method>
+					<param name="service">WFS</param>
+					<param name="version">1.1.0</param>
+					<param name="request">GetCapabilities</param>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+
+			<xsl:choose>
+				<xsl:when test="not($request1/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">
+						//wfs:WFS_Capabilities
+					</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="not($request2/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">
+						//wfs:WFS_Capabilities
+					</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request2" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="not($request3/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">
+						//wfs:WFS_Capabilities
+					</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request3" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+		</code>
+	</test>
 
 		<test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc7">
 			<param name="wfs.GetCapabilities.get.url" />
