@@ -177,11 +177,7 @@
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9.1">
-				<ctl:with-param name="wfs.GetCapabilities.get.url"
-					select="$wfs.GetCapabilities.get.url" />
-			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9.2">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc7">
 				<ctl:with-param name="wfs.GetCapabilities.get.url"
 					select="$wfs.GetCapabilities.get.url" />
 			</ctl:call-test>
@@ -1548,5 +1544,69 @@
           </xsl:for-each>
                 </ctl:code>
         </ctl:test>
+
+		<test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc7">
+			<param name="wfs.GetCapabilities.get.url" />
+			<assertion>A valid http URL value shall conform to the syntax specified in RFC 2616. http_URL = 'http:' '//' host [
+				':' port ] [ abs_path [ '?' query ]]</assertion>
+			<comment>[1] GetCapabilities with the proper KVP syntax. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document.
+					 [2] GetCapabilities with improper KVP syntax (using '#' and ',' instead of '?' or '&amp;').  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document</comment>
+			<link>ows-1.0.0-common-atc3</link>
+			<link>OGC 05-008c1, 11.1, p.54</link>
+			<code>
+	
+				<xsl:variable name="request1">
+					<request>
+						<url>
+							<xsl:value-of select="$wfs.GetCapabilities.get.url" />
+						</url>
+						<method>get</method>
+						<param name="service">WFS</param>
+						<param name="version">1.1.0</param>
+						<param name="request">GetCapabilities</param>
+						<p:XMLValidatingParser.GMLSF1 />
+					</request>
+				</xsl:variable>
+				<xsl:variable name="request2">
+					<request>
+						<url>
+							<xsl:value-of select="concat($wfs.GetCapabilities.get.url,'version=1.1.0#request=GetCapabilities,service=WFS')" />
+						</url>
+						<method>get</method>
+						<p:XMLValidatingParser.GMLSF1 />
+					</request>
+				</xsl:variable>
+				<xsl:choose>
+					<xsl:when test="not($request1/*)">
+						<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+						<ctl:fail />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:variable name="expression">
+							//wfs:WFS_Capabilities
+						</xsl:variable>
+						<ctl:call-test name="ctl:assert-xpath">
+							<ctl:with-param name="expr" select="$expression" />
+							<ctl:with-param name="doc" select="$request1" />
+						</ctl:call-test>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:choose>
+					<xsl:when test="not($request2/*)">
+						<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+						<ctl:fail />
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:variable name="expression">
+							//ows:ExceptionReport
+						</xsl:variable>
+						<ctl:call-test name="ctl:assert-xpath">
+							<ctl:with-param name="expr" select="$expression" />
+							<ctl:with-param name="doc" select="$request2" />
+						</ctl:call-test>
+					</xsl:otherwise>
+				</xsl:choose>
+			</code>
+		</test>
         
 </ctl:package>
