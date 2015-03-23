@@ -12,6 +12,7 @@ Execute the following Test Steps:
 
 * Response complies to xml schema: http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 * Response contains [wfs:FeatureCollection]
+* numberOfFeatures attribute matches the number of features in feature collection in response
 
 
 **Reference(s)**: OGC 04-094, 9.3, p.38 

@@ -1545,13 +1545,9 @@
 							<ctl:with-param name="expr" select="$expression" />
 							<ctl:with-param name="doc" select="$RESPONSE" />
 						</ctl:call-test>
-                        <xsl:if test="not(($RESPONSE//gml:featureMember) or ($RESPONSE//gml:featureMembers/*))">
-							<ctl:message>FAILURE: No feature members found in response.</ctl:message>
-							<fail />
-						</xsl:if>
 						<xsl:if
 							test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
-							<ctl:message>FAILURE: Number of features (//wfs:FeatureCollection/@numberOfFeatures) does not match the numer of features in feature collection.</ctl:message>
+							<ctl:message>FAILURE: Number of features (//wfs:FeatureCollection/@numberOfFeatures) does not match the number of features in feature collection.</ctl:message>
 							<fail />
 						</xsl:if>
 					</xsl:otherwise>
