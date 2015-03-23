@@ -11,9 +11,9 @@ Execute the following Test Steps:
 **Conditions**
 
 * Response to request complies to xml schema: http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
-* Response to contains [wfs:FeatureCollection]
-* Number of featureMember elements equals number of child elements of featureMembers elements
-* All elements of $PROPERTYNAME[1] contain $CONTENT
+* Response contains [wfs:FeatureCollection]
+* Number of featureMember elements equals number of child elements of featureMembers elements in response
+* All elements of $PROPERTYNAME[1] contain $CONTENT in response
 
 
 **Reference(s)**: OGC 04-095, 7.4.2, p.18 and OGC 04-095, 7.2, p.9
