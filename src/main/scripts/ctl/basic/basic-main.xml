@@ -24,6 +24,8 @@
       <ctl:param name="gmlsf.profile.level"/>
 	  <ctl:param name="wfs-xlink"/>
 	  <ctl:param name="conformance.class"/>
+      <ctl:param name="conformance.class.method.get"/>
+      <ctl:param name="conformance.class.method.post"/>
 
 		<ctl:assertion>Tests the WFS 1.1.0 basic capabilities and operations.</ctl:assertion>
 		<ctl:code>
@@ -59,19 +61,21 @@
 					<xsl:choose>
 						<xsl:when test="$conformance.class = 'basic'" >
 							<!-- Run mandatory test groups -->
-							<ctl:call-test name="wfs:run-GetCapabilities-basic-cc-GET">
-								<ctl:with-param name="wfs.GetCapabilities.document"
-									select="$wfs.GetCapabilities.document" />
-							</ctl:call-test>
+                            <xsl:if test="$conformance.class.method.get = 'true' or $conformance.class.method.post = 'true'">
+							    <ctl:call-test name="wfs:run-GetCapabilities-basic-cc-GET">
+								    <ctl:with-param name="wfs.GetCapabilities.document"
+									    select="$wfs.GetCapabilities.document" />
+							    </ctl:call-test>
+                            </xsl:if>
 							<!--At least one DescribeFeatureType expected -->
-							<xsl:if test="not($wfs.DescribeFeatureType.post.url = '')">
+							<xsl:if test="not($wfs.DescribeFeatureType.post.url = '') and $conformance.class.method.post = 'true'">
 								<ctl:call-test name="wfs:run-DescribeFeatureType-basic-cc-POST">
 									<ctl:with-param name="wfs.GetCapabilities.document"
 										select="$wfs.GetCapabilities.document" />
 									<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level" />
 								</ctl:call-test>
 							</xsl:if>
-							<xsl:if test="not($wfs.DescribeFeatureType.get.url = '')">
+							<xsl:if test="not($wfs.DescribeFeatureType.get.url = '') and $conformance.class.method.get = 'true'">
 								<ctl:call-test name="wfs:run-DescribeFeatureType-basic-cc-GET">
 									<ctl:with-param name="wfs.GetCapabilities.document"
 										select="$wfs.GetCapabilities.document" />
@@ -79,7 +83,7 @@
 								</ctl:call-test>
 							</xsl:if>
 							<!--At least one GetFeature expected -->
-							<xsl:if test="not($wfs.GetFeature.post.url = '')">
+							<xsl:if test="not($wfs.GetFeature.post.url = '') and $conformance.class.method.post = 'true'">
 								<ctl:call-test name="wfs:run-GetFeature-basic-cc-POST">
 									<ctl:with-param name="wfs.GetCapabilities.document"
 										select="$wfs.GetCapabilities.document" />
@@ -87,7 +91,7 @@
 									<ctl:with-param name="wfs-xlink" select="$wfs-xlink" />
 								</ctl:call-test>
 							</xsl:if>
-							<xsl:if test="not($wfs.GetFeature.get.url = '')">
+							<xsl:if test="not($wfs.GetFeature.get.url = '') and $conformance.class.method.get = 'true'">
 								<ctl:call-test name="wfs:run-GetFeature-basic-cc-GET">
 									<ctl:with-param name="wfs.GetCapabilities.document"
 										select="$wfs.GetCapabilities.document" />
