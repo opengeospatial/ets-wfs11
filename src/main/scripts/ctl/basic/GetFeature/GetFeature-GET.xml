@@ -172,12 +172,12 @@
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
@@ -1545,13 +1545,9 @@
 							<ctl:with-param name="expr" select="$expression" />
 							<ctl:with-param name="doc" select="$RESPONSE" />
 						</ctl:call-test>
-                        <xsl:if test="not(($RESPONSE//gml:featureMember) or ($RESPONSE//gml:featureMembers/*))">
-							<ctl:message>FAILURE: No feature members found in response.</ctl:message>
-							<fail />
-						</xsl:if>
 						<xsl:if
 							test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
-							<ctl:message>FAILURE: Number of features (//wfs:FeatureCollection/@numberOfFeatures) does not match the numer of features in feature collection.</ctl:message>
+							<ctl:message>FAILURE: Number of features (//wfs:FeatureCollection/@numberOfFeatures) does not match the number of features in feature collection.</ctl:message>
 							<fail />
 						</xsl:if>
 					</xsl:otherwise>
@@ -1723,7 +1719,7 @@
 			</code>
 		</test>
         
-        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
+        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
       		<param name="wfs.GetFeature.get.url"/>
       		<param name="wfs.FeatureType.names.first" />
             <param name="wfs.FeatureType.names.first.namespace" />
@@ -1772,7 +1768,7 @@
 			</code>
 		</ctl:test>
         
-        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
+        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
       		<param name="wfs.GetFeature.get.url"/>
       		<param name="wfs.FeatureType.names.first" />
             <param name="wfs.FeatureType.names.first.namespace" />
