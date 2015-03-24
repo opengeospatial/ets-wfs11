@@ -49,15 +49,52 @@
                        </tr>
                     </table>
                  </blockquote>
-
+				
+				<!-- Basic -->
    				<input type="radio" id="conformance.class.basic.option" name="conformance.class" value="basic" checked="checked" 
-   						onclick="document.getElementById('conformance.class.basic.option.get').checked = true; document.getElementById('conformance.class.basic.option.post').checked = true; if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> Basic<br/>
-   				<input type="checkbox" id="conformance.class.basic.option.get" name="conformance.class.method.get" value="true" checked="checked" style="margin-left:25px"
-   						onclick="document.getElementById('conformance.class.basic.option').checked = true; if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> GET<br/>
-   				<input type="checkbox" id="conformance.class.basic.option.post" name="conformance.class.method.post" value="true" checked="checked" style="margin-left:25px"
-   						onclick="document.getElementById('conformance.class.basic.option').checked = true; if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> POST<br/>
+   						onclick="if(document.getElementById('conformance.class.full.option').checked) { 
+   									document.getElementById('conformance.class.full.options').style.display='block'; 
+   									document.getElementById('conformance.class.basic.options').style.display='none'; 
+   								}else{ 
+   									document.getElementById('conformance.class.full.options').style.display='none';  
+   									document.getElementById('conformance.class.basic.options').style.display='block'
+   								}"/> Basic<br/>
+   								
+					<span id="conformance.class.basic.options" style="margin-left: 30px; display: block;">
+						<h3>Supported Methods</h3>
+						<p>Select the method (GET | POST) to test.</p>
+						<blockquote>
+							<table border="1" frame="box" padding="4" bgcolor="#00ffff">
+								<tr>
+									<td align="center">
+										<input name="conformance.class.method.get" type="checkbox" value="true" checked="checked"/>
+									</td>
+									<td align="left">
+										<strong>GET</strong>
+									</td>
+								</tr>
+								<tr>
+									<td align="center">
+										<input name="conformance.class.method.post" type="checkbox" value="true" checked="checked" />
+									</td>
+									<td align="left">
+										<strong>POST</strong>
+									</td>
+								</tr>
+							</table>
+						</blockquote>
+						<br />
+					</span>
+    			
+    			<!-- Full -->
     			<input type="radio" id="conformance.class.full.option" name="conformance.class" value="full"
-    			 		onclick="document.getElementById('conformance.class.basic.option.get').checked = false; document.getElementById('conformance.class.basic.option.post').checked = false; if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> Full<br/>
+    			 		onclick="if(document.getElementById('conformance.class.full.option').checked){ 
+    			 					document.getElementById('conformance.class.full.options').style.display='block'; 
+    			 					document.getElementById('conformance.class.basic.options').style.display='none'; 
+    			 				}else{ 
+    			 					document.getElementById('conformance.class.full.options').style.display='none'; 
+    			 					document.getElementById('conformance.class.basic.options').style.display='block'; 
+    			 				}"/> Full<br/>
 
 				<span id="conformance.class.full.options" style="margin-left: 30px; display: none;">
 					
@@ -110,10 +147,10 @@
                        </tr>
                     </table>
                  </blockquote>
-				</span>
 				<p>
 					 <div bgcolor="#ffffcc"><strong> WARNING </strong> Don't forget to add the test data!</div>
                  </p>
+				</span>
                  <br />
                  <input type="submit" value="Start"/>
               </body>
