@@ -1,6 +1,6 @@
 # BasicDescribeFeatureType-POST-tc4
 
-**Purpose**:  Application schemas that comply with GML 3.1.1 must be a supported. These are presented if no outputFormat is specified
+**Purpose**:  The response for an invalid DescribeFeatureType request is an exception
 
 **Test method**
 
