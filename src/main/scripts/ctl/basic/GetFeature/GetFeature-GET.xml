@@ -172,12 +172,12 @@
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
@@ -1719,7 +1719,7 @@
 			</code>
 		</test>
         
-        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
+        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
       		<param name="wfs.GetFeature.get.url"/>
       		<param name="wfs.FeatureType.names.first" />
             <param name="wfs.FeatureType.names.first.namespace" />
@@ -1768,7 +1768,7 @@
 			</code>
 		</ctl:test>
         
-        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8">
+        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
       		<param name="wfs.GetFeature.get.url"/>
       		<param name="wfs.FeatureType.names.first" />
             <param name="wfs.FeatureType.names.first.namespace" />
