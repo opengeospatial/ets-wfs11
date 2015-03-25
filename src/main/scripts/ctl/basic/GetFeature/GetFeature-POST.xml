@@ -417,9 +417,10 @@
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc2.1">
-				<ctl:with-param name="wfs.GetFeature.post.url"
-					select="$wfs.GetFeature.post.url" />
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc2">
+				<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url" />
+				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+                <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5.1">
 				<ctl:with-param name="wfs.GetFeature.post.url"
@@ -4671,6 +4672,66 @@
 				</xsl:otherwise>
 			</xsl:choose>
 
+		</code>
+	</test>
+
+	<test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc2">
+		<param name="wfs.GetFeature.post.url" />
+		<param name="wfs.FeatureType.names.first" />
+		<param name="wfs.FeatureType.names.first.namespace" />
+		<assertion>If @resultType='hits', then only the size of the resulting feature collection and a timestamp is returned (i.e. @numberOfFeatures, @timeStamp). Only instances of requested feature types are included in the total</assertion>
+		<comment>GetFeature with resulttype of 'hits'. Pass if all of the following conditions are true: 
+				(1) the response is schema valid; 
+				(2) the root document is an wfs:FeatureCollection document; 
+				(3) there are no features in the response;
+				(4) the numberOfFeatures and timeStamp attributes are present.</comment>
+		<link>wfs-1.1.0-Basic-GetFeature-atc2</link>
+		<link>OGC 04-094, 9.3, p.38</link>
+		<code>
+			<xsl:variable name="request1">
+				<request>
+					<url>
+						<xsl:value-of select="$wfs.GetFeature.post.url" />
+					</url>
+					<method>post</method>
+					<body>
+						<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS" resultType="hits" >
+					    	<wfs:Query srsName="urn:ogc:def:crs:EPSG::4326" >
+						    	<xsl:if test="contains($wfs.FeatureType.names.first, ':' )">
+									<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
+								</xsl:if>
+								<xsl:attribute name="typeName">app:<xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )" /></xsl:attribute>
+					    	</wfs:Query>
+  						</wfs:GetFeature>
+					</body>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+	
+			<xsl:choose>
+				<xsl:when test="not($request1/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+					<xsl:variable name="expression">boolean(//wfs:FeatureCollection/@numberOfFeatures) and boolean(//wfs:FeatureCollection/@timeStamp)</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+					<xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+	
 		</code>
 	</test>
 
