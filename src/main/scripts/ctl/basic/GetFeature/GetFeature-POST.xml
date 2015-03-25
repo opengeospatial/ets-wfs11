@@ -422,6 +422,11 @@
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc3">
+				<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url" />
+				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+                <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
+			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5.1">
 				<ctl:with-param name="wfs.GetFeature.post.url"
 					select="$wfs.GetFeature.post.url" />
@@ -4737,4 +4742,63 @@
 		</code>
 	</test>
 
+	<test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc3">
+		<param name="wfs.GetFeature.post.url" />
+		<param name="wfs.FeatureType.names.first" />
+		<param name="wfs.FeatureType.names.first.namespace" />
+		<assertion>If @maxFeatures > 0, then the number of features included in the response shall not exceed the specified number. Members of a feature collection do NOT count toward the total.</assertion>
+		<comment>GetFeature with maxFeatures of '2'. Pass if all of the following conditions are true: 
+				(1) the response is schema valid; 
+				(2) the root document is an wfs:FeatureCollection document; 
+				(3) the number of featureMembers in the response is less than or equal to the maxFeatures attribute value in the request.</comment>
+		<link>wfs-1.1.0-Basic-GetFeature-atc3</link>
+		<link>OGC 04-094, 9.2, p.35</link>
+		<code>
+			<xsl:variable name="request1">
+				<request>
+					<url>
+						<xsl:value-of select="$wfs.GetFeature.post.url" />
+					</url>
+					<method>post</method>
+					<body>
+						<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS" maxFeatures="2" >
+					    	<wfs:Query srsName="urn:ogc:def:crs:EPSG::4326" >
+								<xsl:choose>
+									<xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
+										<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace" />
+										<xsl:attribute name="typeName">app:<xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )" /></xsl:attribute>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first" /></xsl:attribute>
+									</xsl:otherwise>
+								</xsl:choose>
+					    	</wfs:Query>
+  						</wfs:GetFeature>
+					</body>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+	
+			<xsl:choose>
+				<xsl:when test="not($request1/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+					<xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &lt;= 2</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+	
+		</code>
+	</test>
+	
 </ctl:package>
