@@ -4630,12 +4630,6 @@
 		<link>wfs-1.1.0-Basic-GetFeature-atc1</link>
 		<link>OGC 04-094, 9.2, p.34</link>
 		<code>
-
-			<xsl:variable name="prefix">
-				<xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
-					<xsl:value-of select="substring-before( $wfs.FeatureType.names.first, ':' )"/>
-				</xsl:if>
-			</xsl:variable>
 			<xsl:variable name="request1">
 				<request>
 					<url>
@@ -4645,10 +4639,15 @@
 					<body>
   						<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
 					    	<wfs:Query srsName="urn:ogc:def:crs:EPSG::4326" >
-					    	<xsl:if test="$prefix != ''">
-								<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-							</xsl:if>
-							<xsl:attribute name="typeName">app:<xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )" /></xsl:attribute>
+								<xsl:choose>
+									<xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
+										<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace" />
+										<xsl:attribute name="typeName">app:<xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )" /></xsl:attribute>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first" /></xsl:attribute>
+									</xsl:otherwise>
+								</xsl:choose>
 					    	</wfs:Query>
   						</wfs:GetFeature>
 					</body>
@@ -4662,9 +4661,7 @@
 					<ctl:fail />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:variable name="expression">
-						//wfs:FeatureCollection
-					</xsl:variable>
+					<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
 					<ctl:call-test name="ctl:assert-xpath">
 						<ctl:with-param name="expr" select="$expression" />
 						<ctl:with-param name="doc" select="$request1" />
