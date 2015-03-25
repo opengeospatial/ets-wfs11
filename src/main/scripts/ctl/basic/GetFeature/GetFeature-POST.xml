@@ -437,13 +437,10 @@
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc9.1">
-				<ctl:with-param name="wfs.GetFeature.post.url"
-					select="$wfs.GetFeature.post.url" />
-			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc9.2">
-				<ctl:with-param name="wfs.GetFeature.post.url"
-					select="$wfs.GetFeature.post.url" />
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc6">
+				<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url" />
+				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+                <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc11.1">
 				<ctl:with-param name="wfs.GetFeature.post.url"
@@ -4895,6 +4892,106 @@
 						<ctl:message>FAILURE: Missing required attribute, wfs:FeatureCollection/@xsi:schemaLocation</ctl:message>
 						<ctl:fail />
 					</xsl:if>
+				</xsl:otherwise>
+			</xsl:choose>
+		</code>
+	</test>
+	
+	<test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc6">
+		<param name="wfs.GetFeature.post.url" />
+		<param name="wfs.FeatureType.names.first" />
+		<param name="wfs.FeatureType.names.first.namespace" />
+		<assertion>If a request is unrecognizable or the service cannot process the request, a valid exception report must be returned.</assertion>
+		<comment>GetFeature with an [1] incorrect typename ('Asdf'), [2] incorrect propertyname ('asdfProperty') in the query. Pass if all of the following conditions are true: 
+					(1) the response is schema valid; 
+					(2) the root document is an ows:ServiceException document.</comment>
+		<link>wfs-1.1.0-Basic-GetFeature-atc6</link>
+		<link>OGC 04-094, 7.7, p. 23</link>
+		<code>
+
+			<xsl:variable name="request1">
+				<request>
+					<url>
+						<xsl:value-of select="$wfs.GetFeature.post.url" />
+					</url>
+					<method>post</method>
+					<body>
+						<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS" >
+					    	<wfs:Query srsName="urn:ogc:def:crs:EPSG::4326" >
+								<xsl:choose>
+									<xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
+										<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace" />
+										<xsl:attribute name="typeName">app:Asdf</xsl:attribute>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:attribute name="typeName">Asdf</xsl:attribute>
+									</xsl:otherwise>
+								</xsl:choose>
+					    	</wfs:Query>
+  						</wfs:GetFeature>
+					</body>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+
+			<xsl:variable name="request2">
+				<request>
+					<url>
+						<xsl:value-of select="$wfs.GetFeature.post.url" />
+					</url>
+					<method>post</method>
+					<body>
+						<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS" >
+					    	<wfs:Query srsName="urn:ogc:def:crs:EPSG::4326" >
+								<xsl:choose>
+									<xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
+										<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace" />
+										<xsl:attribute name="typeName">app:<xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )" /></xsl:attribute>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first" /></xsl:attribute>
+									</xsl:otherwise>
+								</xsl:choose>
+								<xsl:choose>
+									<xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
+										<wfs:PropertyName>app:asdfProperty</wfs:PropertyName>
+									</xsl:when>
+									<xsl:otherwise>
+										<wfs:PropertyName>asdfProperty</wfs:PropertyName>
+									</xsl:otherwise>
+								</xsl:choose>
+					    	</wfs:Query>
+  						</wfs:GetFeature>
+					</body>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+			
+			<xsl:choose>
+				<xsl:when test="not($request1/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">//ows:Exception</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+			
+			<xsl:choose>
+				<xsl:when test="not($request2/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">//ows:Exception</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request2" />
+					</ctl:call-test>
 				</xsl:otherwise>
 			</xsl:choose>
 		</code>
