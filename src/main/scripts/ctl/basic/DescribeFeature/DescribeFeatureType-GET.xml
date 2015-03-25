@@ -117,8 +117,6 @@
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">
 				<ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
 				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
-                <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
-				<ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4">
 				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
@@ -851,8 +849,6 @@
 	<test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">
 		<param name="wfs.DescribeFeatureType.get.url" />
 		<param name="CAPABILITIES" />
-        <param name="wfs.FeatureType.names.first" />
-        <param name="wfs.FeatureType.names.first.namespace" />
 		<assertion>A request with no TypeName elements shall produce a response that includes definitions of all supported feature types in the requested schema language.</assertion>
 		<comment>DescribeFeatureType with the namespace KVP parameter (escaped by engine). Pass if the following
 			condition is true: (1) the response is schema valid; (2) the root document is an xsd:schema document. IS: now tests
@@ -907,7 +903,7 @@
 							<ctl:fail />
 						</xsl:if>
 						<xsl:if test="$namespace != $targetNamespace">
-							<ctl:message>FAILURE: Namespace binding of FeatureType <xsl:value-of select="$ftname"/> is not as expected: should be <xsl:value-of select="$namespace"/> but is <xsl:value-of select="$targetNamespace"/>.</ctl:message>
+							<ctl:message>FAILURE: Namespace binding of FeatureType <xsl:value-of select="$ftname"/> is not as expected: should be <xsl:value-of select="$targetNamespace"/> but is <xsl:value-of select="$namespace"/>.</ctl:message>
 							<ctl:fail />
 						</xsl:if>
 					</xsl:for-each>
