@@ -391,10 +391,31 @@
 				<xsl:value-of
 					select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType[wfs:Name='sf:PrimitiveGeoFeature']/wfs:DefaultSRS" />
 			</xsl:variable>
+			
+            <xsl:variable name="wfs.FeatureType.names">
+                <xsl:for-each select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType">
+                    <xsl:value-of select="wfs:Name" />
+                    <xsl:if test="position() != last()">
+                        <xsl:text>, </xsl:text>
+                    </xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            
+            <xsl:variable name="wfs.FeatureType.names.first">
+                <xsl:value-of select="tokenize($wfs.FeatureType.names, ', ')[1]" />
+            </xsl:variable>
 
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1.1">
-				<ctl:with-param name="wfs.GetFeature.post.url"
-					select="$wfs.GetFeature.post.url" />
+            <xsl:variable name="wfs.FeatureType.names.first.namespace">
+                <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
+                    <xsl:variable name="firstNamespaces" select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name/namespace::*" />
+                    <xsl:value-of select="$firstNamespaces[name()=substring-before($wfs.FeatureType.names.first, ':')]" />
+                </xsl:if>
+            </xsl:variable>
+
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc1">
+				<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url" />
+				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+                <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc2.1">
 				<ctl:with-param name="wfs.GetFeature.post.url"
@@ -463,7 +484,7 @@
       <link>wfs-1.1.0-Basic-GetFeature-atc1</link>
       <link>OGC 04-094, 9.2, p.34</link>
                 <code>
-
+				
                         <xsl:variable name="request1">
                                 <request>
                                         <url>
@@ -471,7 +492,7 @@
                                         </url>
                                         <method>post</method>
                                     <body>
-                                                <xi:include href="wfs-1.1.0-Basic-GetFeature-tc1.1.body.xml"/>
+                                                <xi:include href="wfs-1.1.0-Basic-GetFeature-tc1.1.body.xml" />
                                         </body>
                                         <p:XMLValidatingParser.GMLSF1/>
                                 </request>
@@ -4596,5 +4617,61 @@
 
                 </code>
         </test>
+
+	<test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc1">
+		<param name="wfs.GetFeature.post.url" />
+		<param name="wfs.FeatureType.names.first" />
+		<param name="wfs.FeatureType.names.first.namespace" />
+		<assertion>The default output format is XML that complies with GML 3.1.1.</assertion>
+		<comment>GML 3.1.1 in this case is the GMLSF schema, for the level supported, 0 or 1. Pass if all of the following
+			conditions are true: (1) the response is schema valid (for the GMLSF level supported); (2) the root document is an
+			wfs:FeatureCollection document.</comment>
+		<link>wfs-1.1.0-Basic-GetFeature-atc1</link>
+		<link>OGC 04-094, 9.2, p.34</link>
+		<code>
+
+			<xsl:variable name="prefix">
+				<xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
+					<xsl:value-of select="substring-before( $wfs.FeatureType.names.first, ':' )"/>
+				</xsl:if>
+			</xsl:variable>
+			<xsl:variable name="request1">
+				<request>
+					<url>
+						<xsl:value-of select="$wfs.GetFeature.post.url" />
+					</url>
+					<method>post</method>
+					<body>
+  						<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
+					    	<wfs:Query srsName="urn:ogc:def:crs:EPSG::4326" >
+					    	<xsl:if test="$prefix != ''">
+								<xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
+							</xsl:if>
+							<xsl:attribute name="typeName">app:<xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )" /></xsl:attribute>
+					    	</wfs:Query>
+  						</wfs:GetFeature>
+					</body>
+					<p:XMLValidatingParser.GMLSF1 />
+				</request>
+			</xsl:variable>
+
+			<xsl:choose>
+				<xsl:when test="not($request1/*)">
+					<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+					<ctl:fail />
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:variable name="expression">
+						//wfs:FeatureCollection
+					</xsl:variable>
+					<ctl:call-test name="ctl:assert-xpath">
+						<ctl:with-param name="expr" select="$expression" />
+						<ctl:with-param name="doc" select="$request1" />
+					</ctl:call-test>
+				</xsl:otherwise>
+			</xsl:choose>
+
+		</code>
+	</test>
 
 </ctl:package>
