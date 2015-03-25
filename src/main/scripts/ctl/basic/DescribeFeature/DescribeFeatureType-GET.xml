@@ -79,7 +79,6 @@
 
     <ctl:test name="wfs:run-DescribeFeatureType-basic-cc-GET">
 		<param name="wfs.GetCapabilities.document" />
-		<param name="gmlsf.profile.level" />
 		<ctl:assertion>
 			Run basic conformance class test group for DescribeFeatureType requests using the GET method.
 			Target endpoint is
@@ -124,12 +123,6 @@
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">
 				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
 			</ctl:call-test>
-			<xsl:if test="gmlsf.profile.level = 'sf-1'">
-				<ctl:call-test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc10.2">
-					<ctl:with-param name="wfs.DescribeFeatureType.get.url"
-						select="$wfs.DescribeFeatureType.get.url" />
-				</ctl:call-test>
-			</xsl:if>
 		</ctl:code>
 	</ctl:test>
     

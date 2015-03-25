@@ -369,7 +369,6 @@
 
 	<ctl:test name="wfs:run-GetFeature-basic-cc-POST">
 		<ctl:param name="wfs.GetCapabilities.document" />
-		<ctl:param name="gmlsf.profile.level" />
 		<ctl:param name="wfs-xlink" />
 		<ctl:assertion>
 			Run basic conformance class test group for GetFeature requests using the
