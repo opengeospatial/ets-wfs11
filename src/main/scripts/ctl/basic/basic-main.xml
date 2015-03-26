@@ -21,6 +21,7 @@
 
 	<ctl:test name="wfs:basic-main">
       <ctl:param name="wfs.GetCapabilities.document"/>
+      <ctl:param name="wfs.GetCapabilities.get.url"/>
       <ctl:param name="gmlsf.profile.level"/>
 	  <ctl:param name="wfs-xlink"/>
 	  <ctl:param name="conformance.class"/>
@@ -91,6 +92,8 @@
 								<ctl:call-test name="wfs:run-GetFeature-basic-cc-GET">
 									<ctl:with-param name="wfs.GetCapabilities.document"
 										select="$wfs.GetCapabilities.document" />
+									<ctl:with-param name="wfs.GetCapabilities.get.url"
+										select="$wfs.GetCapabilities.get.url" />
 								</ctl:call-test>
 							</xsl:if>
 						</xsl:when>

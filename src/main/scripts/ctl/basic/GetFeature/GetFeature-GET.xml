@@ -11,7 +11,8 @@
  xmlns:gml="http://www.opengis.net/gml"
  xmlns:xlink="http://www.w3.org/1999/xlink"
  xmlns:xi="http://www.w3.org/2001/XInclude"
- xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:gf5="java:org.opengis.cite.wfs11.GetFeatureTestUtils">
 
     <ctl:test name="wfs:run-GetFeature-GET">
       <param name="wfs.GetCapabilities.document"/>
@@ -110,6 +111,7 @@
     
 	<ctl:test name="wfs:run-GetFeature-basic-cc-GET">
 		<param name="wfs.GetCapabilities.document" />
+		<param name="wfs.GetCapabilities.get.url" />
 		<ctl:assertion>
 			Run basic conformance class test group for GetFeature requests using the GET method.
 			Target endpoint is
@@ -171,6 +173,10 @@
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5">
+				<ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url" />
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
@@ -1718,6 +1724,62 @@
 				</xsl:choose>
 			</code>
 		</test>
+        
+        <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5">
+      		<param name="wfs.GetCapabilities.get.url"/>
+      		<param name="wfs.GetFeature.get.url"/>
+			<ctl:assertion>XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the AbbreviatedRelativeLocationPath construct is required. A valid filter expression must conform to the content model declared for the ogc:Filter element.</ctl:assertion>
+			<ctl:comment></ctl:comment>
+			<ctl:link>OGC 04-095, 7.4.2, p.18</ctl:link>
+			<ctl:link>OGC 04-095, 7.2, p.9</ctl:link>
+			<code>
+				<xsl:variable name="featurePropData">
+					<xsl:value-of select="gf5:findFeatureTypeAndPropertyName($wfs.GetCapabilities.get.url)" />
+				</xsl:variable>
+				
+				<xsl:variable name="request">
+					<request>
+						<url>
+							<xsl:value-of select="$wfs.GetFeature.get.url" />
+						</url>
+						<method>get</method>
+						<param name="DEBUG"><xsl:value-of select="$featurePropData" /></param>
+						<param name="SERVIsCE">WFS</param>
+						<param name="version">1.1.0</param>
+						<param name="REQUsEST">GetFeature</param>
+						<!-- 
+						<param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first" /></param>
+						<param name="resulttype">hits</param>
+						<param name="namespace">
+							<xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
+								<xsl:value-of select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
+							</xsl:if>
+						</param>
+						 -->
+						<p:XMLValidatingParser.OWS />
+					</request>
+				</xsl:variable>
+				
+				<xsl:choose>
+					<xsl:when test="not($request/*)">
+						<ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+						<ctl:fail />
+					</xsl:when>
+					<xsl:otherwise>
+						<ctl:call-test name="ctl:SchematronValidatingParser">
+							<ctl:with-param name="doc" select="$request" />
+							<ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
+							<ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
+						</ctl:call-test>
+						<xsl:variable name="expression">//ows:Exception</xsl:variable>
+						<ctl:call-test name="ctl:assert-xpath">
+							<ctl:with-param name="expr" select="$expression" />
+							<ctl:with-param name="doc" select="$request" />
+						</ctl:call-test>
+					</xsl:otherwise>
+				</xsl:choose>
+			</code>
+		</ctl:test>
         
         <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
       		<param name="wfs.GetFeature.get.url"/>

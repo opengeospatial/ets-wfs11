@@ -61,7 +61,6 @@
         <executions>
           <execution>
             <id>default-jar</id>
-            <phase>never</phase>
           </execution>
         </executions>
     </plugin>
@@ -73,19 +72,28 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/assembly/ctl.xml</descriptor>
-          </descriptors>
-        </configuration>
         <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
+		  <execution>
+		  	<id>ctl</id>
+			<configuration>
+			  <descriptor>src/assembly/ctl.xml</descriptor>
+			</configuration>
+			<phase>package</phase>
+			<goals>
+			  <goal>single</goal>
+			</goals>
+		  </execution>
+		  <execution>
+		    <id>deps</id>
+			<configuration>
+			  <descriptor>src/assembly/deps.xml</descriptor>
+			</configuration>
+			<phase>package</phase>
+			<goals>
+			  <goal>single</goal>
+			</goals>
+		  </execution>
+		</executions>
       </plugin>
       <plugin>
          <artifactId>maven-release-plugin</artifactId>
@@ -116,6 +124,15 @@
           </dependency>
         </dependencies>
       </plugin>
-    </plugins>   
+    </plugins>
   </build>
+  
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>ets-gml32</artifactId>
+      <version>3.2.1-r18</version>
+    </dependency>
+  </dependencies>
+  
 </project>
