@@ -2,7 +2,6 @@ package org.opengis.cite.wfs11;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +65,8 @@ public class GetFeatureTestUtils {
     }
 
     private static XSModel loadFeatureTypeModel( WFSClient wfsClient )
-                    throws ClassNotFoundException, InstantiationException, IllegalAccessException,
-                    MalformedURLException, IOException {
+                    throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException,
+                    XPathExpressionException {
         InputStream featureType = wfsClient.getFeatureType();
 
         DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
@@ -179,7 +178,7 @@ public class GetFeatureTestUtils {
 
     private static QName buildQName( Node node ) {
         String localPart;
-        String nsName = null;
+        String nsName;
         String name = node.getTextContent();
         int indexOfColon = name.indexOf( ':' );
         if ( indexOfColon > 0 ) {

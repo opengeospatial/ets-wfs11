@@ -1,5 +1,11 @@
 package org.opengis.cite.wfs11;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -8,12 +14,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.opengis.cite.iso19136.util.NamespaceBindings;
 import org.w3c.dom.Document;
@@ -34,38 +34,54 @@ public class WFSClient {
     }
 
     /**
-     * 
+     *
      * @param typeName
+     *            never <code>null</code>
      * @return <code>null</code> if no GET or POST DCP URL is found
-     * @throws Exception
+     * @throws XPathExpressionException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
      */
     public Document getFeatureByType( QName typeName )
-                    throws Exception {
-        String getUrl = retrieveUrl( "Get" );
+                    throws XPathExpressionException, ParserConfigurationException, SAXException, IOException {
+        String getUrl = retrieveUrl( "GetFeature", "Get" );
         if ( getUrl != null && !getUrl.isEmpty() ) {
-            return handleGetUrl( typeName, getUrl );
+            return handleGetFeatureGet( typeName, getUrl );
         } else {
-            String postUrl = retrieveUrl( "Post" );
+            String postUrl = retrieveUrl( "GetFeature", "Post" );
             if ( postUrl != null && !postUrl.isEmpty() ) {
-                return handlePost( typeName, postUrl );
-
+                return handleGetFeaturePost( typeName, postUrl );
             } else
                 return null;
         }
     }
 
+    /**
+     * 
+     * @return <code>null</code> if no GET or POST DCP URL is found
+     * @throws XPathExpressionException
+     * @throws IOException
+     */
     public InputStream getFeatureType()
-                    throws MalformedURLException, IOException {
-        // TODO Auto-generated method stub
-        return new URL(
-                        "http://cite.lat-lon.de/deegree-webservices-3.3.6/services/wfs110?&service=WFS&version=1.1.0&request=DescribeFeatureType" ).openStream();
+                    throws XPathExpressionException, IOException {
+        String getUrl = retrieveUrl( "DescribeFeatureType", "Get" );
+        if ( getUrl != null && !getUrl.isEmpty() ) {
+            return handleGetFeatureTypeGet( getUrl );
+        } else {
+            String postUrl = retrieveUrl( "DescribeFeatureType", "Post" );
+            if ( postUrl != null && !postUrl.isEmpty() ) {
+                return handleGetFeatureTypePost( postUrl );
+            } else
+                return null;
+        }
     }
 
-    private String retrieveUrl( String method )
+    private String retrieveUrl( String operation, String method )
                     throws XPathExpressionException {
         XPath xpath = createXPath();
-        String urlExpression = "//wfs:WFS_Capabilities/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:"
-                               + method + "/@xlink:href";
+        String urlExpression = "//wfs:WFS_Capabilities/ows:OperationsMetadata/ows:Operation[@name='" + operation
+                               + "']/ows:DCP/ows:HTTP/ows:" + method + "/@xlink:href";
         return (String) xpath.evaluate( urlExpression, wfsCapabilities, XPathConstants.STRING );
     }
 
@@ -79,14 +95,14 @@ public class WFSClient {
         return xpath;
     }
 
-    private Document handleGetUrl( QName typeName, String getUrl )
+    private Document handleGetFeatureGet( QName typeName, String getUrl )
                     throws IOException, SAXException, ParserConfigurationException {
-        String request = buildGetRequest( typeName, getUrl );
+        String request = buildGetFeatureGetRequest( typeName, getUrl );
         InputStream stream = new URL( request ).openStream();
         return createDocumentBuilder().parse( stream );
     }
 
-    private String buildGetRequest( QName typeName, String getUrl ) {
+    private String buildGetFeatureGetRequest( QName typeName, String getUrl ) {
         StringBuilder sb = new StringBuilder();
         sb.append( getUrl );
         sb.append( "service=WFS&version=1.1.0&request=GetFeature&" );
@@ -102,14 +118,14 @@ public class WFSClient {
         return sb.toString();
     }
 
-    private Document handlePost( QName typeName, String postUrl )
+    private Document handleGetFeaturePost( QName typeName, String postUrl )
                     throws IOException, SAXException, ParserConfigurationException {
-        String body = buildPostBody( typeName );
         HttpURLConnection connection = (HttpURLConnection) new URL( postUrl ).openConnection();
         connection.setRequestMethod( "POST" );
         connection.setDoOutput( true );
         connection.setRequestProperty( "Content-Type", "text/plain; charset=UTF-8" );
         DataOutputStream writer = new DataOutputStream( connection.getOutputStream() );
+        String body = buildGetFeaturePostBody( typeName );
         writer.writeBytes( body );
         writer.flush();
         writer.close();
@@ -117,7 +133,7 @@ public class WFSClient {
         return createDocumentBuilder().parse( stream );
     }
 
-    private String buildPostBody( QName typeName ) {
+    private String buildGetFeaturePostBody( QName typeName ) {
         StringBuilder sb = new StringBuilder();
         String namespaceURI = typeName.getNamespaceURI();
         sb.append( "<wfs:GetFeature xmlns:wfs='http://www.opengis.net/wfs' version='1.1.0' service='WFS'><wfs:Query " );
@@ -140,17 +156,31 @@ public class WFSClient {
         return factory.newDocumentBuilder();
     }
 
-    // private static String parseDescribeFeatureTypeUrl(Document
-    // wfsCapabilities)
-    // throws XPathExpressionException {
-    // XPath xpath = XPathFactory.newInstance().newXPath();
-    // NamespaceBindings nsBindings = new NamespaceBindings();
-    // nsBindings.addNamespaceBinding(Namespaces.OWS, "ows");
-    // nsBindings.addNamespaceBinding(WFS_NAMESPACE, "wfs");
-    // xpath.setNamespaceContext(nsBindings);
-    // return
-    // xpath.evaluate("$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href",
-    // wfsCapabilities);
-    // }
+    private InputStream handleGetFeatureTypeGet( String getUrl )
+                    throws IOException {
+        String request = buildGetFeatureTypeGetRequest( getUrl );
+        return new URL( request ).openStream();
+    }
+
+    private String buildGetFeatureTypeGetRequest( String getUrl ) {
+        StringBuilder sb = new StringBuilder();
+        sb.append( getUrl );
+        sb.append( "service=WFS&version=1.1.0&request=DescribeFeatureType" );
+        return sb.toString();
+    }
+
+    private InputStream handleGetFeatureTypePost( String postUrl )
+                    throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) new URL( postUrl ).openConnection();
+        connection.setRequestMethod( "POST" );
+        connection.setDoOutput( true );
+        connection.setRequestProperty( "Content-Type", "text/plain; charset=UTF-8" );
+        DataOutputStream writer = new DataOutputStream( connection.getOutputStream() );
+        String body = "<wfs:DescribeFeatureType xmlns:wfs='http://www.opengis.net/wfs' service='WFS' version='1.1.0'/>";
+        writer.writeBytes( body );
+        writer.flush();
+        writer.close();
+        return connection.getInputStream();
+    }
 
 }
