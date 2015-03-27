@@ -37,237 +37,210 @@ import org.xml.sax.SAXException;
  */
 public class GetFeatureTestUtils {
 
-	// private static final Logger LOG = Logger
-	// .getLogger(GetFeatureTestUtils.class.getCanonicalName());
+    // private static final Logger LOG = Logger
+    // .getLogger(GetFeatureTestUtils.class.getCanonicalName());
 
-	private static final String WFS_NAMESPACE = "http://www.opengis.net/wfs";
+    private static final String WFS_NAMESPACE = "http://www.opengis.net/wfs";
 
-	/** ISO 19136:2007 (GML 3.2) */
-	public static final String GML = "http://www.opengis.net/gml/3.2";
+    /** ISO 19136:2007 (GML 3.2) */
+    public static final String GML = "http://www.opengis.net/gml/3.2";
 
-	public static FeatureData findFeatureTypeAndPropertyName(String wfsCapabilitiesUrl)
-			throws Exception {
-		try {
-			System.out.println(wfsCapabilitiesUrl);
-			Document wfsCapabilities = asDocument(wfsCapabilitiesUrl);
-			WFSClient wfsClient = new WFSClient(wfsCapabilities);
+    public static FeatureData findFeatureTypeAndPropertyName( String wfsCapabilitiesUrl )
+                    throws Exception {
+        try {
+            System.out.println( wfsCapabilitiesUrl );
+            Document wfsCapabilities = asDocument( wfsCapabilitiesUrl );
+            WFSClient wfsClient = new WFSClient( wfsCapabilities );
 
-			List<QName> featureTypeNames = parseFeatureTypeNames(wfsCapabilities);
-			XSModel model = loadFeatureTypeModel(wfsClient);
+            List<QName> featureTypeNames = parseFeatureTypeNames( wfsCapabilities );
+            XSModel model = loadFeatureTypeModel( wfsClient );
 
-			FeatureData featureData = acquireFeatureData(wfsClient, featureTypeNames, model);
-			
-			System.out.println(featureData);
-			return featureData;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-	}
+            FeatureData featureData = acquireFeatureData( wfsClient, featureTypeNames, model );
 
-	private static XSModel loadFeatureTypeModel(WFSClient wfsClient)
-			throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, MalformedURLException, IOException {
-		InputStream featureType = wfsClient.getFeatureType();
+            System.out.println( featureData );
+            return featureData;
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
 
-		DOMImplementationRegistry registry = DOMImplementationRegistry
-				.newInstance();
+    private static XSModel loadFeatureTypeModel( WFSClient wfsClient )
+                    throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+                    MalformedURLException, IOException {
+        InputStream featureType = wfsClient.getFeatureType();
 
-		XSImplementation impl = (XSImplementation) registry
-				.getDOMImplementation("XS-Loader");
+        DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
 
-		XSLoader schemaLoader = impl.createXSLoader(null);
+        XSImplementation impl = (XSImplementation) registry.getDOMImplementation( "XS-Loader" );
 
-		DOMInputImpl lsInput = new DOMInputImpl();
-		lsInput.setByteStream(featureType);
+        XSLoader schemaLoader = impl.createXSLoader( null );
 
-		return schemaLoader.load(lsInput);
-	}
+        DOMInputImpl lsInput = new DOMInputImpl();
+        lsInput.setByteStream( featureType );
 
-	private static List<QName> parseFeatureTypeNames(Document wfsCapabilities)
-			throws XPathExpressionException, ParserConfigurationException,
-			SAXException, IOException {
+        return schemaLoader.load( lsInput );
+    }
 
-		List<QName> featureInfo = new ArrayList<QName>();
-		XPath xpath = XPathFactory.newInstance().newXPath();
-		NamespaceBindings nsBindings = new NamespaceBindings();
-		nsBindings.addNamespaceBinding(WFS_NAMESPACE, "wfs");
-		xpath.setNamespaceContext(nsBindings);
-		Object result = xpath.evaluate(
-				"//wfs:FeatureTypeList/wfs:FeatureType/wfs:Name",
-				wfsCapabilities, XPathConstants.NODESET);
-		if (result instanceof NodeList) {
-			NodeList nodes = (NodeList) result;
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-				featureInfo.add(buildQName(node));
-			}
-		}
-		return featureInfo;
+    private static List<QName> parseFeatureTypeNames( Document wfsCapabilities )
+                    throws XPathExpressionException, ParserConfigurationException, SAXException, IOException {
 
-	}
+        List<QName> featureInfo = new ArrayList<QName>();
+        XPath xpath = XPathFactory.newInstance().newXPath();
+        NamespaceBindings nsBindings = new NamespaceBindings();
+        nsBindings.addNamespaceBinding( WFS_NAMESPACE, "wfs" );
+        xpath.setNamespaceContext( nsBindings );
+        Object result = xpath.evaluate( "//wfs:FeatureTypeList/wfs:FeatureType/wfs:Name", wfsCapabilities,
+                                        XPathConstants.NODESET );
+        if ( result instanceof NodeList ) {
+            NodeList nodes = (NodeList) result;
+            for ( int i = 0; i < nodes.getLength(); i++ ) {
+                Node node = nodes.item( i );
+                featureInfo.add( buildQName( node ) );
+            }
+        }
+        return featureInfo;
 
-	private static Document asDocument(String wfsCapabilitiesUrl)
-			throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    }
 
-		factory.setNamespaceAware(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
+    private static Document asDocument( String wfsCapabilitiesUrl )
+                    throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-		return builder.parse(wfsCapabilitiesUrl);
-	}
+        factory.setNamespaceAware( true );
+        DocumentBuilder builder = factory.newDocumentBuilder();
 
-	private static FeatureData acquireFeatureData(WFSClient wfsClient,
-			List<QName> featureTypes, XSModel model) throws Exception {
-		for (QName featureType : featureTypes) {
-			System.out.println(featureType.getLocalPart() + " -- "
-					+ featureType.getNamespaceURI());
-			Document rspEntity = wfsClient.getFeatureByType(featureType);
-			String typeName = featureType.getLocalPart();
-			String typeNamespace = featureType.getNamespaceURI();
-			NodeList features = rspEntity.getElementsByTagNameNS(typeNamespace,
-					typeName);
-			boolean hasFeatures = features.getLength() > 0;
-			if (hasFeatures) {
-				XSTypeDefinition xsdDoubleType = model.getTypeDefinition(
-						"double", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				XSTypeDefinition xsdDecimalType = model.getTypeDefinition(
-						"decimal", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				XSTypeDefinition xsdIntegerType = model.getTypeDefinition(
-						"integer", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				XSTypeDefinition xsdStringType = model.getTypeDefinition(
-						"string", XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        return builder.parse( wfsCapabilitiesUrl );
+    }
 
-				List<XSElementDeclaration> featureProperties = getFeaturePropertiesByType(
-						model, featureType, xsdDecimalType, xsdDoubleType,
-						xsdIntegerType, xsdStringType);
-				for (XSElementDeclaration featureProperty : featureProperties) {
-					String propName = featureProperty.getName();
-					String propNamespace = featureProperty.getNamespace();
-					System.out.println("   " + propName + " -- "
-							+ propNamespace);
+    private static FeatureData acquireFeatureData( WFSClient wfsClient, List<QName> featureTypes, XSModel model )
+                    throws Exception {
+        for ( QName featureType : featureTypes ) {
+            System.out.println( featureType.getLocalPart() + " -- " + featureType.getNamespaceURI() );
+            Document rspEntity = wfsClient.getFeatureByType( featureType );
+            String typeName = featureType.getLocalPart();
+            String typeNamespace = featureType.getNamespaceURI();
+            NodeList features = rspEntity.getElementsByTagNameNS( typeNamespace, typeName );
+            boolean hasFeatures = features.getLength() > 0;
+            if ( hasFeatures ) {
+                XSTypeDefinition xsdDoubleType = model.getTypeDefinition( "double", XMLConstants.W3C_XML_SCHEMA_NS_URI );
+                XSTypeDefinition xsdDecimalType = model.getTypeDefinition( "decimal",
+                                                                           XMLConstants.W3C_XML_SCHEMA_NS_URI );
+                XSTypeDefinition xsdIntegerType = model.getTypeDefinition( "integer",
+                                                                           XMLConstants.W3C_XML_SCHEMA_NS_URI );
+                XSTypeDefinition xsdStringType = model.getTypeDefinition( "string", XMLConstants.W3C_XML_SCHEMA_NS_URI );
 
-					if (!"http://www.opengis.net/gml".equals(propNamespace)) {
+                List<XSElementDeclaration> featureProperties = getFeaturePropertiesByType( model, featureType,
+                                                                                           xsdDecimalType,
+                                                                                           xsdDoubleType,
+                                                                                           xsdIntegerType,
+                                                                                           xsdStringType );
+                for ( XSElementDeclaration featureProperty : featureProperties ) {
+                    String propName = featureProperty.getName();
+                    String propNamespace = featureProperty.getNamespace();
+                    System.out.println( "   " + propName + " -- " + propNamespace );
 
-						NamespaceBindings nsBindings = new NamespaceBindings();
-						nsBindings.addNamespaceBinding(typeNamespace, "n1");
-						nsBindings.addNamespaceBinding(propNamespace, "n2");
-						nsBindings.addNamespaceBinding(WFS_NAMESPACE, "wfs");
-						nsBindings.addNamespaceBinding(
-								"http://www.opengis.net/gml", "gml");
+                    if ( !"http://www.opengis.net/gml".equals( propNamespace ) ) {
 
-						StringBuilder xPathBuilder = new StringBuilder();
-						xPathBuilder
-								.append("//wfs:FeatureCollection/gml:featureMember | gml:featureMembers/");
-						xPathBuilder
-								.append(nsBindings.getPrefix(typeNamespace))
-								.append(":").append(typeName).append("/");
-						xPathBuilder
-								.append(nsBindings.getPrefix(propNamespace))
-								.append(":").append(propName);
+                        NamespaceBindings nsBindings = new NamespaceBindings();
+                        nsBindings.addNamespaceBinding( typeNamespace, "n1" );
+                        nsBindings.addNamespaceBinding( propNamespace, "n2" );
+                        nsBindings.addNamespaceBinding( WFS_NAMESPACE, "wfs" );
+                        nsBindings.addNamespaceBinding( "http://www.opengis.net/gml", "gml" );
 
-						String xPath = xPathBuilder.toString();
-						System.out.println(xPath);
+                        StringBuilder xPathBuilder = new StringBuilder();
+                        xPathBuilder.append( "//wfs:FeatureCollection/gml:featureMember | gml:featureMembers/" );
+                        xPathBuilder.append( nsBindings.getPrefix( typeNamespace ) ).append( ":" ).append( typeName ).append( "/" );
+                        xPathBuilder.append( nsBindings.getPrefix( propNamespace ) ).append( ":" ).append( propName );
 
-						XPath xpath = XPathFactory.newInstance().newXPath();
-						xpath.setNamespaceContext(nsBindings);
-						Object result = xpath.evaluate(xPath, rspEntity,
-								XPathConstants.NODESET);
-						if (result instanceof NodeList) {
-							NodeList nodes = (NodeList) result;
-							for (int i = 0; i < nodes.getLength(); i++) {
-								Node node = nodes.item(i);
-								String textContent = node.getTextContent();
-								if (textContent != null
-										&& !textContent.isEmpty()) {
-									QName property = new QName(propNamespace,
-											propName);
-									return new FeatureData(featureType, property,
-											textContent);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return null;
-	}
+                        String xPath = xPathBuilder.toString();
+                        System.out.println( xPath );
 
-	private static QName buildQName(Node node) {
-		String localPart;
-		String nsName = null;
-		String name = node.getTextContent();
-		int indexOfColon = name.indexOf(':');
-		if (indexOfColon > 0) {
-			localPart = name.substring(indexOfColon + 1);
-			nsName = node.lookupNamespaceURI(name.substring(0, indexOfColon));
-		} else {
-			localPart = name;
-			// return default namespace URI if any
-			nsName = node.lookupNamespaceURI(null);
-		}
-		return new QName(nsName, localPart);
-	}
+                        XPath xpath = XPathFactory.newInstance().newXPath();
+                        xpath.setNamespaceContext( nsBindings );
+                        Object result = xpath.evaluate( xPath, rspEntity, XPathConstants.NODESET );
+                        if ( result instanceof NodeList ) {
+                            NodeList nodes = (NodeList) result;
+                            for ( int i = 0; i < nodes.getLength(); i++ ) {
+                                Node node = nodes.item( i );
+                                String textContent = node.getTextContent();
+                                if ( textContent != null && !textContent.isEmpty() ) {
+                                    QName property = new QName( propNamespace, propName );
+                                    return new FeatureData( featureType, property, textContent );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
 
-	private static List<XSElementDeclaration> getFeaturePropertiesByType(
-			XSModel model, QName featureTypeName, XSTypeDefinition... typeDefs) {
-		XSElementDeclaration elemDecl = model.getElementDeclaration(
-				featureTypeName.getLocalPart(),
-				featureTypeName.getNamespaceURI());
-		XSComplexTypeDefinition featureTypeDef = (XSComplexTypeDefinition) elemDecl
-				.getTypeDefinition();
-		List<XSElementDeclaration> featureProps = XMLSchemaModelUtils
-				.getAllElementsInParticle(featureTypeDef.getParticle());
-		removeDeprecatedGMLElements(featureProps, model);
-		List<XSElementDeclaration> props = new ArrayList<XSElementDeclaration>();
-		// set bit mask to indicate acceptable derivation mechanisms
-		short extendOrRestrict = XSConstants.DERIVATION_EXTENSION
-				| XSConstants.DERIVATION_RESTRICTION;
-		for (XSElementDeclaration featureProp : featureProps) {
-			XSTypeDefinition propType = featureProp.getTypeDefinition();
-			for (XSTypeDefinition typeDef : typeDefs) {
-				switch (propType.getTypeCategory()) {
-				case XSTypeDefinition.SIMPLE_TYPE:
-					if ((typeDef.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE)
-							&& propType.derivedFromType(typeDef,
-									extendOrRestrict)) {
-						props.add(featureProp);
-					}
-					break;
-				case XSTypeDefinition.COMPLEX_TYPE:
-					if (typeDef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE) {
-						// check type of child element(s)
-						XSComplexTypeDefinition complexPropType = (XSComplexTypeDefinition) propType;
-						List<XSElementDeclaration> propValues = XMLSchemaModelUtils
-								.getAllElementsInParticle(complexPropType
-										.getParticle());
-						for (XSElementDeclaration propValue : propValues) {
-							if (propValue.getTypeDefinition().derivedFromType(
-									typeDef, extendOrRestrict)) {
-								props.add(featureProp);
-							}
-						}
-					} else {
-						// complex type may derive from simple type
-						if (propType.derivedFromType(typeDef, extendOrRestrict)) {
-							props.add(featureProp);
-						}
-					}
-					break;
-				}
-			}
-		}
-		return props;
-	}
+    private static QName buildQName( Node node ) {
+        String localPart;
+        String nsName = null;
+        String name = node.getTextContent();
+        int indexOfColon = name.indexOf( ':' );
+        if ( indexOfColon > 0 ) {
+            localPart = name.substring( indexOfColon + 1 );
+            nsName = node.lookupNamespaceURI( name.substring( 0, indexOfColon ) );
+        } else {
+            localPart = name;
+            // return default namespace URI if any
+            nsName = node.lookupNamespaceURI( null );
+        }
+        return new QName( nsName, localPart );
+    }
 
-	private static void removeDeprecatedGMLElements(
-			List<XSElementDeclaration> elemDecls, XSModel model) {
-		XSElementDeclaration elemDecl = model.getElementDeclaration("location",
-				GML);
-		elemDecls.remove(elemDecl);
-		elemDecl = model.getElementDeclaration("metaDataProperty", GML);
-		elemDecls.remove(elemDecl);
-	}
+    private static List<XSElementDeclaration> getFeaturePropertiesByType( XSModel model, QName featureTypeName,
+                                                                          XSTypeDefinition... typeDefs ) {
+        XSElementDeclaration elemDecl = model.getElementDeclaration( featureTypeName.getLocalPart(),
+                                                                     featureTypeName.getNamespaceURI() );
+        XSComplexTypeDefinition featureTypeDef = (XSComplexTypeDefinition) elemDecl.getTypeDefinition();
+        List<XSElementDeclaration> featureProps = XMLSchemaModelUtils.getAllElementsInParticle( featureTypeDef.getParticle() );
+        removeDeprecatedGMLElements( featureProps, model );
+        List<XSElementDeclaration> props = new ArrayList<XSElementDeclaration>();
+        // set bit mask to indicate acceptable derivation mechanisms
+        short extendOrRestrict = XSConstants.DERIVATION_EXTENSION | XSConstants.DERIVATION_RESTRICTION;
+        for ( XSElementDeclaration featureProp : featureProps ) {
+            XSTypeDefinition propType = featureProp.getTypeDefinition();
+            for ( XSTypeDefinition typeDef : typeDefs ) {
+                switch ( propType.getTypeCategory() ) {
+                case XSTypeDefinition.SIMPLE_TYPE:
+                    if ( ( typeDef.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE )
+                         && propType.derivedFromType( typeDef, extendOrRestrict ) ) {
+                        props.add( featureProp );
+                    }
+                    break;
+                case XSTypeDefinition.COMPLEX_TYPE:
+                    if ( typeDef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE ) {
+                        // check type of child element(s)
+                        XSComplexTypeDefinition complexPropType = (XSComplexTypeDefinition) propType;
+                        List<XSElementDeclaration> propValues = XMLSchemaModelUtils.getAllElementsInParticle( complexPropType.getParticle() );
+                        for ( XSElementDeclaration propValue : propValues ) {
+                            if ( propValue.getTypeDefinition().derivedFromType( typeDef, extendOrRestrict ) ) {
+                                props.add( featureProp );
+                            }
+                        }
+                    } else {
+                        // complex type may derive from simple type
+                        if ( propType.derivedFromType( typeDef, extendOrRestrict ) ) {
+                            props.add( featureProp );
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        return props;
+    }
+
+    private static void removeDeprecatedGMLElements( List<XSElementDeclaration> elemDecls, XSModel model ) {
+        XSElementDeclaration elemDecl = model.getElementDeclaration( "location", GML );
+        elemDecls.remove( elemDecl );
+        elemDecl = model.getElementDeclaration( "metaDataProperty", GML );
+        elemDecls.remove( elemDecl );
+    }
 
 }
