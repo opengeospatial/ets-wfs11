@@ -1,9 +1,14 @@
 ## Release Notes WFS 1.1.0
 
-### 1.21 (2015-03-27)
+### 1.22 (2015-03-27)
 
 - Fix [#24](https://github.com/opengeospatial/ets-wfs11/issues/24) - Update revision scheme
 - Fix [#12](https://github.com/opengeospatial/ets-wfs11/issues/12) - wfs:wfs-1.1.0-Transaction-tc13.1
+
+### r21 (2014-11-04)
+
+- Fix issue [#15](https://github.com/opengeospatial/ets-wfs11/pull/15) - Replaced assertion with contains 
+- Fix issue [#11](https://github.com/opengeospatial/ets-wfs11/issues/11)- Wrong filter for wfs:wfs-1.1.0-Transaction-tc7.1, with pull request:[#14](https://github.com/opengeospatial/ets-wfs11/pull/14) 
 
 ### r20 (2014-09-08)
 
