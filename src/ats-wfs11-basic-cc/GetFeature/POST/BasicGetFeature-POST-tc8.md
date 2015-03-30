@@ -1,4 +1,4 @@
-# BasicGetFeature-POST-tc9
+# BasicGetFeature-POST-tc8
 
 **Purpose**: The @typeName attribute must identify a list of known feature types. Aliases may be declared for use in a filter expression
 
