@@ -755,9 +755,12 @@
 
         <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-POST-tc4">
             <param name="wfs.DescribeFeatureType.post.url" />
-            <assertion>The response for an invalid DescribeFeatureType request is an exception.</assertion>
-            <comment></comment>
-            <link>OGC 04-094, 8.1, p.24</link>
+            <assertion>The following attributes are required for all XML request entities: @version (default '1.1.0'); @service (default 'WFS').</assertion>
+            <comment>DescribeFeatureType with [1] @version='1.1.0' and @service='WFS', [2] @version='1.1.0' and missing @service [3] missing @version and @service='WFS'.  
+            		 Pass if all of the following conditions are true: 
+            			(1) the response is schema valid 
+            			(2) the root document is a xsd:schema document.</comment>
+      		<link>OGC 04-094, 8.1, p.24</link>
             <code>
 
                 <xsl:variable name="RESPONSE">
