@@ -605,9 +605,9 @@
             <assertion>The following attributes are required for all XML request entities: @version (default '1.1.0');
                 @service (default 'WFS').
             </assertion>
-            <comment>DescribeFeatureType with version '1.1.0' and service '', expects default of 'WFS'. Pass if all of the
-                following conditions are true: (1) the response is schema valid; (2) the root document is an xsd:schema
-                document as expected.
+            <comment>DescribeFeatureType with version '1.1.0' and service '', expects default of 'WFS'. Pass if all of the following conditions are true: 
+            		    (1) the response is schema valid; 
+            		    (2) the root document is an xsd:schema document as expected.
             </comment>
             <link>OGC 04-094, 7.8, p.24</link>
             <code>
@@ -647,9 +647,9 @@
             <assertion>Application schemas that comply with GML 3.1.1 must be a supported. These are presented if no
                 outputFormat is specified.
             </assertion>
-            <comment>DescribeFeatureType for a single feature type, expect the schema to validate with the proper GMLSF
-                level as well. Pass if all of the following conditions are true: (1) the response is schema valid (both
-                xsd:schema and the proper GMLSF level supported); (2) the root document is a xsd:schema document.
+            <comment>DescribeFeatureType for a single feature type, expect the schema to validate. Pass if all of the following conditions are true: 
+            			(1) the response is schema valid (both  xsd:schema and the proper GMLSF level supported); 
+            			(2) the root document is a xsd:schema document.
             </comment>
             <link>OGC 04-094, 8.1, p.24</link>
             <code>
@@ -687,8 +687,7 @@
         <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-POST-tc3">
             <param name="wfs.DescribeFeatureType.post.url" />
             <param name="CAPABILITIES" />
-            <assertion>A request with no TypeName elements shall produce a response that includes definitions of all
-                supported feature types in the requested schema language.
+            <assertion>A request with no TypeName elements shall produce a response that includes definitions of all supported feature types in the requested schema language.
             </assertion>
             <comment></comment>
             <link>OGC 04-094, 8.1, p.24</link>
