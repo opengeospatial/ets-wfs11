@@ -446,7 +446,7 @@
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
-			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc9">
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc8">
 				<ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url" />
 				<ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
@@ -5110,7 +5110,7 @@
 		</code>
 	</test>
 	
-	<test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc9">
+	<test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc8">
 		<param name="wfs.GetFeature.post.url" />
 		<param name="wfs.FeatureType.names.first" />
 		<param name="wfs.FeatureType.names.first.namespace" />
@@ -5118,7 +5118,7 @@
 		<comment>GetFeature with a known typename in the query. Note: no lists to be used as they are to be phased out in 1.2.0. Pass if all of the following conditions are true: 
 					(1) the response is schema valid; 
 					(2) the root document is a wfs:FeatureCollection document.</comment>
-		<link>wfs-1.1.0-Basic-GetFeature-atc9</link>
+		<link>wfs-1.1.0-Basic-GetFeature-atc8</link>
 		<link>OGC 04-094, 9.2, p.35</link>
 		<code>
 			<xsl:variable name="request1">
