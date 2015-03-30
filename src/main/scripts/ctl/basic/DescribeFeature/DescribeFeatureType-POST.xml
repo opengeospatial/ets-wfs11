@@ -760,7 +760,7 @@
             <link>OGC 04-094, 8.1, p.24</link>
             <code>
 
-                <xsl:variable name="RESPONSE_MISSING_SERVICE">
+                <xsl:variable name="RESPONSE">
                     <request>
                         <url>
                             <xsl:value-of select="$wfs.DescribeFeatureType.post.url" />
@@ -772,7 +772,7 @@
                         <p:XMLValidatingParser.XMLSchema />
                     </request>
                 </xsl:variable>
-                <xsl:variable name="RESPONSE_MISSING_VERSION">
+                <xsl:variable name="RESPONSE_MISSING_SERVICE">
                     <request>
                         <url>
                             <xsl:value-of select="$wfs.DescribeFeatureType.post.url" />
@@ -784,29 +784,43 @@
                         <p:XMLValidatingParser.XMLSchema />
                     </request>
                 </xsl:variable>
+                <xsl:variable name="RESPONSE_MISSING_VERSION">
+                    <request>
+                        <url>
+                            <xsl:value-of select="$wfs.DescribeFeatureType.post.url" />
+                        </url>
+                        <method>post</method>
+                        <body>
+                            <xi:include href="wfs-1.1.0-Basic-DescribeFeatureType-tc4.body3.xml" />
+                        </body>
+                        <p:XMLValidatingParser.XMLSchema />
+                    </request>
+                </xsl:variable>
 
+                <xsl:choose>
+                    <xsl:when test="not($RESPONSE/*)">
+                        <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+                        <ctl:fail />
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="expression">//xsd:schema</xsl:variable>
+                        <ctl:call-test name="ctl:assert-xpath">
+                            <ctl:with-param name="expr" select="$expression" />
+                            <ctl:with-param name="doc" select="$RESPONSE" />
+                        </ctl:call-test>
+                    </xsl:otherwise>
+                </xsl:choose>
                 <xsl:choose>
                     <xsl:when test="not($RESPONSE_MISSING_SERVICE/*)">
                         <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
                         <ctl:fail />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:variable name="expression">//ows:ExceptionReport</xsl:variable>
+                        <xsl:variable name="expression">//xsd:schema</xsl:variable>
                         <ctl:call-test name="ctl:assert-xpath">
                             <ctl:with-param name="expr" select="$expression" />
                             <ctl:with-param name="doc" select="$RESPONSE_MISSING_SERVICE" />
                         </ctl:call-test>
-                        <ctl:call-test name="ctl:SchematronValidatingParser">
-                            <ctl:with-param name="doc" select="$RESPONSE_MISSING_SERVICE" />
-                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-                            <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
-                        </ctl:call-test>
-                        <xsl:if test="not($RESPONSE_MISSING_SERVICE//ows:Exception/*)">
-                            <ctl:message>FAILURE: DescribeFeatureType with missing service parameter does not throw an
-                                exception.
-                            </ctl:message>
-                            <ctl:fail />
-                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
@@ -815,22 +829,11 @@
                         <ctl:fail />
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:variable name="expression">//ows:ExceptionReport</xsl:variable>
+                        <xsl:variable name="expression">//xsd:schema</xsl:variable>
                         <ctl:call-test name="ctl:assert-xpath">
                             <ctl:with-param name="expr" select="$expression" />
                             <ctl:with-param name="doc" select="$RESPONSE_MISSING_VERSION" />
                         </ctl:call-test>
-                        <ctl:call-test name="ctl:SchematronValidatingParser">
-                            <ctl:with-param name="doc" select="$RESPONSE_MISSING_VERSION" />
-                            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-                            <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
-                        </ctl:call-test>
-                        <xsl:if test="not($RESPONSE_MISSING_VERSION//ows:Exception/*)">
-                            <ctl:message>FAILURE: DescribeFeatureType with missing version parameter does not throw an
-                                exception.
-                            </ctl:message>
-                            <ctl:fail />
-                        </xsl:if>
                     </xsl:otherwise>
                 </xsl:choose>
 

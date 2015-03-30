@@ -1,28 +1,38 @@
 # BasicDescribeFeatureType-POST-tc4
 
-**Purpose**:  The response for an invalid DescribeFeatureType request is an exception
+**Purpose**:  The following attributes are required for all XML request entities: @version (default '1.1.0'); @service (default 'WFS')
 
 **Test method**
 
 Execute the following Test Steps:
 
-* Send the following DescribeFeatureType requests by POST: wfs.DescribeFeatureType.post.url
+* Send the following DescribeFeatureType requests by POST: 
 
   ```
-  <wfs:DescribeFeatureType   xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0">
+  <?xml version="1.0" encoding="UTF-8"?>
+  <wfs:DescribeFeatureType   xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
   </wfs:DescribeFeatureType>
   ```
   
+* Send the following DescribeFeatureType requests by POST: 
+
   ```
-  <wfs:DescribeFeatureType   xmlns:wfs="http://www.opengis.net/wfs" service="WFS" >
+  <?xml version="1.0" encoding="UTF-8"?>
+  <wfs:DescribeFeatureType   xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0">
   </wfs:DescribeFeatureType>
   ```
 
+* Send the following DescribeFeatureType requests by POST: 
+
+  ```
+  <?xml version="1.0" encoding="UTF-8"?>
+  <wfs:DescribeFeatureType   xmlns:wfs="http://www.opengis.net/wfs" service="WFS" >
+  </wfs:DescribeFeatureType>
+  ```
+  
 **Conditions**
 
-
-* Response for DescribeFeatureType complies to xml schema: http://schemas.opengis.net/ows/1.1.0/owsExceptionReport.xsd for each request
-* Response for DescribeFeatureType contains [ows:Exception](#ows:Exception) for each request
+* Response complies to xml schema: http://schemas.opengis.net/gml/3.1.1/base/gml.xsd
 
 
 **Reference(s)**: OGC 04-094, 8.1, p.24
