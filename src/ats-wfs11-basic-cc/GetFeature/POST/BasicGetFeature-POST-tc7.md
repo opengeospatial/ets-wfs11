@@ -35,10 +35,8 @@ Execute the following Test Steps:
 
 **Conditions**
 
-* Response to first request complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd
-* Response to first request  contains [wfs:FeatureCollection]
-* Responses to all other requests comply to xml schema: http://schemas.opengis.net/ows/1.1.0/owsExceptionReport.xsd
-* Responses to all other requests contain [ows:Exception]
+* Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd
+* Response contains [wfs:FeatureCollection]
 
 
 

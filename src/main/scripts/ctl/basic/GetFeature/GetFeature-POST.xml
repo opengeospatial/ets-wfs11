@@ -4984,11 +4984,7 @@
 		<param name="wfs.FeatureType.names.first" />
 		<param name="wfs.FeatureType.names.first.namespace" />
 		<assertion>The following attributes are required for all XML request entities: @version (default '1.1.0'); @service (default 'WFS').</assertion>
-		<comment>[1] GetFeature with @version='1.1.0' and @service='WFS'. Pass if all of the following conditions are true: 
-					(1) the response is schema valid; 
-					(2) the root document is an wfs:FeatureCollection document.
-				GetFeature with [1] @version='1.1.0' and no @service [2] no @version and @service='WFS'. 
-				Pass if all of the following conditions are true: 
+		<comment>GetFeature with [1] @version='1.1.0' and @service='WFS' [2] @version='1.1.0' and no @service [3] no @version and @service='WFS'. Pass if all of the following conditions are true: 
 					(1) the response is schema valid; 
 					(2) the root document is an wfs:FeatureCollection document.</comment>
 		<link>wfs-1.1.0-Basic-GetFeature-atc7</link>
@@ -5090,7 +5086,7 @@
 					<ctl:fail />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:variable name="expression">//ows:Exception</xsl:variable>
+					<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
 					<ctl:call-test name="ctl:assert-xpath">
 						<ctl:with-param name="expr" select="$expression" />
 						<ctl:with-param name="doc" select="$request2" />
@@ -5104,7 +5100,7 @@
 					<ctl:fail />
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:variable name="expression">//ows:Exception</xsl:variable>
+					<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
 					<ctl:call-test name="ctl:assert-xpath">
 						<ctl:with-param name="expr" select="$expression" />
 						<ctl:with-param name="doc" select="$request3" />
