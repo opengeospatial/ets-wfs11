@@ -25,7 +25,7 @@ class FeatureData {
 	public String getData() {
 		return data;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Data [featureType=" + featureType + ", propName=" + propName
