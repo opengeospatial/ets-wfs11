@@ -15,6 +15,7 @@
 
 	<ctl:test name="wfs:readiness-tests">
 		<ctl:param name="wfs.GetCapabilities.document"/>
+		<ctl:param name="wfs.GetCapabilities.get.url"/>
 		<ctl:param name="wfs-transaction"/>
         <ctl:param name="wfs-xlink"/>
 		<ctl:param name="gmlsf.profile.level"/>
@@ -151,7 +152,7 @@
                   <xsl:otherwise>-->
 					 <ctl:call-test name="wfs:basic-main">
 						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
-						<ctl:with-param name="wfs.GetCapabilities.get.url" select="$GetCapabilities.get.url"/>
+						<ctl:with-param name="wfs.GetCapabilities.get.url.original" select="$wfs.GetCapabilities.get.url"/>
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>
 						<ctl:with-param name="wfs-xlink" select="$wfs-xlink"/>
 						<ctl:with-param name="conformance.class" select="$conformance.class"/>

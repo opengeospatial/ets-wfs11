@@ -111,7 +111,7 @@
     
 	<ctl:test name="wfs:run-GetFeature-basic-cc-GET">
 		<param name="wfs.GetCapabilities.document" />
-		<param name="wfs.GetCapabilities.get.url" />
+		<param name="wfs.GetCapabilities.get.url.original" />
 		<ctl:assertion>
 			Run basic conformance class test group for GetFeature requests using the GET method.
 			Target endpoint is
@@ -175,7 +175,7 @@
                 <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5">
-				<ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url" />
+				<ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url.original" />
 				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
 			</ctl:call-test>
 			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
@@ -1736,27 +1736,72 @@
 				<xsl:variable name="featurePropData">
 					<xsl:value-of select="gf5:findFeatureTypeAndPropertyName($wfs.GetCapabilities.get.url)" />
 				</xsl:variable>
-				
+				<xsl:variable name="ftNamespace">
+	                    <xsl:value-of select="substring-before($featurePropData, '|')" />
+				</xsl:variable>
+	            <xsl:variable name="featurePropData">
+	                    <xsl:value-of select="substring-after($featurePropData, '|')" />
+	            </xsl:variable>
+				<xsl:variable name="ftName">
+	                    <xsl:value-of select="substring-before($featurePropData, '|')" />
+				</xsl:variable>
+	            <xsl:variable name="featurePropData">
+	                    <xsl:value-of select="substring-after($featurePropData, '|')" />
+	            </xsl:variable>
+				<xsl:variable name="propNamespace">
+	                    <xsl:value-of select="substring-before($featurePropData, '|')" />
+				</xsl:variable>
+	            <xsl:variable name="featurePropData">
+	                    <xsl:value-of select="substring-after($featurePropData, '|')" />
+	            </xsl:variable>
+				<xsl:variable name="propName">
+	                    <xsl:value-of select="substring-before($featurePropData, '|')" />
+				</xsl:variable>
+				<xsl:variable name="value">
+	                    <xsl:value-of select="substring-after($featurePropData, '|')" />
+				</xsl:variable>
+
 				<xsl:variable name="request">
 					<request>
 						<url>
 							<xsl:value-of select="$wfs.GetFeature.get.url" />
 						</url>
 						<method>get</method>
-						<param name="DEBUG"><xsl:value-of select="$featurePropData" /></param>
-						<param name="SERVIsCE">WFS</param>
-						<param name="version">1.1.0</param>
-						<param name="REQUsEST">GetFeature</param>
-						<!-- 
-						<param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first" /></param>
-						<param name="resulttype">hits</param>
+						<param name="SERVICE">WFS</param>
+						<param name="VERSION">1.1.0</param>
+						<param name="REQUEST">GetFeature</param>
+						<param name="typename">
+							<xsl:choose>
+								<xsl:when test="$ftNamespace != ''">
+									<xsl:value-of select="concat('app:', $ftName)" />
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="$ftName" />
+								</xsl:otherwise>
+							</xsl:choose>
+						</param>
 						<param name="namespace">
-							<xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
-								<xsl:value-of select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
+							<xsl:if test="$ftNamespace != ''">
+								<xsl:value-of select="concat('xmlns(app=', $ftNamespace, ')')" />
 							</xsl:if>
 						</param>
-						 -->
-						<p:XMLValidatingParser.OWS />
+						<param name="FILTER">
+							<xsl:text>%3Cogc%3AFilter%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22</xsl:text>
+							<xsl:if test="$propNamespace != ''">
+								<xsl:text>%20xmlns%3Aapp%3D%22</xsl:text>
+								<xsl:value-of select="$propNamespace" />
+								<xsl:text>%22</xsl:text>
+							</xsl:if>
+							<xsl:text>%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3E</xsl:text>
+							<xsl:if test="$propNamespace != ''">
+								<xsl:text>app%3A</xsl:text>
+							</xsl:if>
+							<xsl:value-of select="$propName" />
+							<xsl:text>%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E</xsl:text>
+							<xsl:value-of select="$value" />
+							<xsl:text>%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E</xsl:text>
+						</param>
+						<p:XMLValidatingParser.GMLSF1 />
 					</request>
 				</xsl:variable>
 				
@@ -1766,12 +1811,7 @@
 						<ctl:fail />
 					</xsl:when>
 					<xsl:otherwise>
-						<ctl:call-test name="ctl:SchematronValidatingParser">
-							<ctl:with-param name="doc" select="$request" />
-							<ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-							<ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
-						</ctl:call-test>
-						<xsl:variable name="expression">//ows:Exception</xsl:variable>
+						<xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
 						<ctl:call-test name="ctl:assert-xpath">
 							<ctl:with-param name="expr" select="$expression" />
 							<ctl:with-param name="doc" select="$request" />
