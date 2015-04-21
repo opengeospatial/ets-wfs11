@@ -8,4 +8,6 @@ target/*
 target/
 pom.xml.releaseBackup
 release.properties
-
+# IntelliJ
+.idea
+*.iml
