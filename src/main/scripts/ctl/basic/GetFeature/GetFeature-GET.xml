@@ -196,6 +196,7 @@
       subtype=gml/3.1.1".
     </assertion>
     <comment></comment>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc1.html</link>
     <link>OGC 04-094, 9.3, p.38</link>
     <code>
       <xsl:variable name="RESPONSE">
@@ -256,6 +257,7 @@
       exception.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc2.html</link>
     <ctl:link>OGC 04-094, 9.3, p.38</ctl:link>
     <ctl:code>
       <xsl:variable name="RESPONSE">
@@ -304,6 +306,7 @@
       hits.
     </assertion>
     <comment></comment>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc3.html</link>
     <link>OGC 04-094, 9.3, p.38</link>
     <code>
       <xsl:variable name="RESPONSE">
@@ -362,6 +365,7 @@
     <comment>GetFeature with a service 'WFS', version '1.1.0', and no request parameter. Pass if all of the following
       conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document.
     </comment>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc4.html</link>
     <link>ows-1.0.0-common-atc4</link>
     <link>OGC 05-008c1, 9.2.1, p.36 (Table 20)</link>
     <code>
@@ -538,6 +542,7 @@
       must be returned.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc6">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc6.html</link>
     <ctl:link>OGC 04-094, 7.7, p. 23</ctl:link>
     <code>
       <xsl:variable name="request">
@@ -592,6 +597,7 @@
       must populate the values of the timeStamp attribute and the numberOfFeatures attribute.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc7">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc7.html</link>
     <ctl:link>OGC 04-094, 9.3, p. 38</ctl:link>
     <code>
       <xsl:variable name="RESPONSE">

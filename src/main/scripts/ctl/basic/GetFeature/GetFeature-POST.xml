@@ -472,7 +472,7 @@
       conditions are true: (1) the response is schema valid (for the GMLSF level supported); (2) the root document is an
       wfs:FeatureCollection document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc1</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc1.html</link>
     <link>OGC 04-094, 9.2, p.34</link>
     <code>
       <xsl:variable name="request1">
@@ -534,7 +534,7 @@
       (3) there are no features in the response;
       (4) the numberOfFeatures and timeStamp attributes are present.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc2</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc2.html</link>
     <link>OGC 04-094, 9.3, p.38</link>
     <code>
       <xsl:variable name="request1">
@@ -609,7 +609,7 @@
       (3) the number of featureMembers in the response is less than or equal to the maxFeatures attribute value in the
       request.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc3</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc3.html</link>
     <link>OGC 04-094, 9.2, p.35</link>
     <code>
       <xsl:variable name="request1">
@@ -674,7 +674,7 @@
     <comment>Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document
       is an wfs:FeatureCollection document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc4</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc4.html</link>
     <link>OGC 04-094, 9.2, p.37</link>
     <code>
       <xsl:variable name="request1">
@@ -735,7 +735,7 @@
       (2) the root document is an wfs:FeatureCollection document;
       (3) the @xsi:schemaLocation parameter is present.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc5</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc5.html</link>
     <link>OGC 04-094, 9.3.1, p.39</link>
     <code>
 
@@ -795,7 +795,7 @@
       (1) the response is schema valid;
       (2) the root document is an ows:ServiceException document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc6</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc6">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc6.html</link>
     <link>OGC 04-094, 7.7, p. 23</link>
     <code>
 
@@ -903,7 +903,7 @@
       (1) the response is schema valid;
       (2) the root document is an wfs:FeatureCollection document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc7</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc7">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc7.html</link>
     <link>OGC 04-094, 7.8, p.24</link>
     <code>
 
@@ -1050,7 +1050,7 @@
       (1) the response is schema valid;
       (2) the root document is a wfs:FeatureCollection document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetFeature-atc8</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc8">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/POST/BasicGetFeature-POST-tc8.html</link>
     <link>OGC 04-094, 9.2, p.35</link>
     <code>
       <xsl:variable name="request1">
