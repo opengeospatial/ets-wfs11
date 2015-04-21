@@ -1,5 +1,8 @@
 package org.opengis.cite.wfs11;
 
+import static org.opengis.cite.wfs11.NamespaceBindingUtils.GML_NAMESPACE;
+import static org.opengis.cite.wfs11.NamespaceBindingUtils.WFS_NAMESPACE;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ import org.apache.xerces.xs.XSModel;
 import org.apache.xerces.xs.XSTypeDefinition;
 import org.opengis.cite.iso19136.util.NamespaceBindings;
 import org.opengis.cite.iso19136.util.XMLSchemaModelUtils;
+import org.opengis.cite.wfs11.NamespaceBindingUtils.NamespaceBindingBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -35,10 +39,6 @@ import org.xml.sax.SAXException;
  *
  */
 public class GetFeatureTestUtils {
-
-	private static final String WFS_NAMESPACE = "http://www.opengis.net/wfs";
-
-	public static final String GML = "http://www.opengis.net/gml/3.2";
 
 	public static String findFeatureTypeAndPropertyName(
 			String wfsCapabilitiesUrl) throws Exception {
@@ -94,7 +94,6 @@ public class GetFeatureTestUtils {
 	private static List<QName> parseFeatureTypeNames(Document wfsCapabilities)
 			throws XPathExpressionException, ParserConfigurationException,
 			SAXException, IOException {
-
 		List<QName> featureInfo = new ArrayList<QName>();
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		NamespaceBindings nsBindings = new NamespaceBindings();
@@ -149,52 +148,20 @@ public class GetFeatureTestUtils {
 				for (XSElementDeclaration featureProperty : featureProperties) {
 					String propName = featureProperty.getName();
 					String propNamespace = featureProperty.getNamespace();
-
-					if (!"http://www.opengis.net/gml".equals(propNamespace)) {
-
-						NamespaceBindings nsBindings = new NamespaceBindings();
-						nsBindings.addNamespaceBinding(typeNamespace, "n1");
-						nsBindings.addNamespaceBinding(propNamespace, "n2");
-						nsBindings.addNamespaceBinding(WFS_NAMESPACE, "wfs");
-						nsBindings.addNamespaceBinding(
-								"http://www.opengis.net/gml", "gml");
-
-						StringBuilder xPathBuilder = new StringBuilder();
-						xPathBuilder
-								.append("//wfs:FeatureCollection/gml:featureMember/");
-						xPathBuilder
-								.append(nsBindings.getPrefix(typeNamespace))
-								.append(":").append(typeName).append("/");
-						xPathBuilder
-								.append(nsBindings.getPrefix(propNamespace))
-								.append(":").append(propName);
-						xPathBuilder.append(" | ");
-						xPathBuilder
-								.append("//wfs:FeatureCollection/gml:featureMembers/");
-						xPathBuilder
-								.append(nsBindings.getPrefix(typeNamespace))
-								.append(":").append(typeName).append("/");
-						xPathBuilder
-								.append(nsBindings.getPrefix(propNamespace))
-								.append(":").append(propName);
-
-						String xPath = xPathBuilder.toString();
-
-						XPath xpath = XPathFactory.newInstance().newXPath();
-						xpath.setNamespaceContext(nsBindings);
-						Object result = xpath.evaluate(xPath, rspEntity,
-								XPathConstants.NODESET);
-						if (result instanceof NodeList) {
-							NodeList nodes = (NodeList) result;
+					if (!GML_NAMESPACE.equals(propNamespace)) {
+						Object property = extractProperty(rspEntity, typeName,
+								typeNamespace, propName, propNamespace);
+						if (property instanceof NodeList) {
+							NodeList nodes = (NodeList) property;
 							for (int i = 0; i < nodes.getLength(); i++) {
 								Node node = nodes.item(i);
 								String textContent = node.getTextContent();
 								if (textContent != null
 										&& !textContent.isEmpty()) {
-									QName property = new QName(propNamespace,
-											propName);
+									QName propertyQName = new QName(
+											propNamespace, propName);
 									return new FeatureData(featureType,
-											property, textContent);
+											propertyQName, textContent);
 								}
 							}
 						}
@@ -203,6 +170,33 @@ public class GetFeatureTestUtils {
 			}
 		}
 		return null;
+	}
+
+	private static Object extractProperty(Document rspEntity, String typeName,
+			String typeNamespace, String propName, String propNamespace)
+			throws XPathExpressionException {
+		NamespaceBindings nsBindings = new NamespaceBindingBuilder()
+				.add("n1", typeNamespace).add("n2", propNamespace)
+				.add("wfs", WFS_NAMESPACE).add("gml", GML_NAMESPACE).build();
+
+		StringBuilder xPathBuilder = new StringBuilder();
+		xPathBuilder.append("//wfs:FeatureCollection/gml:featureMember/");
+		xPathBuilder.append(nsBindings.getPrefix(typeNamespace)).append(":")
+				.append(typeName).append("/");
+		xPathBuilder.append(nsBindings.getPrefix(propNamespace)).append(":")
+				.append(propName);
+		xPathBuilder.append(" | ");
+		xPathBuilder.append("//wfs:FeatureCollection/gml:featureMembers/");
+		xPathBuilder.append(nsBindings.getPrefix(typeNamespace)).append(":")
+				.append(typeName).append("/");
+		xPathBuilder.append(nsBindings.getPrefix(propNamespace)).append(":")
+				.append(propName);
+
+		String xPath = xPathBuilder.toString();
+
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		xpath.setNamespaceContext(nsBindings);
+		return xpath.evaluate(xPath, rspEntity, XPathConstants.NODESET);
 	}
 
 	private static QName buildQName(Node node) {
@@ -230,7 +224,6 @@ public class GetFeatureTestUtils {
 				.getTypeDefinition();
 		List<XSElementDeclaration> featureProps = XMLSchemaModelUtils
 				.getAllElementsInParticle(featureTypeDef.getParticle());
-		removeDeprecatedGMLElements(featureProps, model);
 		List<XSElementDeclaration> props = new ArrayList<XSElementDeclaration>();
 		// set bit mask to indicate acceptable derivation mechanisms
 		short extendOrRestrict = XSConstants.DERIVATION_EXTENSION
@@ -270,15 +263,6 @@ public class GetFeatureTestUtils {
 			}
 		}
 		return props;
-	}
-
-	private static void removeDeprecatedGMLElements(
-			List<XSElementDeclaration> elemDecls, XSModel model) {
-		XSElementDeclaration elemDecl = model.getElementDeclaration("location",
-				GML);
-		elemDecls.remove(elemDecl);
-		elemDecl = model.getElementDeclaration("metaDataProperty", GML);
-		elemDecls.remove(elemDecl);
 	}
 
 }
