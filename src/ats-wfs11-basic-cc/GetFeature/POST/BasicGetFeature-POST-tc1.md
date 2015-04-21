@@ -11,7 +11,7 @@ Execute the following Test Steps:
   ```
     <?xml version="1.0" encoding="UTF-8"?>
     <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
-      <wfs:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="$ftname" srsName="urn:ogc:def:crs:EPSG::4326"/>
+      <wfs:Query typeName="$ftname" srsName="urn:ogc:def:crs:EPSG::4326"/>
     </wfs:GetFeature>
   ```
 
