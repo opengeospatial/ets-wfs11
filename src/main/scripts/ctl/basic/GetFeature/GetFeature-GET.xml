@@ -1816,6 +1816,23 @@
 							<ctl:with-param name="expr" select="$expression" />
 							<ctl:with-param name="doc" select="$request" />
 						</ctl:call-test>
+
+						<xsl:for-each select="//wfs:FeatureCollection/gml:featureMember">
+							<xsl:if test="not(./*/*/text() = $value)">
+								<ctl:message>
+									FAILURE: Returned featureMember does not contain the specified text value '<xsl:value-of select="$value"/>'.
+								</ctl:message>
+								<ctl:fail />
+							</xsl:if>
+						</xsl:for-each>
+						<xsl:for-each select="//wfs:FeatureCollection/gml:featureMembers/*">
+							<xsl:if test="not(./*/*/text() = $value)">
+								<ctl:message>
+									FAILURE: Returned featureMember does not contain the specified text value '<xsl:value-of select="$value"/>'.
+								</ctl:message>
+								<ctl:fail />
+							</xsl:if>
+						</xsl:for-each>
 					</xsl:otherwise>
 				</xsl:choose>
 			</code>
