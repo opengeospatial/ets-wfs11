@@ -216,7 +216,7 @@
     <comment>GetCapabilities by GET. Pass if all of the following conditions are true: (1) the response is schema valid;
       (2) the root document is an wfs:WFS_Capabilities document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetCapabilities-atc1</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc1.html</link>
     <link>OGC 04-094, 13.1, p.79</link>
     <code>
 
@@ -259,7 +259,7 @@
       is schema valid; (2) the root document is an wfs:WFS_Capabilities document; (3) the version number on the response
       is what was requested.
     </comment>
-    <link>wfs-1.1.0-Basic-atc1</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc2.html</link>
     <link>OGC 04-094, 6.2.3, p.9</link>
     <code>
 
@@ -301,7 +301,7 @@
       following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities
       document.
     </comment>
-    <link>wfs-1.1.0-Basic-atc2</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc3.html</link>
     <link>OGC 04-094, 6.3.1, p.10</link>
     <link>RFC 3986, 3.2.2</link>
     <code>
@@ -479,7 +479,7 @@
     <comment>Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document
       is an wfs:WFS_Capabilities document.
     </comment>
-    <link>wfs-1.1.0-Basic-GetCapabilities-atc2</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc4.html</link>
     <link>OGC 04-094, 13.1, p.79</link>
     <code>
 
@@ -519,7 +519,7 @@
     <comment>GetCapabilities with additional bogus KVP parameters, to be ignored. Pass if all of the following
       conditions are true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document.
     </comment>
-    <link>wfs-1.1.0-Basic-atc5</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc5.html</link>
     <link>OGC 04-094, 14.2.1, p.94</link>
     <code>
 
@@ -562,7 +562,7 @@
       the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document; (3) the results from both
       requests are the exact same.
     </comment>
-    <link>wfs-1.1.0-Basic-atc4</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc6">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc6.html</link>
     <link>OGC 04-094, 14.2.1, p.94</link>
     <code>
 
@@ -623,7 +623,7 @@
       following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport
       document
     </comment>
-    <link>ows-1.0.0-common-atc3</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc7">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc7.html</link>
     <link>OGC 05-008c1, 11.1, p.54</link>
     <code>
 
@@ -690,7 +690,7 @@
       all of the following conditions are true: (1) the response is schema valid; (2) the root document is an
       wfs:WFS_Capabilities document.
     </comment>
-    <link>ows-1.0.0-common-atc1</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc9">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc9.html</link>
     <link>OGC 05-008c1, 11.5.2, p.56</link>
     <code>
       <xsl:variable name="request1">
@@ -787,7 +787,7 @@
       is an wfs:WFS_Capabilities document; (3) the response Content-Type header must be 'application/xml' or 'text/xml'
       for XML entities.
     </comment>
-    <link>ows-1.0.0-common-atc2</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc9">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc9.html</link>
     <link>OGC 05-008c1, 11.7, p.61</link>
     <code>
 
@@ -836,7 +836,7 @@
     <comment>Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document
       is an wfs:WFS_Capabilities document.
     </comment>
-    <link>ows-1.0.0-metadata-atc1</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc10">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc10.html</link>
     <link>OGC 05-008c1, 7.1, p.10</link>
     <code>
 
@@ -880,7 +880,7 @@
       true: (1) the response is schema valid; (2) the root document is an wfs:WFS_Capabilities document; (3) the
       response version must be what was requested.
     </comment>
-    <link>ows-1.0.0-metadata-atc2</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc11">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc11.html</link>
     <link>OGC 05-008c1, 7.2.2, p.12 (Table 2)</link>
     <code>
 
@@ -922,7 +922,7 @@
       latest copy. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root
       document is an wfs:WFS_Capabilities document; (3) the response version must be 1.1.0.
     </comment>
-    <link>ows-1.0.0-metadata-atc3</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc12">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc12.html</link>
     <link>OGC 05-008c1, 7.3.2, p.16</link>
     <code>
       <xsl:variable name="request1">
@@ -964,7 +964,7 @@
       have the 'MissingParameterValue' exception code; (4) theExceptionReport @locator value shall be that of the
       missing parameter.
     </comment>
-    <link>ows-1.0.0-metadata-atc5</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc13">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc13.html</link>
     <link>OGC 05-008c1, 7.4.1, p.19</link>
     <code>
 
@@ -1011,7 +1011,7 @@
     <comment>Pass if all of the following conditions are true: (1) the response is schema valid (containing all required
       elements); (2) the root document is an ows:ExceptionReport document.
     </comment>
-    <link>ows-1.0.0-metadata-atc6</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc14">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc14.html</link>
     <link>OGC 05-008c1, 7.4.8, p.29</link>
     <code>
 
@@ -1051,7 +1051,7 @@
       OperationsMetadata section.
     </assertion>
     <comment>Pass if the response is schema valid and includes a complete wfs:WFS_Capabilities document.</comment>
-    <link>ows-1.0.0-metadata-atc7</link>
+    <link title="wfs-1.1.0-Basic-GetCapabilities-tc15">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc15.html</link>
     <link>OGC 05-008c1, 7.4.6, p.26</link>
     <code>
 
