@@ -133,6 +133,101 @@
       </ctl:code>
     </ctl:test>
 
+    <ctl:test name="wfs:run-GetCapabilities-basic-cc-GET">
+		<param name="wfs.GetCapabilities.document" />
+		<ctl:assertion>
+			Run basic conformance class test group for GetCapabilities
+			requests using the GET method. Target endpoint is
+			{$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetCapabilities']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
+		</ctl:assertion>
+		<ctl:code>
+			<xsl:variable name="wfs.GetCapabilities.get.url">
+				<xsl:value-of
+					select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetCapabilities']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+			</xsl:variable>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc1.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc3.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc4.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc4.2">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc4.3">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc5.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc7.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc8.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc9.2">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10.2">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc10.3">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc11.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc12.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc13.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc14.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc16.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc17.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc18.1">
+				<ctl:with-param name="wfs.GetCapabilities.get.url"
+					select="$wfs.GetCapabilities.get.url" />
+			</ctl:call-test>
+		</ctl:code>
+	</ctl:test>
+    
         <test name="wfs:wfs-1.1.0-Basic-GetCapabilities-tc1.1">
       <param name="wfs.GetCapabilities.get.url"/>
       <assertion>The GET method request must be supported (using HTTP GET).</assertion>

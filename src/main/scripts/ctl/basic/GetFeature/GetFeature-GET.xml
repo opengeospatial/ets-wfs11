@@ -106,7 +106,60 @@
 
       </ctl:code>
     </ctl:test>
-
+    
+	<ctl:test name="wfs:run-GetFeature-basic-cc-GET">
+		<param name="wfs.GetCapabilities.document" />
+		<ctl:assertion>
+			Run basic conformance class test group for GetFeature requests using the GET method.
+			Target endpoint is
+			{$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
+		</ctl:assertion>
+		<ctl:code>
+	
+			<ctl:call-test name="wfs:GetFeature-output-format-default">
+				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:GetFeature-extra-param">
+				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:GetFeature-result-type-results">
+				<ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
+			</ctl:call-test>
+	
+			<xsl:variable name="wfs.GetFeature.get.url">
+				<xsl:value-of
+					select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+			</xsl:variable>
+	
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.3">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.4">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.1">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.2">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.3"> <ctl:with-param 
+				name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/> </ctl:call-test> -->
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc31.1">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.1">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+			<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.2">
+				<ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+			</ctl:call-test>
+		</ctl:code>
+	</ctl:test>
+    
         <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.1">
       <param name="wfs.GetFeature.get.url"/>
       <assertion>A KVP parameter value that denotes a bounding box shall conform to the general syntax specified in subclause 10.2.3. If no CRS reference is provided, a service-defined default value must be assumed.</assertion>
