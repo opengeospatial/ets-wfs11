@@ -1,6 +1,6 @@
 # BasicDescribeFeatureType-POST-tc1
 
-**Purpose**:  <assertion>The following attributes are required for all XML request entities: @version (default '1.1.0'); @service (default 'WFS').
+**Purpose**:  The following attributes are required for all XML request entities: @version (default '1.1.0'); @service (default 'WFS').
 
 **Test method**
 
