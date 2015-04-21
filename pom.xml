@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-wfs11</artifactId>
   <groupId>org.opengis.cite</groupId>
-  <version>r22-SNAPSHOT</version>
+  <version>1.23-SNAPSHOT</version>
 
   <name>OGC Web Feature Service 1.1.0 Exectutable Test Suite</name>
   <description>
@@ -111,7 +111,7 @@
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.doxia</groupId>
-            <artifactId>doxia-module-xhtml</artifactId>
+            <artifactId>doxia-module-markdown</artifactId>
             <version>1.6</version>
           </dependency>
         </dependencies>
