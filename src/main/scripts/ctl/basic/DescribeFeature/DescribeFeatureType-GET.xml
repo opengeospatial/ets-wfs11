@@ -138,7 +138,7 @@
       'DescribeFeatureType'. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the
       root document is an xsd:schema document.
     </comment>
-    <link>ows-1.0.0-common-atc4</link>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc1.html</link>
     <link>OGC 05-008c1, 9.2.1, p.36 (Table 20)</link>
     <code>
 
@@ -181,7 +181,7 @@
       Pass if all of the following conditions are true: (1) the response is a valid xsd:schema;
       (2) the root document is a xsd:schema document.
     </comment>
-    <link>BasicDescribeFeatureType-GET-tc2</link>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc2.html</link>
     <link>OGC 05-008c1, 11.5.3, p.57</link>
     <code>
       <xsl:variable name="request1">
@@ -225,7 +225,7 @@
       tests
       all FeatureTypeNames advertised in GetCapabiltiesResponse.
     </comment>
-    <link>wfs-1.1.0-Basic-atc6</link>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc3.html</link>
     <link>OGC 04-094, 14.4, p.96</link>
     <code>
       <xsl:variable name="describeFeatureTypeRequest">
@@ -299,6 +299,7 @@
       "text/xml; subtype=gml/3.1.1".
     </ctl:assertion>
     <ctl:comment></ctl:comment>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc4.html</link>
     <ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
     <ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
     <ctl:code>
@@ -330,6 +331,7 @@
     <ctl:assertion>The response for a DescribeFeatureType request with an invalid feature type is an exception.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc5.html</link>
     <ctl:link>OGC 04-094, 8.4, p.27</ctl:link>
     <ctl:code>
       <xsl:variable name="RESPONSE_MISSING_SERVICE">

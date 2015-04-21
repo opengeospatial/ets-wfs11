@@ -119,6 +119,7 @@
       (1) the response is schema valid;
       (2) the root document is an xsd:schema document as expected.
     </comment>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/POST/BasicDescribeFeatureType-POST-tc1.html</link>
     <link>OGC 04-094, 7.8, p.24</link>
     <code>
 
@@ -162,6 +163,7 @@
       (1) the response is schema valid (both xsd:schema and the proper GMLSF level supported);
       (2) the root document is a xsd:schema document.
     </comment>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/POST/BasicDescribeFeatureType-POST-tc2.html</link>
     <link>OGC 04-094, 8.1, p.24</link>
     <code>
 
@@ -202,6 +204,7 @@
       feature types in the requested schema language.
     </assertion>
     <comment></comment>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/POST/BasicDescribeFeatureType-POST-tc3.html</link>
     <link>OGC 04-094, 8.1, p.24</link>
     <code>
 
@@ -284,6 +287,7 @@
       (1) the response is schema valid
       (2) the root document is a xsd:schema document.
     </comment>
+    <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/POST/BasicDescribeFeatureType-POST-tc4.html</link>
     <link>OGC 04-094, 8.1, p.24</link>
     <code>
 
