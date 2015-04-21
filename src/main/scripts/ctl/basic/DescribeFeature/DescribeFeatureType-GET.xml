@@ -129,6 +129,257 @@
     </ctl:code>
   </ctl:test>
 
+  <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1">
+    <param name="wfs.DescribeFeatureType.get.url"/>
+    <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities:
+      service, request, version.
+    </assertion>
+    <comment>DescribeFeatureType with required parameters service 'WFS', version '1.1.0', and request of
+      'DescribeFeatureType'. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the
+      root document is an xsd:schema document.
+    </comment>
+    <link>ows-1.0.0-common-atc4</link>
+    <link>OGC 05-008c1, 9.2.1, p.36 (Table 20)</link>
+    <code>
+
+      <xsl:variable name="request1">
+        <request>
+          <url>
+            <xsl:value-of select="$wfs.DescribeFeatureType.get.url"/>
+          </url>
+          <method>get</method>
+          <param name="service">WFS</param>
+          <param name="version">1.1.0</param>
+          <param name="request">DescribeFeatureType</param>
+          <p:XMLValidatingParser.XMLSchema/>
+        </request>
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="not($request1/*)">
+          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:fail/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="expression">//xsd:schema</xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression"/>
+            <ctl:with-param name="doc" select="$request1"/>
+          </ctl:call-test>
+        </xsl:otherwise>
+      </xsl:choose>
+
+    </code>
+  </test>
+
+  <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc2">
+    <param name="wfs.DescribeFeatureType.get.url"/>
+    <assertion>Application schemas that comply with GML 3.1.1 must be a supported. These are presented if no
+      outputFormat is specified.
+    </assertion>
+    <comment>DescribeFeatureType no feature types, expect the schema to validate.
+      Pass if all of the following conditions are true: (1) the response is a valid xsd:schema;
+      (2) the root document is a xsd:schema document.
+    </comment>
+    <link>BasicDescribeFeatureType-GET-tc2</link>
+    <link>OGC 05-008c1, 11.5.3, p.57</link>
+    <code>
+      <xsl:variable name="request1">
+        <request>
+          <url>
+            <xsl:value-of select="$wfs.DescribeFeatureType.get.url"/>
+          </url>
+          <method>get</method>
+          <param name="service">WFS</param>
+          <param name="version">1.1.0</param>
+          <param name="request">DescribeFeatureType</param>
+          <p:XMLValidatingParser.XMLSchema/>
+        </request>
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="not($request1/*)">
+          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:fail/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="expression">//xsd:schema</xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression"/>
+            <ctl:with-param name="doc" select="$request1"/>
+          </ctl:call-test>
+        </xsl:otherwise>
+      </xsl:choose>
+
+    </code>
+  </test>
+
+  <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">
+    <param name="wfs.DescribeFeatureType.get.url"/>
+    <param name="CAPABILITIES"/>
+    <assertion>A request with no TypeName elements shall produce a response that includes definitions of all supported
+      feature types in the requested schema language.
+    </assertion>
+    <comment>DescribeFeatureType with the namespace KVP parameter (escaped by engine). Pass if the following
+      condition is true: (1) the response is schema valid; (2) the root document is an xsd:schema document. IS: now
+      tests
+      all FeatureTypeNames advertised in GetCapabiltiesResponse.
+    </comment>
+    <link>wfs-1.1.0-Basic-atc6</link>
+    <link>OGC 04-094, 14.4, p.96</link>
+    <code>
+      <xsl:variable name="describeFeatureTypeRequest">
+        <request>
+          <url>
+            <xsl:value-of select="$wfs.DescribeFeatureType.get.url"/>
+          </url>
+          <method>get</method>
+          <param name="service">WFS</param>
+          <param name="version">1.1.0</param>
+          <param name="request">DescribeFeatureType</param>
+          <p:XMLValidatingParser.XMLSchema/>
+        </request>
+      </xsl:variable>
+      <xsl:variable name="targetNamespace">
+        <xsl:value-of select="$describeFeatureTypeRequest/xsd:schema/@targetNamespace"/>
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="not($describeFeatureTypeRequest/*)">
+          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:fail/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="expression">//xsd:schema</xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression"/>
+            <ctl:with-param name="doc" select="$describeFeatureTypeRequest"/>
+          </ctl:call-test>
+
+          <xsl:for-each select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType">
+            <xsl:variable name="iteration" select="position()"/>
+            <xsl:variable name="ftname">
+              <xsl:value-of select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name"/>
+            </xsl:variable>
+            <xsl:variable name="prefix">
+              <xsl:value-of select="substring-before($ftname , ':')"/>
+            </xsl:variable>
+            <xsl:variable name="namespace">
+              <xsl:value-of
+                      select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name/namespace::*[name()=$prefix]"/>
+            </xsl:variable>
+            <xsl:variable name="localName">
+              <xsl:value-of select="substring-after($ftname , ':')"/>
+            </xsl:variable>
+            <xsl:if test="not($describeFeatureTypeRequest/xsd:schema/xsd:element[@name = $localName])">
+              <ctl:message>FAILURE: Feature Type
+                <xsl:value-of select="$localName"/>
+                is not described in DescribeFeatureType response but listed in capabilities document.
+              </ctl:message>
+              <ctl:fail/>
+            </xsl:if>
+            <xsl:if test="$namespace != $targetNamespace">
+              <ctl:message>FAILURE: Namespace binding of FeatureType
+                <xsl:value-of select="$ftname"/>
+                is not as expected: should be
+                <xsl:value-of select="$targetNamespace"/>
+                but is<xsl:value-of select="$namespace"/>.
+              </ctl:message>
+              <ctl:fail/>
+            </xsl:if>
+          </xsl:for-each>
+        </xsl:otherwise>
+      </xsl:choose>
+    </code>
+  </test>
+
+  <ctl:test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4">
+    <ctl:param name="CAPABILITIES"/>
+    <ctl:assertion>The MIME returned for a DescribeFeatureType request where no specific output format is requested is
+      "text/xml; subtype=gml/3.1.1".
+    </ctl:assertion>
+    <ctl:comment></ctl:comment>
+    <ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
+    <ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
+    <ctl:code>
+      <xsl:variable name="RESPONSE">
+        <ctl:request>
+          <ctl:url>
+            <xsl:value-of
+                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+          </ctl:url>
+          <ctl:method>get</ctl:method>
+          <ctl:param name="request">DescribeFeatureType</ctl:param>
+          <ctl:param name="service">WFS</ctl:param>
+          <ctl:param name="version">1.1.0</ctl:param>
+          <parsers:HTTPParser>
+            <parsers:parse>
+              <parsers:NullParser/>
+            </parsers:parse>
+          </parsers:HTTPParser>
+        </ctl:request>
+      </xsl:variable>
+      <xsl:if test="not(starts-with($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml; subtype=gml/3.1.1'))">
+        <ctl:fail/>
+      </xsl:if>
+    </ctl:code>
+  </ctl:test>
+
+  <ctl:test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">
+    <ctl:param name="CAPABILITIES"/>
+    <ctl:assertion>The response for a DescribeFeatureType request with an invalid feature type is an exception.
+    </ctl:assertion>
+    <ctl:comment></ctl:comment>
+    <ctl:link>OGC 04-094, 8.4, p.27</ctl:link>
+    <ctl:code>
+      <xsl:variable name="RESPONSE_MISSING_SERVICE">
+        <ctl:request>
+          <ctl:url>
+            <xsl:value-of
+                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+          </ctl:url>
+          <ctl:method>get</ctl:method>
+          <ctl:param name="request">DescribeFeatureType</ctl:param>
+          <ctl:param name="version">1.1.0</ctl:param>
+          <parsers:HTTPParser>
+            <parsers:parse>
+              <parsers:HTTPParser/>
+            </parsers:parse>
+          </parsers:HTTPParser>
+        </ctl:request>
+      </xsl:variable>
+
+      <xsl:variable name="RESPONSE_MISSING_VERSION">
+        <ctl:request>
+          <ctl:url>
+            <xsl:value-of
+                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+          </ctl:url>
+          <ctl:method>get</ctl:method>
+          <ctl:param name="request">DescribeFeatureType</ctl:param>
+          <ctl:param name="service">WFS</ctl:param>
+          <parsers:HTTPParser>
+            <parsers:parse>
+              <parsers:HTTPParser/>
+            </parsers:parse>
+          </parsers:HTTPParser>
+        </ctl:request>
+      </xsl:variable>
+
+      <xsl:if test="not($RESPONSE_MISSING_SERVICE//ows:Exception/*)">
+        <ctl:message>FAILURE: DescribeFeatureType with missing service parameter does not throw an exception.
+        </ctl:message>
+        <ctl:fail/>
+      </xsl:if>
+      <xsl:if test="not($RESPONSE_MISSING_VERSION//ows:Exception/*)">
+        <ctl:message>FAILURE: DescribeFeatureType with missing version parameter does not throw an exception.
+        </ctl:message>
+        <ctl:fail/>
+      </xsl:if>
+
+    </ctl:code>
+  </ctl:test>
+
   <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1.1">
     <param name="wfs.DescribeFeatureType.get.url"/>
     <assertion>A valid namespace binding expressed by the namespace parameter in a KVP string shall conform to the
@@ -653,38 +904,6 @@
     </code>
   </test>
 
-  <ctl:test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc4">
-    <ctl:param name="CAPABILITIES"/>
-    <ctl:assertion>The MIME returned for a DescribeFeatureType request where no specific output format is requested is
-      "text/xml; subtype=gml/3.1.1".
-    </ctl:assertion>
-    <ctl:comment></ctl:comment>
-    <ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
-    <ctl:link>OGC 04-094, 8.2, p.25</ctl:link>
-    <ctl:code>
-      <xsl:variable name="RESPONSE">
-        <ctl:request>
-          <ctl:url>
-            <xsl:value-of
-                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
-          </ctl:url>
-          <ctl:method>get</ctl:method>
-          <ctl:param name="request">DescribeFeatureType</ctl:param>
-          <ctl:param name="service">WFS</ctl:param>
-          <ctl:param name="version">1.1.0</ctl:param>
-          <parsers:HTTPParser>
-            <parsers:parse>
-              <parsers:NullParser/>
-            </parsers:parse>
-          </parsers:HTTPParser>
-        </ctl:request>
-      </xsl:variable>
-      <xsl:if test="not(starts-with($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml; subtype=gml/3.1.1'))">
-        <ctl:fail/>
-      </xsl:if>
-    </ctl:code>
-  </ctl:test>
-
   <ctl:test name="wfs:DescribeFeatureType-output-format-XMLSCHEMA">
     <ctl:param name="CAPABILITIES"/>
     <ctl:assertion>When output format XMLSCHEMA is supported, the MIME returned for a DescribeFeatureType request where
@@ -835,225 +1054,5 @@
       </xsl:if>
     </ctl:code>
   </ctl:test>
-
-  <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc1">
-    <param name="wfs.DescribeFeatureType.get.url"/>
-    <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities:
-      service, request, version.
-    </assertion>
-    <comment>DescribeFeatureType with required parameters service 'WFS', version '1.1.0', and request of
-      'DescribeFeatureType'. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the
-      root document is an xsd:schema document.
-    </comment>
-    <link>ows-1.0.0-common-atc4</link>
-    <link>OGC 05-008c1, 9.2.1, p.36 (Table 20)</link>
-    <code>
-
-      <xsl:variable name="request1">
-        <request>
-          <url>
-            <xsl:value-of select="$wfs.DescribeFeatureType.get.url"/>
-          </url>
-          <method>get</method>
-          <param name="service">WFS</param>
-          <param name="version">1.1.0</param>
-          <param name="request">DescribeFeatureType</param>
-          <p:XMLValidatingParser.XMLSchema/>
-        </request>
-      </xsl:variable>
-
-      <xsl:choose>
-        <xsl:when test="not($request1/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:variable name="expression">//xsd:schema</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
-        </xsl:otherwise>
-      </xsl:choose>
-
-    </code>
-  </test>
-
-  <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc2">
-    <param name="wfs.DescribeFeatureType.get.url"/>
-    <assertion>Application schemas that comply with GML 3.1.1 must be a supported. These are presented if no
-      outputFormat is specified.
-    </assertion>
-    <comment>DescribeFeatureType no feature types, expect the schema to validate.
-      Pass if all of the following conditions are true: (1) the response is a valid xsd:schema;
-      (2) the root document is a xsd:schema document.
-    </comment>
-    <link>BasicDescribeFeatureType-GET-tc2</link>
-    <link>OGC 05-008c1, 11.5.3, p.57</link>
-    <code>
-      <xsl:variable name="request1">
-        <request>
-          <url>
-            <xsl:value-of select="$wfs.DescribeFeatureType.get.url"/>
-          </url>
-          <method>get</method>
-          <param name="service">WFS</param>
-          <param name="version">1.1.0</param>
-          <param name="request">DescribeFeatureType</param>
-          <p:XMLValidatingParser.XMLSchema/>
-        </request>
-      </xsl:variable>
-
-      <xsl:choose>
-        <xsl:when test="not($request1/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:variable name="expression">//xsd:schema</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
-        </xsl:otherwise>
-      </xsl:choose>
-
-    </code>
-  </test>
-
-  <test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc3">
-    <param name="wfs.DescribeFeatureType.get.url"/>
-    <param name="CAPABILITIES"/>
-    <assertion>A request with no TypeName elements shall produce a response that includes definitions of all supported
-      feature types in the requested schema language.
-    </assertion>
-    <comment>DescribeFeatureType with the namespace KVP parameter (escaped by engine). Pass if the following
-      condition is true: (1) the response is schema valid; (2) the root document is an xsd:schema document. IS: now
-      tests
-      all FeatureTypeNames advertised in GetCapabiltiesResponse.
-    </comment>
-    <link>wfs-1.1.0-Basic-atc6</link>
-    <link>OGC 04-094, 14.4, p.96</link>
-    <code>
-      <xsl:variable name="describeFeatureTypeRequest">
-        <request>
-          <url>
-            <xsl:value-of select="$wfs.DescribeFeatureType.get.url"/>
-          </url>
-          <method>get</method>
-          <param name="service">WFS</param>
-          <param name="version">1.1.0</param>
-          <param name="request">DescribeFeatureType</param>
-          <p:XMLValidatingParser.XMLSchema/>
-        </request>
-      </xsl:variable>
-      <xsl:variable name="targetNamespace">
-        <xsl:value-of select="$describeFeatureTypeRequest/xsd:schema/@targetNamespace"/>
-      </xsl:variable>
-
-      <xsl:choose>
-        <xsl:when test="not($describeFeatureTypeRequest/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:variable name="expression">//xsd:schema</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$describeFeatureTypeRequest"/>
-          </ctl:call-test>
-
-          <xsl:for-each select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType">
-            <xsl:variable name="iteration" select="position()"/>
-            <xsl:variable name="ftname">
-              <xsl:value-of select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name"/>
-            </xsl:variable>
-            <xsl:variable name="prefix">
-              <xsl:value-of select="substring-before($ftname , ':')"/>
-            </xsl:variable>
-            <xsl:variable name="namespace">
-              <xsl:value-of
-                      select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name/namespace::*[name()=$prefix]"/>
-            </xsl:variable>
-            <xsl:variable name="localName">
-              <xsl:value-of select="substring-after($ftname , ':')"/>
-            </xsl:variable>
-            <xsl:if test="not($describeFeatureTypeRequest/xsd:schema/xsd:element[@name = $localName])">
-              <ctl:message>FAILURE: Feature Type
-                <xsl:value-of select="$localName"/>
-                is not described in DescribeFeatureType response but listed in capabilities document.
-              </ctl:message>
-              <ctl:fail/>
-            </xsl:if>
-            <xsl:if test="$namespace != $targetNamespace">
-              <ctl:message>FAILURE: Namespace binding of FeatureType
-                <xsl:value-of select="$ftname"/>
-                is not as expected: should be
-                <xsl:value-of select="$targetNamespace"/>
-                but is<xsl:value-of select="$namespace"/>.
-              </ctl:message>
-              <ctl:fail/>
-            </xsl:if>
-          </xsl:for-each>
-        </xsl:otherwise>
-      </xsl:choose>
-    </code>
-  </test>
-
-  <ctl:test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">
-    <ctl:param name="CAPABILITIES"/>
-    <ctl:assertion>The response for a DescribeFeatureType request with an invalid feature type is an exception.
-    </ctl:assertion>
-    <ctl:comment></ctl:comment>
-    <ctl:link>OGC 04-094, 8.4, p.27</ctl:link>
-    <ctl:code>
-      <xsl:variable name="RESPONSE_MISSING_SERVICE">
-        <ctl:request>
-          <ctl:url>
-            <xsl:value-of
-                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
-          </ctl:url>
-          <ctl:method>get</ctl:method>
-          <ctl:param name="request">DescribeFeatureType</ctl:param>
-          <ctl:param name="version">1.1.0</ctl:param>
-          <parsers:HTTPParser>
-            <parsers:parse>
-              <parsers:HTTPParser/>
-            </parsers:parse>
-          </parsers:HTTPParser>
-        </ctl:request>
-      </xsl:variable>
-
-      <xsl:variable name="RESPONSE_MISSING_VERSION">
-        <ctl:request>
-          <ctl:url>
-            <xsl:value-of
-                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
-          </ctl:url>
-          <ctl:method>get</ctl:method>
-          <ctl:param name="request">DescribeFeatureType</ctl:param>
-          <ctl:param name="service">WFS</ctl:param>
-          <parsers:HTTPParser>
-            <parsers:parse>
-              <parsers:HTTPParser/>
-            </parsers:parse>
-          </parsers:HTTPParser>
-        </ctl:request>
-      </xsl:variable>
-
-      <xsl:if test="not($RESPONSE_MISSING_SERVICE//ows:Exception/*)">
-        <ctl:message>FAILURE: DescribeFeatureType with missing service parameter does not throw an exception.
-        </ctl:message>
-        <ctl:fail/>
-      </xsl:if>
-      <xsl:if test="not($RESPONSE_MISSING_VERSION//ows:Exception/*)">
-        <ctl:message>FAILURE: DescribeFeatureType with missing version parameter does not throw an exception.
-        </ctl:message>
-        <ctl:fail/>
-      </xsl:if>
-
-    </ctl:code>
-  </ctl:test>
-
 
 </ctl:package>
