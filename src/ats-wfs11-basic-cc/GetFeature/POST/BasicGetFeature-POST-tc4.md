@@ -9,10 +9,10 @@ Execute the following Test Steps:
 * Send the following GetFeature request by POST:
  
   ```
-   <?xml version="1.0" encoding="UTF-8"?>
-<foo:GetFeature xmlns:foo="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
-<foo:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="$ftname" srsName="urn:ogc:def:crs:EPSG::4326"/>
-</foo:GetFeature>
+    <?xml version="1.0" encoding="UTF-8"?>
+    <foo:GetFeature xmlns:foo="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
+      <foo:Query typeName="$ftname" srsName="urn:ogc:def:crs:EPSG::4326"/>
+    </foo:GetFeature>
   ```
 
 **Conditions**

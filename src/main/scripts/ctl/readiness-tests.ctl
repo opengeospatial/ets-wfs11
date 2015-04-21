@@ -19,6 +19,8 @@
         <ctl:param name="wfs-xlink"/>
 		<ctl:param name="gmlsf.profile.level"/>
 		<ctl:param name="conformance.class"/>
+		<ctl:param name="conformance.class.method.get"/>
+		<ctl:param name="conformance.class.method.post"/>
 		<ctl:assertion>
         Assess readiness of the IUT. Check the retrieved capabilities document for
         available service endpoints; determine if the service is available and
@@ -154,6 +156,8 @@
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>
 						<ctl:with-param name="wfs-xlink" select="$wfs-xlink"/>
 						<ctl:with-param name="conformance.class" select="$conformance.class"/>
+						<ctl:with-param name="conformance.class.method.get" select="$conformance.class.method.get"/>
+						<ctl:with-param name="conformance.class.method.post" select="$conformance.class.method.post"/>
 					 </ctl:call-test>
 					 <xsl:if test="string-length($wfs-transaction) gt 0">
 						<ctl:call-test name="wfs:transaction-main">

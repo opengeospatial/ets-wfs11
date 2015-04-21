@@ -11,7 +11,7 @@ Execute the following Test Steps:
   ```
     <?xml version="1.0" encoding="UTF-8"?>
     <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS" resultType="hits">
-      <wfs:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="$ftname" srsName="urn:ogc:def:crs:EPSG::4326"/>
+      <wfs:Query typeName="$ftname" srsName="urn:ogc:def:crs:EPSG::4326"/>
     </wfs:GetFeature>
   ```
 
@@ -19,6 +19,7 @@ Execute the following Test Steps:
 
 * Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd
 * Response contains [wfs:FeatureCollection/@timeStamp && wfs:FeatureCollection/@numberOfFeatures]
+* Response contains no [wfs:FeatureCollection/gml:featureMember && wfs:FeatureCollection/gml:featureMembers/*]
 
 
 
