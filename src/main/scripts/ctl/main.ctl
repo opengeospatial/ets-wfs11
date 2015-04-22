@@ -204,7 +204,6 @@
 						</ctl:call-test>
 					</xsl:if> -->
 					<ctl:call-test name="wfs:readiness-tests">
-						<ctl:with-param name="wfs.GetCapabilities.get.url" select="$wfs.GetCapabilities.get.url"/>	
 						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>	
 						<ctl:with-param name="wfs-transaction" select="$wfs-transaction"/>
                         <ctl:with-param name="wfs-xlink" select="$wfs-xlink"/>
