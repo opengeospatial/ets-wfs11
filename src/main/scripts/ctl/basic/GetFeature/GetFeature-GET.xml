@@ -3,7 +3,7 @@
   xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:p="http://teamengine.sourceforge.net/parsers" xmlns:saxon="http://saxon.sf.net/"
   xmlns:wfs="http://www.opengis.net/wfs" xmlns:ows="http://www.opengis.net/ows" xmlns:gml="http://www.opengis.net/gml"
   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:gf5="java:org.opengis.cite.wfs11.GetFeatureTestUtils">
+  xmlns:gfExt="java:org.opengis.cite.wfs11.GetFeatureTestExtension">
 
   <ctl:test name="wfs:run-GetFeature-GET">
     <param name="wfs.GetCapabilities.document" />
@@ -541,7 +541,7 @@
     <ctl:link>OGC 04-095, 7.2, p.9</ctl:link>
     <code>
       <xsl:variable name="result">
-        <xsl:copy-of select="gf5:findFeatureTypeAndPropertyName($wfs.GetCapabilities.document)" />
+        <xsl:copy-of select="gfExt:findFeatureTypeAndPropertyName($wfs.GetCapabilities.document)" />
       </xsl:variable>
 
       <xsl:choose>

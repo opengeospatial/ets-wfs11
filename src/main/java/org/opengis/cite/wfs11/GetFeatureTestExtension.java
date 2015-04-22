@@ -2,11 +2,12 @@ package org.opengis.cite.wfs11;
 
 import static org.opengis.cite.wfs11.NamespaceBindingUtils.GML_NAMESPACE;
 import static org.opengis.cite.wfs11.NamespaceBindingUtils.WFS_NAMESPACE;
+import static org.opengis.cite.wfs11.XmlUtils.asNode;
+import static org.opengis.cite.wfs11.XmlUtils.asString;
+import static org.opengis.cite.wfs11.XmlUtils.buildQName;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,25 +16,18 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.xerces.dom.DOMInputImpl;
-import org.apache.xerces.xs.XSComplexTypeDefinition;
-import org.apache.xerces.xs.XSConstants;
 import org.apache.xerces.xs.XSElementDeclaration;
 import org.apache.xerces.xs.XSImplementation;
 import org.apache.xerces.xs.XSLoader;
 import org.apache.xerces.xs.XSModel;
 import org.apache.xerces.xs.XSTypeDefinition;
 import org.opengis.cite.iso19136.util.NamespaceBindings;
-import org.opengis.cite.iso19136.util.XMLSchemaModelUtils;
 import org.opengis.cite.wfs11.NamespaceBindingUtils.NamespaceBindingBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,9 +37,10 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.xml.sax.SAXException;
 
 /**
- * 
+ * Extension functions for ctl scripts to retrieve informations which can not be
+ * retrieved by xslt/ctl.
  */
-public class GetFeatureTestUtils {
+public class GetFeatureTestExtension {
 
 	/**
 	 * Iterates about the feature types specified in the capabilities, for each
@@ -121,9 +116,6 @@ public class GetFeatureTestUtils {
 	private static List<QName> parseFeatureTypeNames(Node wfsCapabilities)
 			throws XPathExpressionException, ParserConfigurationException,
 			SAXException, IOException {
-
-		System.out.println("LN: " + wfsCapabilities.getLocalName());
-
 		List<QName> featureInfo = new ArrayList<QName>();
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		NamespaceBindings nsBindings = new NamespaceBindings();
@@ -150,43 +142,58 @@ public class GetFeatureTestUtils {
 					typeName);
 			boolean hasFeatures = features.getLength() > 0;
 			if (hasFeatures) {
-				XSTypeDefinition xsdDoubleType = model.getTypeDefinition(
-						"double", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				XSTypeDefinition xsdDecimalType = model.getTypeDefinition(
-						"decimal", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				XSTypeDefinition xsdIntegerType = model.getTypeDefinition(
-						"integer", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-				XSTypeDefinition xsdStringType = model.getTypeDefinition(
-						"string", XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-				List<XSElementDeclaration> featureProperties = getFeaturePropertiesByType(
-						model, featureType, xsdDecimalType, xsdDoubleType,
-						xsdIntegerType, xsdStringType);
+				List<XSElementDeclaration> featureProperties = findSimpleProperties(
+						model, featureType);
 				for (XSElementDeclaration featureProperty : featureProperties) {
-					String propName = featureProperty.getName();
-					String propNamespace = featureProperty.getNamespace();
-					if (!GML_NAMESPACE.equals(propNamespace)) {
-						Object property = extractProperty(rspEntity, typeName,
-								typeNamespace, propName, propNamespace);
-						if (property instanceof NodeList) {
-							NodeList nodes = (NodeList) property;
-							for (int i = 0; i < nodes.getLength(); i++) {
-								Node node = nodes.item(i);
-								String textContent = node.getTextContent();
-								if (textContent != null
-										&& !textContent.isEmpty()) {
-									QName propertyQName = new QName(
-											propNamespace, propName);
-									return new FeatureData(featureType,
-											propertyQName, textContent);
-								}
-							}
-						}
+					FeatureData featureDataForProperty = aquireFeatureData(
+							featureType, rspEntity, typeName, typeNamespace,
+							featureProperty);
+					if (featureDataForProperty != null)
+						return featureDataForProperty;
+				}
+			}
+		}
+		return null;
+	}
+
+	private static FeatureData aquireFeatureData(QName featureType,
+			Document rspEntity, String typeName, String typeNamespace,
+			XSElementDeclaration featureProperty)
+			throws XPathExpressionException {
+		String propName = featureProperty.getName();
+		String propNamespace = featureProperty.getNamespace();
+		if (!GML_NAMESPACE.equals(propNamespace)) {
+			Object property = extractProperty(rspEntity, typeName,
+					typeNamespace, propName, propNamespace);
+			if (property instanceof NodeList) {
+				NodeList nodes = (NodeList) property;
+				for (int i = 0; i < nodes.getLength(); i++) {
+					Node node = nodes.item(i);
+					String textContent = node.getTextContent();
+					if (textContent != null && !textContent.isEmpty()) {
+						QName propertyQName = new QName(propNamespace, propName);
+						return new FeatureData(featureType, propertyQName,
+								textContent);
 					}
 				}
 			}
 		}
 		return null;
+	}
+
+	private static List<XSElementDeclaration> findSimpleProperties(
+			XSModel model, QName featureType) {
+		XSTypeDefinition xsdDoubleType = model.getTypeDefinition("double",
+				XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		XSTypeDefinition xsdDecimalType = model.getTypeDefinition("decimal",
+				XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		XSTypeDefinition xsdIntegerType = model.getTypeDefinition("integer",
+				XMLConstants.W3C_XML_SCHEMA_NS_URI);
+		XSTypeDefinition xsdStringType = model.getTypeDefinition("string",
+				XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+		return XmlUtils.getFeaturePropertiesByType(model, featureType,
+				xsdDecimalType, xsdDoubleType, xsdIntegerType, xsdStringType);
 	}
 
 	private static Object extractProperty(Document rspEntity, String typeName,
@@ -214,56 +221,6 @@ public class GetFeatureTestUtils {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		xpath.setNamespaceContext(nsBindings);
 		return xpath.evaluate(xPath, rspEntity, XPathConstants.NODESET);
-	}
-
-	private static List<XSElementDeclaration> getFeaturePropertiesByType(
-			XSModel model, QName featureTypeName, XSTypeDefinition... typeDefs) {
-		XSElementDeclaration elemDecl = model.getElementDeclaration(
-				featureTypeName.getLocalPart(),
-				featureTypeName.getNamespaceURI());
-		XSComplexTypeDefinition featureTypeDef = (XSComplexTypeDefinition) elemDecl
-				.getTypeDefinition();
-		List<XSElementDeclaration> featureProps = XMLSchemaModelUtils
-				.getAllElementsInParticle(featureTypeDef.getParticle());
-		List<XSElementDeclaration> props = new ArrayList<XSElementDeclaration>();
-		// set bit mask to indicate acceptable derivation mechanisms
-		short extendOrRestrict = XSConstants.DERIVATION_EXTENSION
-				| XSConstants.DERIVATION_RESTRICTION;
-		for (XSElementDeclaration featureProp : featureProps) {
-			XSTypeDefinition propType = featureProp.getTypeDefinition();
-			for (XSTypeDefinition typeDef : typeDefs) {
-				switch (propType.getTypeCategory()) {
-				case XSTypeDefinition.SIMPLE_TYPE:
-					if ((typeDef.getTypeCategory() == XSTypeDefinition.SIMPLE_TYPE)
-							&& propType.derivedFromType(typeDef,
-									extendOrRestrict)) {
-						props.add(featureProp);
-					}
-					break;
-				case XSTypeDefinition.COMPLEX_TYPE:
-					if (typeDef.getTypeCategory() == XSTypeDefinition.COMPLEX_TYPE) {
-						// check type of child element(s)
-						XSComplexTypeDefinition complexPropType = (XSComplexTypeDefinition) propType;
-						List<XSElementDeclaration> propValues = XMLSchemaModelUtils
-								.getAllElementsInParticle(complexPropType
-										.getParticle());
-						for (XSElementDeclaration propValue : propValues) {
-							if (propValue.getTypeDefinition().derivedFromType(
-									typeDef, extendOrRestrict)) {
-								props.add(featureProp);
-							}
-						}
-					} else {
-						// complex type may derive from simple type
-						if (propType.derivedFromType(typeDef, extendOrRestrict)) {
-							props.add(featureProp);
-						}
-					}
-					break;
-				}
-			}
-		}
-		return props;
 	}
 
 	private static Node reloadNode(Node wfsCapabilities) throws Exception,
@@ -329,44 +286,6 @@ public class GetFeatureTestUtils {
 		rootElement.appendChild(valueElement);
 
 		return doc;
-	}
-
-	private static Node asNode(String asString) throws SAXException,
-			IOException, ParserConfigurationException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		ByteArrayInputStream is = new ByteArrayInputStream(asString.getBytes());
-		try {
-			Document wfsCapabilities = builder.parse(is);
-			return wfsCapabilities.getDocumentElement();
-		} finally {
-			is.close();
-		}
-	}
-
-	private static String asString(Node node) throws Exception {
-		StringWriter writer = new StringWriter();
-		Transformer transformer = TransformerFactory.newInstance()
-				.newTransformer();
-		transformer.transform(new DOMSource(node), new StreamResult(writer));
-		return writer.toString();
-	}
-
-	private static QName buildQName(Node node) {
-		String localPart;
-		String nsName;
-		String name = node.getTextContent();
-		int indexOfColon = name.indexOf(':');
-		if (indexOfColon > 0) {
-			localPart = name.substring(indexOfColon + 1);
-			nsName = node.lookupNamespaceURI(name.substring(0, indexOfColon));
-		} else {
-			localPart = name;
-			// return default namespace URI if any
-			nsName = node.lookupNamespaceURI(null);
-		}
-		return new QName(nsName, localPart);
 	}
 
 }

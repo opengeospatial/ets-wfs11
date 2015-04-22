@@ -20,14 +20,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-public class GetFeatureTestUtilsIT {
+public class GetFeatureTestExtensionIT {
 
 	@Ignore
 	@Test
 	public void testTest() throws Exception {
 		Node wfsCapabilities = parseWfsCapabilities();
 
-		Node result = GetFeatureTestUtils
+		Node result = GetFeatureTestExtension
 				.findFeatureTypeAndPropertyName(wfsCapabilities);
 
 		assertThat(
