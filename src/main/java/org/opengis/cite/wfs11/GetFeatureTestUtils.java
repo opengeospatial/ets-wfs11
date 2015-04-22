@@ -3,8 +3,10 @@ package org.opengis.cite.wfs11;
 import static org.opengis.cite.wfs11.NamespaceBindingUtils.GML_NAMESPACE;
 import static org.opengis.cite.wfs11.NamespaceBindingUtils.WFS_NAMESPACE;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,10 @@ import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -30,46 +36,67 @@ import org.opengis.cite.iso19136.util.NamespaceBindings;
 import org.opengis.cite.iso19136.util.XMLSchemaModelUtils;
 import org.opengis.cite.wfs11.NamespaceBindingUtils.NamespaceBindingBuilder;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * 
  */
 public class GetFeatureTestUtils {
 
-	public static String findFeatureTypeAndPropertyName(
-			String wfsCapabilitiesUrl) throws Exception {
+	/**
+	 * Iterates about the feature types specified in the capabilities, for each
+	 * feature type the schema document is requested (DescribeFeatureType). The
+	 * features are requested and compared with the schema document. If a
+	 * feature contains a value for a simple property (string, integer, double),
+	 * this information is returned. The returned node looks like (if all
+	 * informations could be found):
+	 * 
+	 * <pre>
+	 * 
+	 * <FeatureData>
+	 *   <FeatureType>
+	 *     <localName>AggregateGeoFeature</localName>
+	 *     <namespace>http://cite.opengeospatial.org/gmlsf</namespace>
+	 *   </FeatureType>
+	 *   <Property>
+	 *     <localName>doubleProperty</localName>
+	 *     <namespace>http://cite.opengeospatial.org/gmlsf</namespace>
+	 *   </Property>
+	 *   <value>2012.78</value>
+	 * </FeatureData>
+	 * 
+	 * </pre>
+	 * 
+	 * @param wfsCapabilities
+	 *            the capabilities of the wfs, never <code>null</code>
+	 * @return a tupel containing the value of a property specified by the
+	 *         feature type, the property and feature type in xml format
+	 *         (described above), may be <code>null</code> if no such tupel
+	 *         could be found
+	 * @throws Exception
+	 *             if an error occured
+	 */
+	public static Node findFeatureTypeAndPropertyName(Node wfsCapabilities)
+			throws Exception {
 		try {
-			Document wfsCapabilities = asDocument(wfsCapabilitiesUrl);
-			WFSClient wfsClient = new WFSClient(wfsCapabilities);
-			List<QName> featureTypeNames = parseFeatureTypeNames(wfsCapabilities);
+			Node wfsCapabilitiesReloaded = reloadNode(wfsCapabilities);
+
+			WFSClient wfsClient = new WFSClient(wfsCapabilitiesReloaded);
+			List<QName> featureTypeNames = parseFeatureTypeNames(wfsCapabilitiesReloaded);
 			XSModel model = loadFeatureTypeModel(wfsClient);
 			FeatureData featureData = acquireFeatureData(wfsClient,
 					featureTypeNames, model);
-			return asString(featureData);
+			if (featureData != null)
+				return asXml(featureData).getDocumentElement();
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-	}
-
-	private static String asString(FeatureData featureData) {
-		StringBuilder sb = new StringBuilder();
-		QName featureType = featureData.getFeatureType();
-		sb.append(
-				featureType.getNamespaceURI() != null ? featureType
-						.getNamespaceURI() : "").append('|');
-		sb.append(featureType.getLocalPart()).append('|');
-		QName propertyName = featureData.getPropName();
-		sb.append(
-				propertyName.getNamespaceURI() != null ? propertyName
-						.getNamespaceURI() : "").append('|');
-		sb.append(propertyName.getLocalPart()).append('|');
-		sb.append(featureData.getData());
-		return sb.toString();
 	}
 
 	private static XSModel loadFeatureTypeModel(WFSClient wfsClient)
@@ -91,36 +118,26 @@ public class GetFeatureTestUtils {
 		return schemaLoader.load(lsInput);
 	}
 
-	private static List<QName> parseFeatureTypeNames(Document wfsCapabilities)
+	private static List<QName> parseFeatureTypeNames(Node wfsCapabilities)
 			throws XPathExpressionException, ParserConfigurationException,
 			SAXException, IOException {
+
+		System.out.println("LN: " + wfsCapabilities.getLocalName());
+
 		List<QName> featureInfo = new ArrayList<QName>();
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		NamespaceBindings nsBindings = new NamespaceBindings();
 		nsBindings.addNamespaceBinding(WFS_NAMESPACE, "wfs");
 		xpath.setNamespaceContext(nsBindings);
-		Object result = xpath.evaluate(
+		NodeList nodes = (NodeList) xpath.evaluate(
 				"//wfs:FeatureTypeList/wfs:FeatureType/wfs:Name",
 				wfsCapabilities, XPathConstants.NODESET);
-		if (result instanceof NodeList) {
-			NodeList nodes = (NodeList) result;
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-				featureInfo.add(buildQName(node));
-			}
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Node node = nodes.item(i);
+			featureInfo.add(buildQName(node));
 		}
 		return featureInfo;
 
-	}
-
-	private static Document asDocument(String wfsCapabilitiesUrl)
-			throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-		factory.setNamespaceAware(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
-
-		return builder.parse(wfsCapabilitiesUrl);
 	}
 
 	private static FeatureData acquireFeatureData(WFSClient wfsClient,
@@ -199,22 +216,6 @@ public class GetFeatureTestUtils {
 		return xpath.evaluate(xPath, rspEntity, XPathConstants.NODESET);
 	}
 
-	private static QName buildQName(Node node) {
-		String localPart;
-		String nsName;
-		String name = node.getTextContent();
-		int indexOfColon = name.indexOf(':');
-		if (indexOfColon > 0) {
-			localPart = name.substring(indexOfColon + 1);
-			nsName = node.lookupNamespaceURI(name.substring(0, indexOfColon));
-		} else {
-			localPart = name;
-			// return default namespace URI if any
-			nsName = node.lookupNamespaceURI(null);
-		}
-		return new QName(nsName, localPart);
-	}
-
 	private static List<XSElementDeclaration> getFeaturePropertiesByType(
 			XSModel model, QName featureTypeName, XSTypeDefinition... typeDefs) {
 		XSElementDeclaration elemDecl = model.getElementDeclaration(
@@ -263,6 +264,109 @@ public class GetFeatureTestUtils {
 			}
 		}
 		return props;
+	}
+
+	private static Node reloadNode(Node wfsCapabilities) throws Exception,
+			SAXException, IOException, ParserConfigurationException {
+		// this is required cause of java.lang.RuntimeException: Knoten konnte
+		// nicht in Handle aufgelöst werden
+		// at
+		// com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault.getDTMHandleFromNode(DTMManagerDefault.java:579)
+		// at
+		// com.sun.org.apache.xpath.internal.XPathContext.getDTMHandleFromNode(XPathContext.java:188)
+		// at com.sun.org.apache.xpath.internal.XPath.execute(XPath.java:305)
+		// at
+		// com.sun.org.apache.xpath.internal.jaxp.XPathImpl.eval(XPathImpl.java:205)
+		// at
+		// com.sun.org.apache.xpath.internal.jaxp.XPathImpl.evaluate(XPathImpl.java:270)
+		// at
+		// org.opengis.cite.wfs11.GetFeatureTestUtils.parseFeatureTypeNames(GetFeatureTestUtils.java:133)
+		// at
+		// org.opengis.cite.wfs11.GetFeatureTestUtils.findFeatureTypeAndPropertyName(GetFeatureTestUtils.java:48)
+		String capabilitiesAsString = asString(wfsCapabilities);
+		return asNode(capabilitiesAsString);
+	}
+
+	private static Document asXml(FeatureData featureData)
+			throws ParserConfigurationException {
+
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory
+				.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+		Document doc = docBuilder.newDocument();
+		Element rootElement = doc.createElement("FeatureData");
+		doc.appendChild(rootElement);
+
+		Element featureTypeElement = doc.createElement("FeatureType");
+		rootElement.appendChild(featureTypeElement);
+
+		Element featureTypeLocalNameElement = doc.createElement("localName");
+		featureTypeLocalNameElement.setTextContent(featureData.getFeatureType()
+				.getLocalPart());
+		featureTypeElement.appendChild(featureTypeLocalNameElement);
+
+		Element featureTypeNamespaceElement = doc.createElement("namespace");
+		featureTypeNamespaceElement.setTextContent(featureData.getFeatureType()
+				.getNamespaceURI());
+		featureTypeElement.appendChild(featureTypeNamespaceElement);
+
+		Element propertyElement = doc.createElement("Property");
+		rootElement.appendChild(propertyElement);
+
+		Element propertyLocalNameElement = doc.createElement("localName");
+		propertyLocalNameElement.setTextContent(featureData.getPropName()
+				.getLocalPart());
+		propertyElement.appendChild(propertyLocalNameElement);
+
+		Element propertyNamespaceElement = doc.createElement("namespace");
+		propertyNamespaceElement.setTextContent(featureData.getPropName()
+				.getNamespaceURI());
+		propertyElement.appendChild(propertyNamespaceElement);
+
+		Element valueElement = doc.createElement("value");
+		valueElement.setTextContent(featureData.getData());
+		rootElement.appendChild(valueElement);
+
+		return doc;
+	}
+
+	private static Node asNode(String asString) throws SAXException,
+			IOException, ParserConfigurationException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		ByteArrayInputStream is = new ByteArrayInputStream(asString.getBytes());
+		try {
+			Document wfsCapabilities = builder.parse(is);
+			return wfsCapabilities.getDocumentElement();
+		} finally {
+			is.close();
+		}
+	}
+
+	private static String asString(Node node) throws Exception {
+		StringWriter writer = new StringWriter();
+		Transformer transformer = TransformerFactory.newInstance()
+				.newTransformer();
+		transformer.transform(new DOMSource(node), new StreamResult(writer));
+		return writer.toString();
+	}
+
+	private static QName buildQName(Node node) {
+		String localPart;
+		String nsName;
+		String name = node.getTextContent();
+		int indexOfColon = name.indexOf(':');
+		if (indexOfColon > 0) {
+			localPart = name.substring(indexOfColon + 1);
+			nsName = node.lookupNamespaceURI(name.substring(0, indexOfColon));
+		} else {
+			localPart = name;
+			// return default namespace URI if any
+			nsName = node.lookupNamespaceURI(null);
+		}
+		return new QName(nsName, localPart);
 	}
 
 }

@@ -22,13 +22,14 @@ import javax.xml.xpath.XPathFactory;
 import org.opengis.cite.iso19136.util.NamespaceBindings;
 import org.opengis.cite.wfs11.NamespaceBindingUtils.NamespaceBindingBuilder;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 public class WFSClient {
 
-	private final Document wfsCapabilities;
+	private final Node wfsCapabilities;
 
-	public WFSClient(Document wfsCapabilities) {
+	public WFSClient(Node wfsCapabilities) {
 		this.wfsCapabilities = wfsCapabilities;
 	}
 
