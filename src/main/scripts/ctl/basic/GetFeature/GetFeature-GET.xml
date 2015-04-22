@@ -133,7 +133,7 @@
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first">
-        <xsl:value-of select="tokenize($wfs.FeatureType.names, ', ')[1]"/>
+        <xsl:value-of select="tokenize($wfs.FeatureType.names, ',')[1]"/>
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first.namespace">
@@ -192,8 +192,7 @@
     <param name="wfs.GetFeature.get.url"/>
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
-    <assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml;
-      subtype=gml/3.1.1".
+    <assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml;subtype=gml/3.1.1".
     </assertion>
     <comment></comment>
     <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc1.html</link>
@@ -208,9 +207,7 @@
           <param name="request">GetFeature</param>
           <param name="service">WFS</param>
           <param name="version">1.1.0</param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="resulttype">hits</param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
@@ -270,9 +267,7 @@
           <ctl:param name="service">WFS</ctl:param>
           <ctl:param name="version">1.1.0</ctl:param>
           <ctl:param name="bogus">parameter</ctl:param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
@@ -319,9 +314,7 @@
           <param name="service">WFS</param>
           <param name="version">1.1.0</param>
           <param name="resultType">results</param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
@@ -379,9 +372,7 @@
           <param name="SERVICE">WFS</param>
           <param name="REQUEST">GetFeature</param>
           <param name="VERSION">1.1.0</param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
@@ -423,9 +414,7 @@
           <param name="SERVICE">WFS</param>
           <param name="VeERSION">1.1.0</param>
           <param name="REQUEST">GetFeature</param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
@@ -554,9 +543,7 @@
           <param name="SERVIsCE">WFS</param>
           <param name="version">1.1.0</param>
           <param name="REQUsEST">GetFeature</param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="resulttype">hits</param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
@@ -609,9 +596,7 @@
           <param name="service">WFS</param>
           <param name="version">1.1.0</param>
           <param name="request">GetFeature</param>
-          <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
-          </param>
+          <param name="typename"><xsl:value-of select="$wfs.FeatureType.names.first"/></param>
           <param name="resulttype">hits</param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
@@ -1090,12 +1075,10 @@
     <param name="wfs.GetFeature.get.url"/>
     <assertion>XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the
       AbbreviatedRelativeLocationPath construct is required; the position() function may appear in a predicate to refer
-      to a child node by position relative to the context node.
-    </assertion>
+      to a child node by position relative to the context node.</assertion>
     <comment>GetFeature with a filter using the abbreviated local path predicate on the gml:description. Pass if all of
       the following conditions are true: (1) the response is schema valid; (2) the root document is an
-      wfs:FeatureCollection document; (3) the requested feature is in the response as expected.
-    </comment>
+      wfs:FeatureCollection document; (3) the requested feature is in the response as expected.</comment>
     <link>filter-1.1.0-common-atc2</link>
     <link>OGC 04-095, 6.3.2, p.5</link>
     <code>
@@ -1110,8 +1093,7 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f008%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f008%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
           <p:XMLValidatingParser.GMLSF1/>
         </request>
       </xsl:variable>
@@ -1127,8 +1109,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1169,8 +1150,7 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%5B1%5D%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f001%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%5B1%5D%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f001%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
           <p:XMLValidatingParser.GMLSF1/>
         </request>
       </xsl:variable>
@@ -1186,8 +1166,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1276,8 +1255,7 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Asf%3D%22http%3A%2F%2Fcite.opengeospatial.org%2Fgmlsf%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsGreaterThan%3E%3Cogc%3APropertyName%3Esf%3AintProperty%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E100%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsGreaterThan%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Asf%3D%22http%3A%2F%2Fcite.opengeospatial.org%2Fgmlsf%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsGreaterThan%3E%3Cogc%3APropertyName%3Esf%3AintProperty%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E100%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsGreaterThan%3E%3C%2Fogc%3AFilter%3E]]></param>
           <p:XMLValidatingParser.GMLSF1/>
         </request>
       </xsl:variable>
@@ -1786,9 +1764,7 @@
           <ctl:param name="request">GetFeature</ctl:param>
           <ctl:param name="service">WFS</ctl:param>
           <ctl:param name="version">1.1.0</ctl:param>
-          <param name="typename">
-            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
-          </param>
+          <param name="typename"><xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/></param>
           <parsers:HTTPParser>
             <parsers:parse>
               <parsers:NullParser/>
@@ -1825,10 +1801,7 @@
               <ctl:param name="request">GetFeature</ctl:param>
               <ctl:param name="service">WFS</ctl:param>
               <ctl:param name="version">1.1.0</ctl:param>
-              <param name="typename">
-                <xsl:value-of
-                        select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
-              </param>
+              <param name="typename"><xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/></param>
               <ctl:param name="outputformat">GML2</ctl:param>
               <parsers:HTTPParser>
                 <parsers:parse>
@@ -1871,10 +1844,7 @@
               <ctl:param name="request">GetFeature</ctl:param>
               <ctl:param name="service">WFS</ctl:param>
               <ctl:param name="version">1.1.0</ctl:param>
-              <param name="typename">
-                <xsl:value-of
-                        select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
-              </param>
+              <param name="typename"><xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/></param>
               <ctl:param name="outputformat">
                 <xsl:value-of select="wfs:encode('text/xml; subtype=gml/2.1.2','UTF-8')"/>
               </ctl:param>
@@ -1917,9 +1887,7 @@
           <ctl:param name="service">WFS</ctl:param>
           <ctl:param name="version">1.1.0</ctl:param>
           <ctl:param name="extra">Unknown</ctl:param>
-          <param name="typename">
-            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
-          </param>
+          <param name="typename"><xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/></param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
           <parsers:HTTPParser>
             <parsers:parse>
@@ -1953,9 +1921,7 @@
           <ctl:param name="service">WFS</ctl:param>
           <ctl:param name="version">1.1.0</ctl:param>
           <ctl:param name="resultType">results</ctl:param>
-          <param name="typename">
-            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
-          </param>
+          <param name="typename"><xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/></param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
           <parsers:HTTPParser>
             <parsers:parse>

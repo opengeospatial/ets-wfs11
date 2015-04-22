@@ -408,7 +408,7 @@
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first">
-        <xsl:value-of select="tokenize($wfs.FeatureType.names, ', ')[1]"/>
+        <xsl:value-of select="tokenize($wfs.FeatureType.names, ',')[1]"/>
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first.namespace">
@@ -487,14 +487,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -549,14 +545,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:' , substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -624,14 +616,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -689,14 +677,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </foo:Query>
@@ -751,14 +735,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -836,14 +816,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
@@ -919,14 +895,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:' , substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -948,14 +920,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -977,14 +945,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
@@ -1065,14 +1029,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
