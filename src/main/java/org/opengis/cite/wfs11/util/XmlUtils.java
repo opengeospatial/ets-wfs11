@@ -1,6 +1,7 @@
 package org.opengis.cite.wfs11.util;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -21,6 +23,7 @@ import org.apache.xerces.xs.XSTypeDefinition;
 import org.opengis.cite.iso19136.util.XMLSchemaModelUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 public class XmlUtils {
 
@@ -79,6 +82,23 @@ public class XmlUtils {
 			nsName = node.lookupNamespaceURI(null);
 		}
 		return new QName(nsName, localPart);
+	}
+
+	public static Node reloadNode(Node wfsCapabilities) throws Exception,
+			SAXException, IOException, ParserConfigurationException {
+		// this is required cause of java.lang.RuntimeException: Knoten konnte
+		// nicht in Handle aufgelöst werden
+		// at
+		// com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault.getDTMHandleFromNode(DTMManagerDefault.java:579)
+		// at
+		// com.sun.org.apache.xpath.internal.XPathContext.getDTMHandleFromNode(XPathContext.java:188)
+		// at com.sun.org.apache.xpath.internal.XPath.execute(XPath.java:305)
+		// at
+		// com.sun.org.apache.xpath.internal.jaxp.XPathImpl.eval(XPathImpl.java:205)
+		// at
+		// com.sun.org.apache.xpath.internal.jaxp.XPathImpl.evaluate(XPathImpl.java:270)
+		String capabilitiesAsString = asString(wfsCapabilities);
+		return asNode(capabilitiesAsString);
 	}
 
 	/**

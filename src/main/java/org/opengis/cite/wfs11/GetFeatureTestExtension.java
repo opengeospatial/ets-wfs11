@@ -2,9 +2,8 @@ package org.opengis.cite.wfs11;
 
 import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.GML_NAMESPACE;
 import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.WFS_NAMESPACE;
-import static org.opengis.cite.wfs11.util.XmlUtils.asNode;
-import static org.opengis.cite.wfs11.util.XmlUtils.asString;
 import static org.opengis.cite.wfs11.util.XmlUtils.buildQName;
+import static org.opengis.cite.wfs11.util.XmlUtils.reloadNode;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +28,8 @@ import org.apache.xerces.xs.XSModel;
 import org.apache.xerces.xs.XSTypeDefinition;
 import org.opengis.cite.iso19136.util.NamespaceBindings;
 import org.opengis.cite.wfs11.domain.FeatureData;
-import org.opengis.cite.wfs11.util.XmlUtils;
 import org.opengis.cite.wfs11.util.NamespaceBindingUtils.NamespaceBindingBuilder;
+import org.opengis.cite.wfs11.util.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -75,7 +74,7 @@ public class GetFeatureTestExtension {
 	 *         (described above), may be <code>null</code> if no such tupel
 	 *         could be found
 	 * @throws Exception
-	 *             if an error occured
+	 *             if an error occurred
 	 */
 	public static Node findFeatureTypeAndPropertyName(Node wfsCapabilities)
 			throws Exception {
@@ -223,27 +222,6 @@ public class GetFeatureTestExtension {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		xpath.setNamespaceContext(nsBindings);
 		return xpath.evaluate(xPath, rspEntity, XPathConstants.NODESET);
-	}
-
-	private static Node reloadNode(Node wfsCapabilities) throws Exception,
-			SAXException, IOException, ParserConfigurationException {
-		// this is required cause of java.lang.RuntimeException: Knoten konnte
-		// nicht in Handle aufgelöst werden
-		// at
-		// com.sun.org.apache.xml.internal.dtm.ref.DTMManagerDefault.getDTMHandleFromNode(DTMManagerDefault.java:579)
-		// at
-		// com.sun.org.apache.xpath.internal.XPathContext.getDTMHandleFromNode(XPathContext.java:188)
-		// at com.sun.org.apache.xpath.internal.XPath.execute(XPath.java:305)
-		// at
-		// com.sun.org.apache.xpath.internal.jaxp.XPathImpl.eval(XPathImpl.java:205)
-		// at
-		// com.sun.org.apache.xpath.internal.jaxp.XPathImpl.evaluate(XPathImpl.java:270)
-		// at
-		// org.opengis.cite.wfs11.GetFeatureTestUtils.parseFeatureTypeNames(GetFeatureTestUtils.java:133)
-		// at
-		// org.opengis.cite.wfs11.GetFeatureTestUtils.findFeatureTypeAndPropertyName(GetFeatureTestUtils.java:48)
-		String capabilitiesAsString = asString(wfsCapabilities);
-		return asNode(capabilitiesAsString);
 	}
 
 	private static Document asXml(FeatureData featureData)

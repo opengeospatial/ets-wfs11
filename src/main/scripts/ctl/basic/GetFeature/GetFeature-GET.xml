@@ -3,7 +3,8 @@
   xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:p="http://teamengine.sourceforge.net/parsers" xmlns:saxon="http://saxon.sf.net/"
   xmlns:wfs="http://www.opengis.net/wfs" xmlns:ows="http://www.opengis.net/ows" xmlns:gml="http://www.opengis.net/gml"
   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-  xmlns:gfExt="java:org.opengis.cite.wfs11.GetFeatureTestExtension">
+  xmlns:gfExt="java:org.opengis.cite.wfs11.GetFeatureTestExtension"
+  xmlns:gfCond="java:org.opengis.cite.wfs11.GetFeatureTestConditions">
 
   <ctl:test name="wfs:run-GetFeature-GET">
     <param name="wfs.GetCapabilities.document" />
@@ -617,22 +618,13 @@
                 <ctl:with-param name="doc" select="$request" />
               </ctl:call-test>
 
-              <xsl:for-each select="//wfs:FeatureCollection/gml:featureMember">
-                <xsl:if test="not(./*/*/text() = $value)">
-                  <ctl:message>
-                    FAILURE: Returned featureMember does not contain the specified text value '<xsl:value-of select="$value" />'.
-                  </ctl:message>
-                  <ctl:fail />
-                </xsl:if>
-              </xsl:for-each>
-              <xsl:for-each select="//wfs:FeatureCollection/gml:featureMembers/*">
-                <xsl:if test="not(./*/*/text() = $value)">
-                  <ctl:message>
-                    FAILURE: Returned featureMember does not contain the specified text value '<xsl:value-of select="$value" />'.
-                  </ctl:message>
-                  <ctl:fail />
-                </xsl:if>
-              </xsl:for-each>
+              <xsl:variable name="allFeatureMatches">
+                <xsl:value-of select="gfCond:checkFeaturesMatchingFilter($request, $result)"></xsl:value-of>
+              </xsl:variable>
+              <xsl:if test="not($allFeatureMatches)">
+                <ctl:message>FAILURE: At least one feature does not match the filter condition!<xsl:value-of select="$allFeatureMatches"/> </ctl:message>
+                <ctl:fail />
+              </xsl:if>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:when>
