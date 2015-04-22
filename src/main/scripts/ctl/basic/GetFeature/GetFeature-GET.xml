@@ -684,8 +684,7 @@
                 <ctl:with-param name="expr" select="$expression"/>
                 <ctl:with-param name="doc" select="$request1"/>
               </ctl:call-test>
-              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-              </xsl:variable>
+              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
                 <ctl:with-param name="expr" select="$expression"/>
                 <ctl:with-param name="doc" select="$request1"/>
@@ -744,15 +743,12 @@
               </ctl:call-test>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:variable name="expression">
-                //wfs:FeatureCollection
-              </xsl:variable>
+              <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
                 <ctl:with-param name="expr" select="$expression"/>
                 <ctl:with-param name="doc" select="$request1"/>
               </ctl:call-test>
-              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-              </xsl:variable>
+              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
                 <ctl:with-param name="expr" select="$expression"/>
                 <ctl:with-param name="doc" select="$request1"/>
@@ -809,16 +805,12 @@
               </ctl:call-test>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:variable name="expression">
-                //wfs:FeatureCollection
-              </xsl:variable>
+              <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
                 <ctl:with-param name="expr" select="$expression"/>
                 <ctl:with-param name="doc" select="$request1"/>
               </ctl:call-test>
-              <xsl:variable name="expression">
-                (count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-              </xsl:variable>
+              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
                 <ctl:with-param name="expr" select="$expression"/>
                 <ctl:with-param name="doc" select="$request1"/>
@@ -865,9 +857,7 @@
           <ctl:fail/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">
-            //wfs:FeatureCollection
-          </xsl:variable>
+          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1007,9 +997,7 @@
           <ctl:fail/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">
-            //*[local-name() = 'ExceptionReport']
-          </xsl:variable>
+          <xsl:variable name="expression">//*[local-name() = 'ExceptionReport']</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1058,9 +1046,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//sf:PrimitiveGeoFeature) &gt;= 4) and (count(//sf:AggregateGeoFeature)
-            &gt;= 3)
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//sf:PrimitiveGeoFeature) &gt;= 4) and (count(//sf:AggregateGeoFeature) &gt;= 3)</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1301,8 +1287,7 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Aname%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Ename-f002%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Aname%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Ename-f002%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
           <p:XMLValidatingParser.GMLSF1/>
         </request>
       </xsl:variable>
@@ -1318,8 +1303,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1556,9 +1540,7 @@
           <ctl:fail/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">
-            //ows:ExceptionReport
-          </xsl:variable>
+          <xsl:variable name="expression">//ows:ExceptionReport</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
