@@ -536,6 +536,7 @@
       model declared for the ogc:Filter element.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
+    <ctl:link title="wfs:wfs-1.1.0-Basic-GetFeature-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc5.html</ctl:link>
     <ctl:link>OGC 04-095, 7.4.2, p.18</ctl:link>
     <ctl:link>OGC 04-095, 7.2, p.9</ctl:link>
     <code>
