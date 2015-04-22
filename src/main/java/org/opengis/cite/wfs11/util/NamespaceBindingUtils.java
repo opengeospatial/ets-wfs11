@@ -1,4 +1,4 @@
-package org.opengis.cite.wfs11;
+package org.opengis.cite.wfs11.util;
 
 import java.util.HashMap;
 import java.util.Map;

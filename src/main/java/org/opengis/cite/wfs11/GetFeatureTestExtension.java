@@ -1,10 +1,10 @@
 package org.opengis.cite.wfs11;
 
-import static org.opengis.cite.wfs11.NamespaceBindingUtils.GML_NAMESPACE;
-import static org.opengis.cite.wfs11.NamespaceBindingUtils.WFS_NAMESPACE;
-import static org.opengis.cite.wfs11.XmlUtils.asNode;
-import static org.opengis.cite.wfs11.XmlUtils.asString;
-import static org.opengis.cite.wfs11.XmlUtils.buildQName;
+import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.GML_NAMESPACE;
+import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.WFS_NAMESPACE;
+import static org.opengis.cite.wfs11.util.XmlUtils.asNode;
+import static org.opengis.cite.wfs11.util.XmlUtils.asString;
+import static org.opengis.cite.wfs11.util.XmlUtils.buildQName;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,9 @@ import org.apache.xerces.xs.XSLoader;
 import org.apache.xerces.xs.XSModel;
 import org.apache.xerces.xs.XSTypeDefinition;
 import org.opengis.cite.iso19136.util.NamespaceBindings;
-import org.opengis.cite.wfs11.NamespaceBindingUtils.NamespaceBindingBuilder;
+import org.opengis.cite.wfs11.domain.FeatureData;
+import org.opengis.cite.wfs11.util.XmlUtils;
+import org.opengis.cite.wfs11.util.NamespaceBindingUtils.NamespaceBindingBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

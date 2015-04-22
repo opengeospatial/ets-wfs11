@@ -1,9 +1,9 @@
-package org.opengis.cite.wfs11;
+package org.opengis.cite.wfs11.domain;
 
 import javax.xml.namespace.QName;
 
 
-class FeatureData {
+public class FeatureData {
 	private final QName featureType;
 	private final QName propName;
 	private final String data;

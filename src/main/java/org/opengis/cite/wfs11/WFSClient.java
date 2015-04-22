@@ -1,8 +1,8 @@
 package org.opengis.cite.wfs11;
 
-import static org.opengis.cite.wfs11.NamespaceBindingUtils.OWS_NAMESPACE;
-import static org.opengis.cite.wfs11.NamespaceBindingUtils.WFS_NAMESPACE;
-import static org.opengis.cite.wfs11.NamespaceBindingUtils.XLINK_NAMESPACE;
+import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.OWS_NAMESPACE;
+import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.WFS_NAMESPACE;
+import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.XLINK_NAMESPACE;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.opengis.cite.iso19136.util.NamespaceBindings;
-import org.opengis.cite.wfs11.NamespaceBindingUtils.NamespaceBindingBuilder;
+import org.opengis.cite.wfs11.util.NamespaceBindingUtils.NamespaceBindingBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
