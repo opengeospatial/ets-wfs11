@@ -11,7 +11,8 @@
         xmlns:gml="http://www.opengis.net/gml"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:xi="http://www.w3.org/2001/XInclude"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:gfCond="java:org.opengis.cite.wfs11.GetFeatureTestConditions">
 
   <ctl:test name="wfs:run-DescribeFeatureType-GET">
     <param name="wfs.GetCapabilities.document"/>
@@ -256,38 +257,14 @@
             <ctl:with-param name="doc" select="$describeFeatureTypeRequest"/>
           </ctl:call-test>
 
-          <xsl:for-each select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType">
-            <xsl:variable name="iteration" select="position()"/>
-            <xsl:variable name="ftname">
-              <xsl:value-of select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name"/>
-            </xsl:variable>
-            <xsl:variable name="prefix">
-              <xsl:value-of select="substring-before($ftname , ':')"/>
-            </xsl:variable>
-            <xsl:variable name="namespace">
-              <xsl:value-of
-                      select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name/namespace::*[name()=$prefix]"/>
-            </xsl:variable>
-            <xsl:variable name="localName">
-              <xsl:value-of select="substring-after($ftname , ':')"/>
-            </xsl:variable>
-            <xsl:if test="not($describeFeatureTypeRequest/xsd:schema/xsd:element[@name = $localName])">
-              <ctl:message>FAILURE: Feature Type
-                <xsl:value-of select="$localName"/>
-                is not described in DescribeFeatureType response but listed in capabilities document.
-              </ctl:message>
-              <ctl:fail/>
-            </xsl:if>
-            <xsl:if test="$namespace != $targetNamespace">
-              <ctl:message>FAILURE: Namespace binding of FeatureType
-                <xsl:value-of select="$ftname"/>
-                is not as expected: should be
-                <xsl:value-of select="$targetNamespace"/>
-                but is<xsl:value-of select="$namespace"/>.
-              </ctl:message>
-              <ctl:fail/>
-            </xsl:if>
-          </xsl:for-each>
+          <xsl:variable name="allFeaturTypesDescribed">
+            <xsl:value-of select="gfCond:checkFeatureTypesDescribedInSchema($CAPABILITIES, $describeFeatureTypeRequest)"></xsl:value-of>
+          </xsl:variable>
+          <xsl:if test="not($allFeaturTypesDescribed)">
+            <ctl:message>FAILURE: At least one feature is not described in the DescribeFeatureType Response!</ctl:message>
+            <ctl:fail />
+          </xsl:if>
+
         </xsl:otherwise>
       </xsl:choose>
     </code>
