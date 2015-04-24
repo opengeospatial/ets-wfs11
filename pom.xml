@@ -111,7 +111,7 @@
         <dependencies>
           <dependency>
             <groupId>org.apache.maven.doxia</groupId>
-            <artifactId>doxia-module-xhtml</artifactId>
+            <artifactId>doxia-module-markdown</artifactId>
             <version>1.6</version>
           </dependency>
         </dependencies>
