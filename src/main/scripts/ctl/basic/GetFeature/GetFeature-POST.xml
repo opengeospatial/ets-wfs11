@@ -387,6 +387,20 @@
         <xsl:value-of
                 select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href"/>
       </xsl:variable>
+      <xsl:variable name="wfs.DescribeFeatureType.get.url">
+        <xsl:choose>
+          <xsl:when
+            test="ends-with($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href, '?')">
+            <xsl:value-of
+              select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of
+              select="concat($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href, '?')" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      
       <xsl:variable name="kvp-post-supported"
                     select="boolean($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/ows:Constraint[@name='InputFormat' and ows:Value='application/x-www-form-urlencoded'])"/>
 
@@ -421,41 +435,49 @@
 
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc1">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc2">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc3">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc4">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc5">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc6">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc7">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc8">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
@@ -465,6 +487,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc1">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The default output format is XML that complies with GML 3.1.1.</assertion>
@@ -496,7 +519,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -519,6 +550,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc2">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>If @resultType='hits', then only the size of the resulting feature collection and a timestamp is returned
@@ -554,7 +586,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -587,6 +627,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc3">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>If @maxFeatures > 0, then the number of features included in the response shall not exceed the specified
@@ -622,7 +663,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -650,6 +699,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc4">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The response entity must be schema valid and include any optional feature properties requested by the
@@ -682,7 +732,15 @@
               </foo:Query>
             </foo:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -705,6 +763,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc5">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The response entity must include the @xsi:schemaLocation attribute to identify the set of GML application
@@ -740,7 +799,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -761,6 +828,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc6">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>If a request is unrecognizable or the service cannot process the request, a valid exception report must
@@ -796,7 +864,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -829,7 +905,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -865,6 +949,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc7">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The following attributes are required for all XML request entities: @version (default '1.1.0'); @service
@@ -900,7 +985,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -925,7 +1018,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -950,7 +1051,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -1000,6 +1109,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc8">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The @typeName attribute must identify a list of known feature types. Aliases may be declared for use in a
@@ -1034,7 +1144,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
