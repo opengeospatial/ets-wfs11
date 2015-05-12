@@ -2,7 +2,10 @@ package org.opengis.cite.wfs11;
 
 import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.GML_NAMESPACE;
 import static org.opengis.cite.wfs11.util.NamespaceBindingUtils.WFS_NAMESPACE;
+import static org.opengis.cite.wfs11.util.XmlUtils.buildQName;
 import static org.opengis.cite.wfs11.util.XmlUtils.reloadNode;
+
+import java.io.ByteArrayInputStream;
 
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPath;
@@ -10,11 +13,18 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.xerces.dom.DOMInputImpl;
+import org.apache.xerces.xs.XSElementDeclaration;
+import org.apache.xerces.xs.XSImplementation;
+import org.apache.xerces.xs.XSLoader;
+import org.apache.xerces.xs.XSModel;
 import org.opengis.cite.iso19136.util.NamespaceBindings;
 import org.opengis.cite.wfs11.domain.FeatureData;
 import org.opengis.cite.wfs11.util.NamespaceBindingUtils.NamespaceBindingBuilder;
+import org.opengis.cite.wfs11.util.XmlUtils;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 
 /**
  * Contains some test conditions to extend ctl scripts.
@@ -31,8 +41,8 @@ public class GetFeatureTestConditions {
 	 *            the featureData used to request the features, never
 	 *            <code>null</code>
 	 * @return <code>true</code> if at least one feature member does not match
-	 *         the filter condition, <code>false</code> otherwise or if the
-	 *         feature collection does not contain a feature
+	 *         the filter conditionor if the feature collection does not contain
+	 *         a feature, <code>false</code> otherwise
 	 * @throws Exception
 	 *             if an error occurred
 	 */
@@ -53,6 +63,73 @@ public class GetFeatureTestConditions {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+
+	/**
+	 * Checks if all featureTypes in the capabilities document are available in
+	 * the DescribeFeatureType response
+	 * 
+	 * @param capabilitiesResponse
+	 *            never <code>null</code>
+	 * @param describeFeatureTypeResponse
+	 *            never <code>null</code>
+	 * @return <code>true</code> if all feature types in the capabilities
+	 *         document are available in the DescribeFeatureType response or the
+	 *         capabilities document does not contain a feature type,
+	 *         <code>false</code> otherwise
+	 * @throws Exception
+	 */
+	public static boolean checkFeatureTypesDescribedInSchema(
+			Node capabilitiesResponse, Node describeFeatureTypeResponse)
+			throws Exception {
+		try {
+			XSModel model = parseSchema(reloadNode(describeFeatureTypeResponse));
+
+			NodeList featureTypeNames = parseFeatureTypeNames(reloadNode(capabilitiesResponse));
+			for (int i = 0; i < featureTypeNames.getLength(); i++) {
+				Node featureTypeNameNode = featureTypeNames.item(i);
+				QName featureTypeName = buildQName(featureTypeNameNode);
+
+				XSElementDeclaration elementDeclaration = model
+						.getElementDeclaration(featureTypeName.getLocalPart(),
+								featureTypeName.getNamespaceURI());
+				if (elementDeclaration == null)
+					return false;
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	private static XSModel parseSchema(Node node) throws Exception {
+		DOMImplementationRegistry registry = DOMImplementationRegistry
+				.newInstance();
+		XSImplementation impl = (XSImplementation) registry
+				.getDOMImplementation("XS-Loader");
+		XSLoader schemaLoader = impl.createXSLoader(null);
+		DOMInputImpl lsInput = new DOMInputImpl();
+		ByteArrayInputStream bis = new ByteArrayInputStream(XmlUtils.asString(
+				node).getBytes());
+		try {
+			lsInput.setByteStream(bis);
+			return schemaLoader.load(lsInput);
+		} finally {
+			bis.close();
+		}
+	}
+
+	private static NodeList parseFeatureTypeNames(Node capabilities)
+			throws XPathExpressionException {
+		NamespaceBindings nsBindings = new NamespaceBindingBuilder().add("wfs",
+				WFS_NAMESPACE).build();
+		String xPath = "//wfs:FeatureTypeList/wfs:FeatureType/wfs:Name";
+
+		XPath xpath = XPathFactory.newInstance().newXPath();
+		xpath.setNamespaceContext(nsBindings);
+		return (NodeList) xpath.evaluate(xPath, capabilities,
+				XPathConstants.NODESET);
 	}
 
 	private static FeatureData parseFeatureData(Node featureData)
