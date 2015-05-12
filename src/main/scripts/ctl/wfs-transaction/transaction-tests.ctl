@@ -160,18 +160,18 @@
 						<xsl:value-of select="$wfs.GetFeature.post.url"/>
 					</ctl:url>
 					<ctl:method>POST</ctl:method>
-					<ctl:body>
+					<ctl:body><![CDATA[
                     <foo:GetFeature xmlns:foo="http://www.opengis.net/wfs"
                       service="WFS" version="1.1.0">
-						<foo:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="{$type}">
+						<foo:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="]]><xsl:value-of select="$type"/><![CDATA[">
 							<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">
 								<ogc:PropertyIsEqualTo>
 									<ogc:PropertyName xmlns:gml="http://www.opengis.net/gml">gml:name</ogc:PropertyName>
-									<ogc:Literal><xsl:value-of select="$name.value"/></ogc:Literal>
+									<ogc:Literal>]]><xsl:value-of select="$name.value"/><![CDATA[</ogc:Literal>
 								</ogc:PropertyIsEqualTo>
 							</ogc:Filter>
 						</foo:Query>
-					</foo:GetFeature>
+					</foo:GetFeature>]]>
                     </ctl:body>
                     <p:XMLValidatingParser.GMLSF1/>
 				</ctl:request>
