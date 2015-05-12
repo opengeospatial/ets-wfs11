@@ -11,7 +11,8 @@
         xmlns:gml="http://www.opengis.net/gml"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:xi="http://www.w3.org/2001/XInclude"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:gfCond="java:org.opengis.cite.wfs11.GetFeatureTestConditions">
 
   <ctl:test name="wfs:run-DescribeFeatureType-GET">
     <param name="wfs.GetCapabilities.document"/>
@@ -256,38 +257,14 @@
             <ctl:with-param name="doc" select="$describeFeatureTypeRequest"/>
           </ctl:call-test>
 
-          <xsl:for-each select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType">
-            <xsl:variable name="iteration" select="position()"/>
-            <xsl:variable name="ftname">
-              <xsl:value-of select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name"/>
-            </xsl:variable>
-            <xsl:variable name="prefix">
-              <xsl:value-of select="substring-before($ftname , ':')"/>
-            </xsl:variable>
-            <xsl:variable name="namespace">
-              <xsl:value-of
-                      select="$CAPABILITIES//wfs:FeatureTypeList/wfs:FeatureType[$iteration]/wfs:Name/namespace::*[name()=$prefix]"/>
-            </xsl:variable>
-            <xsl:variable name="localName">
-              <xsl:value-of select="substring-after($ftname , ':')"/>
-            </xsl:variable>
-            <xsl:if test="not($describeFeatureTypeRequest/xsd:schema/xsd:element[@name = $localName])">
-              <ctl:message>FAILURE: Feature Type
-                <xsl:value-of select="$localName"/>
-                is not described in DescribeFeatureType response but listed in capabilities document.
-              </ctl:message>
-              <ctl:fail/>
-            </xsl:if>
-            <xsl:if test="$namespace != $targetNamespace">
-              <ctl:message>FAILURE: Namespace binding of FeatureType
-                <xsl:value-of select="$ftname"/>
-                is not as expected: should be
-                <xsl:value-of select="$targetNamespace"/>
-                but is<xsl:value-of select="$namespace"/>.
-              </ctl:message>
-              <ctl:fail/>
-            </xsl:if>
-          </xsl:for-each>
+          <xsl:variable name="allFeaturTypesDescribed">
+            <xsl:value-of select="gfCond:checkFeatureTypesDescribedInSchema($CAPABILITIES, $describeFeatureTypeRequest)"></xsl:value-of>
+          </xsl:variable>
+          <xsl:if test="not($allFeaturTypesDescribed)">
+            <ctl:message>FAILURE: At least one feature is not described in the DescribeFeatureType Response!</ctl:message>
+            <ctl:fail />
+          </xsl:if>
+
         </xsl:otherwise>
       </xsl:choose>
     </code>
@@ -328,9 +305,10 @@
 
   <ctl:test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">
     <ctl:param name="CAPABILITIES"/>
-    <ctl:assertion>The response for a DescribeFeatureType request with an invalid feature type is an exception.
-    </ctl:assertion>
-    <ctl:comment></ctl:comment>
+    <ctl:assertion>The response for an invalid DescribeFeatureType request is an exception.</ctl:assertion>
+    <ctl:comment>DescribeFeatureType with [1] missing service parameter, [2] missing version parameter. Pass if all of
+      the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport
+      document.</ctl:comment>
     <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc5.html</link>
     <ctl:link>OGC 04-094, 8.4, p.27</ctl:link>
     <ctl:code>

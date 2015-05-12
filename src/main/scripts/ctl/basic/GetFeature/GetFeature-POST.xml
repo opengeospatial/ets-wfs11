@@ -387,6 +387,20 @@
         <xsl:value-of
                 select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/@xlink:href"/>
       </xsl:variable>
+      <xsl:variable name="wfs.DescribeFeatureType.get.url">
+        <xsl:choose>
+          <xsl:when
+            test="ends-with($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href, '?')">
+            <xsl:value-of
+              select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of
+              select="concat($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href, '?')" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      
       <xsl:variable name="kvp-post-supported"
                     select="boolean($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Post/ows:Constraint[@name='InputFormat' and ows:Value='application/x-www-form-urlencoded'])"/>
 
@@ -408,7 +422,7 @@
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first">
-        <xsl:value-of select="tokenize($wfs.FeatureType.names, ', ')[1]"/>
+        <xsl:value-of select="tokenize($wfs.FeatureType.names, ',')[1]"/>
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first.namespace">
@@ -421,41 +435,49 @@
 
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc1">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc2">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc3">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc4">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc5">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc6">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc7">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc8">
         <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
         <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
         <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
       </ctl:call-test>
@@ -465,6 +487,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc1">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The default output format is XML that complies with GML 3.1.1.</assertion>
@@ -487,20 +510,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -523,6 +550,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc2">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>If @resultType='hits', then only the size of the resulting feature collection and a timestamp is returned
@@ -549,20 +577,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:' , substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -577,15 +609,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">boolean(//wfs:FeatureCollection/@numberOfFeatures) and
-            boolean(//wfs:FeatureCollection/@timeStamp)
-          </xsl:variable>
+          <xsl:variable name="expression">boolean(//wfs:FeatureCollection/@numberOfFeatures) and boolean(//wfs:FeatureCollection/@timeStamp)</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -598,6 +627,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc3">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>If @maxFeatures > 0, then the number of features included in the response shall not exceed the specified
@@ -624,20 +654,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -652,8 +686,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &lt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &lt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -666,6 +699,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc4">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The response entity must be schema valid and include any optional feature properties requested by the
@@ -689,20 +723,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </foo:Query>
             </foo:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -725,6 +763,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc5">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The response entity must include the @xsi:schemaLocation attribute to identify the set of GML application
@@ -751,20 +790,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -785,6 +828,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc6">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>If a request is unrecognizable or the service cannot process the request, a valid exception report must
@@ -820,7 +864,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -836,14 +888,10 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
                 <xsl:choose>
@@ -857,7 +905,15 @@
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -893,6 +949,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc7">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The following attributes are required for all XML request entities: @version (default '1.1.0'); @service
@@ -919,20 +976,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:' , substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -948,20 +1009,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -977,20 +1042,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -1040,6 +1109,7 @@
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-POST-tc8">
     <param name="wfs.GetFeature.post.url"/>
+    <param name="wfs.DescribeFeatureType.get.url" />
     <param name="wfs.FeatureType.names.first"/>
     <param name="wfs.FeatureType.names.first.namespace"/>
     <assertion>The @typeName attribute must identify a list of known feature types. Aliases may be declared for use in a
@@ -1065,20 +1135,24 @@
                 <xsl:choose>
                   <xsl:when test="contains($wfs.FeatureType.names.first, ':' )">
                     <xsl:namespace name="app" select="$wfs.FeatureType.names.first.namespace"/>
-                    <xsl:attribute name="typeName">app:
-                      <xsl:value-of select="substring-after( $wfs.FeatureType.names.first, ':' )"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="concat( 'app:', substring-after( $wfs.FeatureType.names.first, ':' ))"/></xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="typeName">
-                      <xsl:value-of select="$wfs.FeatureType.names.first"/>
-                    </xsl:attribute>
+                    <xsl:attribute name="typeName"><xsl:value-of select="$wfs.FeatureType.names.first"/></xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </wfs:Query>
             </wfs:GetFeature>
           </body>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
@@ -1176,15 +1250,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">boolean(//wfs:FeatureCollection/@numberOfFeatures) and
-            boolean(//wfs:FeatureCollection/@timeStamp)
-          </xsl:variable>
+          <xsl:variable name="expression">boolean(//wfs:FeatureCollection/@numberOfFeatures) and boolean(//wfs:FeatureCollection/@timeStamp)</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1232,8 +1303,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -1418,9 +1488,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">not(//sf:dateTimeProperty) and not(//sf:uriProperty) and
-            not(//sf:dateProperty)
-          </xsl:variable>
+          <xsl:variable name="expression">not(//sf:dateTimeProperty) and not(//sf:uriProperty) and not(//sf:dateProperty)</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2080,8 +2148,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2135,8 +2202,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 4
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 4</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2189,8 +2255,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 6
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 6</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2543,8 +2608,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2639,8 +2703,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2689,8 +2752,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2744,8 +2806,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2799,8 +2860,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2853,8 +2913,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -2907,8 +2966,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3140,8 +3198,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3189,8 +3246,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3238,8 +3294,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3501,15 +3556,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">//sf:AggregateGeoFeature/sf:strProperty='Ma quande lingues coalesce, li
-            grammatica del resultant.'
-          </xsl:variable>
+          <xsl:variable name="expression">//sf:AggregateGeoFeature/sf:strProperty='Ma quande lingues coalesce, li grammatica del resultant.'</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3556,8 +3608,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3609,8 +3660,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3662,15 +3712,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">xsd:date(//sf:PrimitiveGeoFeature/sf:dateProperty) = xsd:date('2006-12-12Z')
-            or //sf:PrimitiveGeoFeature/sf:dateProperty = '2006-12-12'
-          </xsl:variable>
+          <xsl:variable name="expression">xsd:date(//sf:PrimitiveGeoFeature/sf:dateProperty) = xsd:date('2006-12-12Z') or //sf:PrimitiveGeoFeature/sf:dateProperty = '2006-12-12'</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3717,8 +3764,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3766,8 +3812,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3821,8 +3866,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3876,14 +3920,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">not(//sf:PrimitiveGeoFeature/gml:description='description-f003')
-          </xsl:variable>
+          <xsl:variable name="expression">not(//sf:PrimitiveGeoFeature/gml:description='description-f003')</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3932,8 +3974,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -3987,8 +4028,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4042,14 +4082,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">not(//sf:PrimitiveGeoFeature[sf:dateProperty=xsd:date('2006-12-12Z')])
-          </xsl:variable>
+          <xsl:variable name="expression">not(//sf:PrimitiveGeoFeature[sf:dateProperty=xsd:date('2006-12-12Z')])</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4098,15 +4136,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">not((//gml:featureMember |
-            //gml:featureMembers)/sf:PrimitiveGeoFeature/sf:decimalProperty &gt;= 15)
-          </xsl:variable>
+          <xsl:variable name="expression">not((//gml:featureMember | //gml:featureMembers)/sf:PrimitiveGeoFeature/sf:decimalProperty &gt;= 15)</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4155,8 +4190,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4209,8 +4243,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4314,8 +4347,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4369,8 +4401,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4523,15 +4554,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">not((//gml:featureMember |
-            //gml:featureMembers)/sf:PrimitiveGeoFeature/sf:decimalProperty &gt; 5.03)
-          </xsl:variable>
+          <xsl:variable name="expression">not((//gml:featureMember | //gml:featureMembers)/sf:PrimitiveGeoFeature/sf:decimalProperty &gt; 5.03)</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4579,8 +4607,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4629,8 +4656,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 3</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4735,8 +4761,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4790,8 +4815,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4844,8 +4868,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -4944,15 +4967,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(not(//sf:PrimitiveGeoFeature/sf:decimalProperty &lt; 10) and
-            not(//sf:PrimitiveGeoFeature/sf:decimalProperty &gt; 20))
-          </xsl:variable>
+          <xsl:variable name="expression">(not(//sf:PrimitiveGeoFeature/sf:decimalProperty &lt; 10) and not(//sf:PrimitiveGeoFeature/sf:decimalProperty &gt; 20))</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -5000,15 +5020,12 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(not(//sf:AggregateGeoFeature/sf:doubleProperty &lt; 20.1) and
-            not(//sf:AggregateGeoFeature/sf:doubleProperty &gt; 24509.5))
-          </xsl:variable>
+          <xsl:variable name="expression">(not(//sf:AggregateGeoFeature/sf:doubleProperty &lt; 20.1) and not(//sf:AggregateGeoFeature/sf:doubleProperty &gt; 24509.5))</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -5104,8 +5121,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
@@ -5252,8 +5268,7 @@
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>
           </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
-          </xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
             <ctl:with-param name="expr" select="$expression"/>
             <ctl:with-param name="doc" select="$request1"/>

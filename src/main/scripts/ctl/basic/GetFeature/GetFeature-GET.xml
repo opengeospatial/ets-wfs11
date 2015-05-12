@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ctl:package
-        xmlns="http://www.occamlab.com/ctl"
-        xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-        xmlns:ctl="http://www.occamlab.com/ctl"
-        xmlns:parsers="http://www.occamlab.com/te/parsers"
-        xmlns:p="http://teamengine.sourceforge.net/parsers"
-        xmlns:saxon="http://saxon.sf.net/"
-        xmlns:wfs="http://www.opengis.net/wfs"
-        xmlns:ows="http://www.opengis.net/ows"
-        xmlns:gml="http://www.opengis.net/gml"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
-        xmlns:xi="http://www.w3.org/2001/XInclude"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ctl:package xmlns="http://www.occamlab.com/ctl" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ctl="http://www.occamlab.com/ctl"
+  xmlns:parsers="http://www.occamlab.com/te/parsers" xmlns:p="http://teamengine.sourceforge.net/parsers" xmlns:saxon="http://saxon.sf.net/"
+  xmlns:wfs="http://www.opengis.net/wfs" xmlns:ows="http://www.opengis.net/ows" xmlns:gml="http://www.opengis.net/gml"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:gfExt="java:org.opengis.cite.wfs11.GetFeatureTestExtension"
+  xmlns:gfCond="java:org.opengis.cite.wfs11.GetFeatureTestConditions">
 
   <ctl:test name="wfs:run-GetFeature-GET">
-    <param name="wfs.GetCapabilities.document"/>
+    <param name="wfs.GetCapabilities.document" />
     <ctl:assertion>
       Run test group for GetFeature requests using the GET method. Target endpoint is
       {$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
@@ -22,110 +15,120 @@
     <ctl:code>
 
       <ctl:call-test name="wfs:GetFeature-output-format-default">
-        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document"/>
+        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
       </ctl:call-test>
       <ctl:call-test name="wfs:GetFeature-output-format-GML2">
-        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document"/>
+        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
       </ctl:call-test>
       <ctl:call-test name="wfs:GetFeature-output-format-gml-2.1.2">
-        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document"/>
+        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
       </ctl:call-test>
       <ctl:call-test name="wfs:GetFeature-extra-param">
-        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document"/>
+        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
       </ctl:call-test>
       <ctl:call-test name="wfs:GetFeature-result-type-results">
-        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document"/>
+        <ctl:with-param name="CAPABILITIES" select="$wfs.GetCapabilities.document" />
       </ctl:call-test>
 
       <xsl:variable name="wfs.GetFeature.get.url">
         <xsl:value-of
-                select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+          select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
       </xsl:variable>
 
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.3">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc10.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.3">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.4">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc26.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
-      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.3">
-              <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test> -->
+      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.3"> <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/> 
+        </ctl:call-test> -->
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc31.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc32.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
-      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc32.2">
-              <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test> -->
+      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc32.2"> <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/> 
+        </ctl:call-test> -->
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc44.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
-      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1">
-              <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test> -->
+      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1"> <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/> 
+        </ctl:call-test> -->
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
-      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1">
-              <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test> -->
+      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1"> <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/> 
+        </ctl:call-test> -->
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc50.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc50.2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
       </ctl:call-test>
 
     </ctl:code>
   </ctl:test>
 
   <ctl:test name="wfs:run-GetFeature-basic-cc-GET">
-    <param name="wfs.GetCapabilities.document"/>
+    <param name="wfs.GetCapabilities.document" />
     <ctl:assertion>
       Run basic conformance class test group for GetFeature requests using the GET method.
-      Target endpoint is
+      Target endpoint
+      is
       {$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href}.
     </ctl:assertion>
     <ctl:code>
 
       <xsl:variable name="wfs.GetFeature.get.url">
         <xsl:value-of
-                select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+          select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+      </xsl:variable>
+      <xsl:variable name="wfs.DescribeFeatureType.get.url">
+        <xsl:choose>
+          <xsl:when
+            test="ends-with($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href, '?')">
+            <xsl:value-of
+              select="$wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of
+              select="concat($wfs.GetCapabilities.document//ows:OperationsMetadata/ows:Operation[@name='DescribeFeatureType']/ows:DCP/ows:HTTP/ows:Get/@xlink:href, '?')" />
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names">
         <xsl:for-each select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType">
-          <xsl:value-of select="wfs:Name"/>
+          <xsl:value-of select="wfs:Name" />
           <xsl:if test="position() != last()">
             <xsl:text>,</xsl:text>
           </xsl:if>
@@ -133,115 +136,115 @@
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first">
-        <xsl:value-of select="tokenize($wfs.FeatureType.names, ', ')[1]"/>
+        <xsl:value-of select="tokenize($wfs.FeatureType.names, ',')[1]" />
       </xsl:variable>
 
       <xsl:variable name="wfs.FeatureType.names.first.namespace">
         <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
           <xsl:variable name="firstNamespaces"
-                        select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name/namespace::*"/>
-          <xsl:value-of select="$firstNamespaces[name()=substring-before($wfs.FeatureType.names.first, ':')]"/>
+            select="$wfs.GetCapabilities.document//wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name/namespace::*" />
+          <xsl:value-of select="$firstNamespaces[name()=substring-before($wfs.FeatureType.names.first, ':')]" />
         </xsl:if>
       </xsl:variable>
 
-      <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test>
-      <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test>
-      <!--<ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.3"> <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-          </ctl:call-test> -->
-      <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc31.1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-      </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
-        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc2">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
-        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc3">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
-        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc4">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
-        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
+      </ctl:call-test>
+      <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5">
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+        <ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
-        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
       </ctl:call-test>
       <ctl:call-test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
-        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url"/>
-        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first"/>
-        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace"/>
+        <ctl:with-param name="wfs.GetFeature.get.url" select="$wfs.GetFeature.get.url" />
+        <ctl:with-param name="wfs.DescribeFeatureType.get.url" select="$wfs.DescribeFeatureType.get.url" />
+        <ctl:with-param name="wfs.FeatureType.names.first" select="$wfs.FeatureType.names.first" />
+        <ctl:with-param name="wfs.FeatureType.names.first.namespace" select="$wfs.FeatureType.names.first.namespace" />
       </ctl:call-test>
     </ctl:code>
   </ctl:test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc1">
-    <param name="wfs.GetFeature.get.url"/>
-    <param name="wfs.FeatureType.names.first"/>
-    <param name="wfs.FeatureType.names.first.namespace"/>
-    <assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml;
-      subtype=gml/3.1.1".
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.DescribeFeatureType.get.url" />
+    <param name="wfs.FeatureType.names.first" />
+    <param name="wfs.FeatureType.names.first.namespace" />
+    <assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml;subtype=gml/3.1.1".
     </assertion>
     <comment></comment>
-    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc1.html</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc1">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc1.html
+    </link>
     <link>OGC 04-094, 9.3, p.38</link>
     <code>
       <xsl:variable name="RESPONSE">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="request">GetFeature</param>
           <param name="service">WFS</param>
           <param name="version">1.1.0</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="resulttype">hits</param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
           <parsers:HTTPParser>
             <parsers:parse>
-              <p:XMLValidatingParser.GMLSF1/>
-            </parsers:parse>
+              <p:XMLValidatingParser.WFS/>
+            </parsers:parse> 
           </parsers:HTTPParser>
         </request>
       </xsl:variable>
-      <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']"/>
-      <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')"/>
+      <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+      <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')" />
       <xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/3.1.1'))">
-        <fail/>
+        <fail />
       </xsl:if>
 
-      <xsl:variable name="content" select="$RESPONSE/response/content"/>
+      <xsl:variable name="content" select="$RESPONSE/response/content" />
       <xsl:choose>
         <xsl:when test="not($content/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$content"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$content" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -250,20 +253,22 @@
   </test>
 
   <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc2">
-    <param name="wfs.GetFeature.get.url"/>
-    <param name="wfs.FeatureType.names.first"/>
-    <param name="wfs.FeatureType.names.first.namespace"/>
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.DescribeFeatureType.get.url" />
+    <param name="wfs.FeatureType.names.first" />
+    <param name="wfs.FeatureType.names.first.namespace" />
     <ctl:assertion>A valid HTTP Get request with an extra parameter not recognized by the WFS does not return an
       exception.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
-    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc2.html</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc2">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc2.html
+    </link>
     <ctl:link>OGC 04-094, 9.3, p.38</ctl:link>
     <ctl:code>
       <xsl:variable name="RESPONSE">
         <ctl:request>
           <ctl:url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </ctl:url>
           <ctl:method>get</ctl:method>
           <ctl:param name="request">GetFeature</ctl:param>
@@ -271,27 +276,37 @@
           <ctl:param name="version">1.1.0</ctl:param>
           <ctl:param name="bogus">parameter</ctl:param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </ctl:request>
       </xsl:variable>
       <xsl:choose>
         <xsl:when test="not($RESPONSE/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$RESPONSE"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$RESPONSE" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -299,20 +314,22 @@
   </ctl:test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc3">
-    <param name="wfs.GetFeature.get.url"/>
-    <param name="wfs.FeatureType.names.first"/>
-    <param name="wfs.FeatureType.names.first.namespace"/>
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.DescribeFeatureType.get.url" />
+    <param name="wfs.FeatureType.names.first" />
+    <param name="wfs.FeatureType.names.first.namespace" />
     <assertion>A GetFeature request with resultType=Results returns the actual features, not just the count of number of
       hits.
     </assertion>
     <comment></comment>
-    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc3.html</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc3">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc3.html
+    </link>
     <link>OGC 04-094, 9.3, p.38</link>
     <code>
       <xsl:variable name="RESPONSE">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="request">GetFeature</param>
@@ -320,35 +337,45 @@
           <param name="version">1.1.0</param>
           <param name="resultType">results</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($RESPONSE/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$RESPONSE"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$RESPONSE" />
           </ctl:call-test>
           <xsl:if
-                  test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
+            test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
             <ctl:message>FAILURE: Number of features (//wfs:FeatureCollection/@numberOfFeatures) does not match the
               number of features in feature collection.
             </ctl:message>
-            <fail/>
+            <fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -356,16 +383,18 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc4">
-    <param name="wfs.GetFeature.get.url"/>
-    <param name="wfs.FeatureType.names.first"/>
-    <param name="wfs.FeatureType.names.first.namespace"/>
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.DescribeFeatureType.get.url" />
+    <param name="wfs.FeatureType.names.first" />
+    <param name="wfs.FeatureType.names.first.namespace" />
     <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities:
       service, request, version.
     </assertion>
     <comment>GetFeature with a service 'WFS', version '1.1.0', and no request parameter. Pass if all of the following
       conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport document.
     </comment>
-    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc4.html</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc4">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc4.html
+    </link>
     <link>ows-1.0.0-common-atc4</link>
     <link>OGC 05-008c1, 9.2.1, p.36 (Table 20)</link>
     <code>
@@ -373,101 +402,111 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="SERVICE">WFS</param>
           <param name="REQUEST">GetFeature</param>
           <param name="VERSION">1.1.0</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
 
       <xsl:variable name="request2">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="SeERVICE">WFS</param>
           <param name="VERSION">1.1.0</param>
           <param name="REQUEST">GetFeature</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:variable name="request3">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="SERVICE">WFS</param>
           <param name="VeERSION">1.1.0</param>
           <param name="REQUEST">GetFeature</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:variable name="request4">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="SERVICE">WFS</param>
           <param name="VERSION">1.1.0</param>
           <param name="ReEQUEST">GetFeature</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -475,11 +514,11 @@
       <xsl:choose>
         <xsl:when test="not($request2/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request2"/>
+            <ctl:with-param name="doc" select="$request2" />
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
@@ -487,7 +526,7 @@
             <ctl:message>
               FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -495,11 +534,11 @@
       <xsl:choose>
         <xsl:when test="not($request3/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request3"/>
+            <ctl:with-param name="doc" select="$request3" />
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
@@ -507,7 +546,7 @@
             <ctl:message>
               FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -515,11 +554,11 @@
       <xsl:choose>
         <xsl:when test="not($request4/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request4"/>
+            <ctl:with-param name="doc" select="$request4" />
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
@@ -527,62 +566,183 @@
             <ctl:message>
               FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
     </code>
   </test>
 
+  <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc5">
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.DescribeFeatureType.get.url" />
+    <param name="wfs.GetCapabilities.document" />
+    <ctl:assertion>XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for
+      the AbbreviatedRelativeLocationPath construct is required. A valid filter expression must conform to the content
+      model declared for the ogc:Filter element.
+    </ctl:assertion>
+    <ctl:comment></ctl:comment>
+    <ctl:link title="wfs:wfs-1.1.0-Basic-GetFeature-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc5.html</ctl:link>
+    <ctl:link>OGC 04-095, 7.4.2, p.18</ctl:link>
+    <ctl:link>OGC 04-095, 7.2, p.9</ctl:link>
+    <code>
+      <xsl:variable name="result">
+        <xsl:copy-of select="gfExt:findFeatureTypeAndPropertyName($wfs.GetCapabilities.document)" />
+      </xsl:variable>
+
+      <xsl:choose>
+        <xsl:when test="$result != ''">
+          <xsl:variable name="ftNamespace">
+            <xsl:value-of select="$result/FeatureData/FeatureType/namespace" />
+          </xsl:variable>
+          <xsl:variable name="ftName">
+            <xsl:value-of select="$result/FeatureData/FeatureType/localName" />
+          </xsl:variable>
+          <xsl:variable name="propNamespace">
+            <xsl:value-of select="$result/FeatureData/Property/namespace" />
+          </xsl:variable>
+          <xsl:variable name="propName">
+            <xsl:value-of select="$result/FeatureData/Property/localName" />
+          </xsl:variable>
+          <xsl:variable name="value">
+            <xsl:value-of select="$result/FeatureData/value" />
+          </xsl:variable>
+
+          <xsl:variable name="request">
+            <request>
+              <url>
+                <xsl:value-of select="$wfs.GetFeature.get.url" />
+              </url>
+              <method>get</method>
+              <param name="SERVICE">WFS</param>
+              <param name="VERSION">1.1.0</param>
+              <param name="REQUEST">GetFeature</param>
+              <param name="typename">
+                <xsl:choose>
+                  <xsl:when test="$ftNamespace != ''">
+                    <xsl:value-of select="concat('app:', $ftName)" />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="$ftName" />
+                  </xsl:otherwise>
+                </xsl:choose>
+              </param>
+              <param name="namespace">
+                <xsl:if test="$ftNamespace != ''">
+                  <xsl:value-of select="concat('xmlns(app=', $ftNamespace, ')')" />
+                </xsl:if>
+              </param>
+              <param name="FILTER">
+                <xsl:text>%3Cogc%3AFilter%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22</xsl:text>
+                <xsl:if test="$propNamespace != ''">
+                  <xsl:text>%20xmlns%3Aapp%3D%22</xsl:text>
+                  <xsl:value-of select="$propNamespace" />
+                  <xsl:text>%22</xsl:text>
+                </xsl:if>
+                <xsl:text>%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3E</xsl:text>
+                <xsl:if test="$propNamespace != ''">
+                  <xsl:text>app%3A</xsl:text>
+                </xsl:if>
+                <xsl:value-of select="$propName" />
+                <xsl:text>%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E</xsl:text>
+                <xsl:value-of select="$value" />
+                <xsl:text>%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E</xsl:text>
+              </param>
+              <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+                <ctl:with-param name="schemas_links">
+                  <parsers:schemas>
+                    <parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>
+                    <parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                    <parsers:schema type="url">
+                      <xsl:value-of
+                        select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')" />
+                    </parsers:schema>
+                  </parsers:schemas>
+                </ctl:with-param>
+              </ctl:java>
+            </request>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="not($request/*)">
+              <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+              <ctl:fail />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+              <ctl:call-test name="ctl:assert-xpath">
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request" />
+              </ctl:call-test>
+
+              <xsl:variable name="allFeatureMatches">
+                <xsl:value-of select="gfCond:checkFeaturesMatchingFilter($request, $result)"></xsl:value-of>
+              </xsl:variable>
+              <xsl:if test="not($allFeatureMatches)">
+                <ctl:message>FAILURE: At least one feature does not match the filter condition!<xsl:value-of select="$allFeatureMatches"/> </ctl:message>
+                <ctl:fail />
+              </xsl:if>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <ctl:message>FAILURE: WFS does not provide data to use in this test 
+                        (a feature type with a simple property (string, integer, double, decimal) and data for this property)</ctl:message>
+          <ctl:fail />
+        </xsl:otherwise>
+      </xsl:choose>
+    </code>
+  </ctl:test>
+
   <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc6">
-    <param name="wfs.GetFeature.get.url"/>
-    <param name="wfs.FeatureType.names.first"/>
-    <param name="wfs.FeatureType.names.first.namespace"/>
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.FeatureType.names.first" />
+    <param name="wfs.FeatureType.names.first.namespace" />
     <ctl:assertion>If a request is unrecognizable or the service cannot process the request, a valid exception report
       must be returned.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
-    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc6">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc6.html</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc6">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc6.html
+    </link>
     <ctl:link>OGC 04-094, 7.7, p. 23</ctl:link>
     <code>
       <xsl:variable name="request">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="SERVIsCE">WFS</param>
           <param name="version">1.1.0</param>
           <param name="REQUsEST">GetFeature</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="resulttype">hits</param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request"/>
+            <ctl:with-param name="doc" select="$request" />
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
           <xsl:variable name="expression">//ows:Exception</xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -590,60 +750,74 @@
   </ctl:test>
 
   <ctl:test name="wfs:wfs-1.1.0-Basic-GetFeature-tc7">
-    <param name="wfs.GetFeature.get.url"/>
-    <param name="wfs.FeatureType.names.first"/>
-    <param name="wfs.FeatureType.names.first.namespace"/>
+    <param name="wfs.GetFeature.get.url" />
+    <param name="wfs.DescribeFeatureType.get.url" />
+    <param name="wfs.FeatureType.names.first" />
+    <param name="wfs.FeatureType.names.first.namespace" />
     <ctl:assertion>A web feature service must generate a wfs:FeatureCollection element with no content (i.e. empty) but
       must populate the values of the timeStamp attribute and the numberOfFeatures attribute.
     </ctl:assertion>
     <ctl:comment></ctl:comment>
-    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc7">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc7.html</link>
+    <link title="wfs:wfs-1.1.0-Basic-GetFeature-tc7">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetFeature/GET/BasicGetFeature-GET-tc7.html
+    </link>
     <ctl:link>OGC 04-094, 9.3, p. 38</ctl:link>
     <code>
       <xsl:variable name="RESPONSE">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
           <param name="version">1.1.0</param>
           <param name="request">GetFeature</param>
           <param name="typename">
-            <xsl:value-of select="$wfs.FeatureType.names.first"/>
+            <xsl:value-of select="$wfs.FeatureType.names.first" />
           </param>
           <param name="resulttype">hits</param>
           <param name="namespace">
             <xsl:if test="contains( $wfs.FeatureType.names.first, ':' )">
               <xsl:value-of
-                      select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')"/>
+                select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+            <ctl:with-param name="schemas_links">
+              <parsers:schemas>
+				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
+				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
+              </parsers:schemas>
+            </ctl:with-param>
+          </ctl:java>
         </request>
       </xsl:variable>
       <xsl:choose>
         <xsl:when test="not($RESPONSE/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$RESPONSE"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$RESPONSE" />
           </ctl:call-test>
-          <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@timeStamp) or ($RESPONSE//wfs:FeatureCollection/@timeStamp = '')">
+          <xsl:if
+            test="not($RESPONSE//wfs:FeatureCollection/@timeStamp) or ($RESPONSE//wfs:FeatureCollection/@timeStamp = '')">
             <ctl:message>
               FAILURE: //wfs:FeatureCollection/@timeStamp is absent or not populated.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
-          <xsl:if test="not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures) or ($RESPONSE/wfs:FeatureCollection/@numberOfFeatures = '')">
+          <xsl:if
+            test="not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures) or ($RESPONSE/wfs:FeatureCollection/@numberOfFeatures = '')">
             <ctl:message>
               FAILURE: //wfs:FeatureCollection/@numberOfFeatures is absent or not populated.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -651,7 +825,7 @@
   </ctl:test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>A KVP parameter value that denotes a bounding box shall conform to the general syntax specified in
       subclause 10.2.3. If no CRS reference is provided, a service-defined default value must be assumed.
     </assertion>
@@ -666,7 +840,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -675,35 +849,38 @@
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="bbox">34.94,-10.52,71.96,32.19,urn:ogc:def:crs:EPSG::4326</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:choose>
             <xsl:when test="$request1/ows:ExceptionReport">
               <ctl:call-test name="ctl:SchematronValidatingParser">
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="doc" select="$request1" />
                 <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                 <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
               </ctl:call-test>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-              <ctl:call-test name="ctl:assert-xpath">
-                <ctl:with-param name="expr" select="$expression"/>
-                <ctl:with-param name="doc" select="$request1"/>
-              </ctl:call-test>
-              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
+              <xsl:variable name="expression">
+                //wfs:FeatureCollection
               </xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
-                <ctl:with-param name="expr" select="$expression"/>
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request1" />
+              </ctl:call-test>
+              <xsl:variable name="expression">(count(//gml:featureMember)
+                + count(//gml:featureMembers/*)) &gt;= 1
+              </xsl:variable>
+              <ctl:call-test name="ctl:assert-xpath">
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request1" />
               </ctl:call-test>
             </xsl:otherwise>
           </xsl:choose>
@@ -714,7 +891,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.2">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>A KVP parameter value that denotes a bounding box shall conform to the general syntax specified in clause
       14.3.3 (and OWS Common 1.0, 10.2.3). If no CRS reference is specified for the BBOX, it is WGS 84
       longitude-latitude
@@ -731,7 +908,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -740,20 +917,20 @@
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="bbox">-10.52,34.94,32.19,71.96</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:choose>
             <xsl:when test="$request1/ows:ExceptionReport">
               <ctl:call-test name="ctl:SchematronValidatingParser">
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="doc" select="$request1" />
                 <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                 <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
               </ctl:call-test>
@@ -763,14 +940,15 @@
                 //wfs:FeatureCollection
               </xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
-                <ctl:with-param name="expr" select="$expression"/>
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request1" />
               </ctl:call-test>
-              <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
+              <xsl:variable name="expression">(count(//gml:featureMember)
+                + count(//gml:featureMembers/*)) &gt;= 1
               </xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
-                <ctl:with-param name="expr" select="$expression"/>
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request1" />
               </ctl:call-test>
             </xsl:otherwise>
           </xsl:choose>
@@ -781,7 +959,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc8.3">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>A KVP parameter value that denotes a bounding box shall conform to the general syntax specified in
       subclause 10.2.3. If no CRS reference is provided, a service-defined default value must be assumed.
     </assertion>
@@ -796,7 +974,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -805,20 +983,20 @@
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="bbox">0,0,0.01,0.01</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:choose>
             <xsl:when test="$request1/ows:ExceptionReport">
               <ctl:call-test name="ctl:SchematronValidatingParser">
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="doc" select="$request1" />
                 <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
                 <ctl:with-param name="phase">InvalidParameterValuePhase</ctl:with-param>
               </ctl:call-test>
@@ -828,15 +1006,15 @@
                 //wfs:FeatureCollection
               </xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
-                <ctl:with-param name="expr" select="$expression"/>
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request1" />
               </ctl:call-test>
               <xsl:variable name="expression">
                 (count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0
               </xsl:variable>
               <ctl:call-test name="ctl:assert-xpath">
-                <ctl:with-param name="expr" select="$expression"/>
-                <ctl:with-param name="doc" select="$request1"/>
+                <ctl:with-param name="expr" select="$expression" />
+                <ctl:with-param name="doc" select="$request1" />
               </ctl:call-test>
             </xsl:otherwise>
           </xsl:choose>
@@ -847,7 +1025,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc10.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>A valid namespace binding expressed by the namespace parameter in a KVP string shall conform to the
       syntax specified in subclause 14.4.
     </assertion>
@@ -861,7 +1039,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -869,23 +1047,23 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <!--<param name="namespace">xmlns(sf=http%3A%2F%2Fwww.opengis.net%2Fcite%2Fgmlsf)</param>-->
-          <p:XMLValidatingParser.GMLSF1/>
+          <!--<param name="namespace">xmlns(sf=http%3A%2F%2Fwww.opengis.net%2Fcite%2Fgmlsf)</param> -->
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="expression">
             //wfs:FeatureCollection
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -894,7 +1072,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.2">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities:
       service, request, version.
     </assertion>
@@ -908,25 +1086,25 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
           <param name="version">1.1.0</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="doc" select="$request1" />
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
@@ -934,7 +1112,7 @@
             <ctl:message>
               FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -943,7 +1121,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.3">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities:
       service, request, version.
     </assertion>
@@ -957,25 +1135,25 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="request">GetFeature</param>
           <param name="version">1.1.0</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="doc" select="$request1" />
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
@@ -983,7 +1161,7 @@
             <ctl:message>
               FAILURE: ows:Exception/@locator is absent or does not identify the missing service attribute.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -992,7 +1170,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc23.4">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>The following query parameters are required for all KVP-encoded service requests except GetCapabilities:
       service, request, version.
     </assertion>
@@ -1006,7 +1184,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="request">GetFeature</param>
@@ -1019,15 +1197,15 @@
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="expression">
             //*[local-name() = 'ExceptionReport']
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1036,7 +1214,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc26.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>A comma (',') shall be used to delimit list items within multi-valued parameters in KVP strings.
     </assertion>
     <comment>GetFeature with a typename parameter of multiple values, sperated by a comma. Pass if all of the following
@@ -1050,7 +1228,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1058,27 +1236,29 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature,sf:AggregateGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
-          <xsl:variable name="expression">(count(//sf:PrimitiveGeoFeature) &gt;= 4) and (count(//sf:AggregateGeoFeature)
-            &gt;= 3)
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
+          </ctl:call-test>
+          <xsl:variable name="expression">(count(//sf:PrimitiveGeoFeature)
+            &gt;= 4) and (count(//sf:AggregateGeoFeature) &gt;= 3)
+          </xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1087,7 +1267,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the
       AbbreviatedRelativeLocationPath construct is required; the position() function may appear in a predicate to refer
       to a child node by position relative to the context node.
@@ -1102,7 +1282,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1110,33 +1290,37 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f008%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f008%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
-          <xsl:variable name="expression">//gml:description = 'description-f008'</xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember)
+            + count(//gml:featureMembers/*)) &gt;= 1
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
+          </ctl:call-test>
+          <xsl:variable name="expression">
+            //gml:description = 'description-f008'
+          </xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1145,7 +1329,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.2">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the
       AbbreviatedRelativeLocationPath construct is required; the position() function may appear in a predicate to refer
       to a child node by position relative to the context node.
@@ -1161,7 +1345,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1169,33 +1353,37 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%5B1%5D%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f001%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Adescription%5B1%5D%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Edescription-f001%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
-          <xsl:variable name="expression">//gml:description = 'description-f001'</xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember)
+            + count(//gml:featureMembers/*)) &gt;= 1
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
+          </ctl:call-test>
+          <xsl:variable name="expression">
+            //gml:description = 'description-f001'
+          </xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1203,59 +1391,27 @@
     </code>
   </test>
 
-  <!--<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.3">
-<param name="wfs.GetFeature.get.url"/>
-<assertion>XPath 1.0 shall be used to address parts of an XML representation using ogc:PropertyName. Support for the AbbreviatedRelativeLocationPath construct is required; the position() function may appear in a predicate to refer to a child node by position relative to the context node.</assertion>
-<comment>GetFeature with a filter using the position predicate ('position()').  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) the requested feature is in the response as expected.</comment>
-<link>filter-1.1.0-common-atc2</link>
-<link>OGC 04-095, 6.3.2, p.5</link>
-          <code>
-
-                  <xsl:variable name="request1">
-                          <request>
-                                  <url>
-                                          <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                  </url>
-                                  <method>get</method>
-                                  <param name="service">WFS</param>
-                                  <param name="version">1.1.0</param>
-                                  <param name="request">GetFeature</param>
-                                  <param name="typename">sf:PrimitiveGeoFeature</param>
-                                  <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                  <param name="filter"><![CDATA[<ogc:Filter%20xmlns:ogc="http://www.opengis.net/ogc"><ogc:PropertyIsEqualTo><ogc:PropertyName>*[position()=1]</ogc:PropertyName><ogc:Literal>description-f001</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Filter>]]></param>
-                                  <p:XMLValidatingParser.GMLSF1/>
-                          </request>
-                  </xsl:variable>
-
-                  <xsl:choose>
-                          <xsl:when test="not($request1/*)">
-                                  <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                  <ctl:fail/>
-                      </xsl:when>
-                          <xsl:otherwise>
-                                  <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-                                  <ctl:call-test name="ctl:assert-xpath">
-                                          <ctl:with-param name="expr" select="$expression"/>
-                                          <ctl:with-param name="doc" select="$request1"/>
-                                  </ctl:call-test>
-                                  <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable>
-                                  <ctl:call-test name="ctl:assert-xpath">
-                                          <ctl:with-param name="expr" select="$expression"/>
-                                          <ctl:with-param name="doc" select="$request1"/>
-                                  </ctl:call-test>
-                                  <xsl:variable name="expression">//gml:description = 'description-f001'</xsl:variable>
-                                  <ctl:call-test name="ctl:assert-xpath">
-                                          <ctl:with-param name="expr" select="$expression"/>
-                                          <ctl:with-param name="doc" select="$request1"/>
-                                  </ctl:call-test>
-                          </xsl:otherwise>
-                  </xsl:choose>
-
-          </code>
-  </test>-->
+  <!--<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc30.3"> <param name="wfs.GetFeature.get.url"/> <assertion>XPath 1.0 shall 
+    be used to address parts of an XML representation using ogc:PropertyName. Support for the AbbreviatedRelativeLocationPath 
+    construct is required; the position() function may appear in a predicate to refer to a child node by position relative to 
+    the context node.</assertion> <comment>GetFeature with a filter using the position predicate ('position()'). Pass if all 
+    of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection 
+    document; (3) the requested feature is in the response as expected.</comment> <link>filter-1.1.0-common-atc2</link> <link>OGC 
+    04-095, 6.3.2, p.5</link> <code> <xsl:variable name="request1"> <request> <url> <xsl:value-of select="$wfs.GetFeature.get.url"/> 
+    </url> <method>get</method> <param name="service">WFS</param> <param name="version">1.1.0</param> <param name="request">GetFeature</param> 
+    <param name="typename">sf:PrimitiveGeoFeature</param> <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param> 
+    <param name="filter"><![CDATA[<ogc:Filter%20xmlns:ogc="http://www.opengis.net/ogc"><ogc:PropertyIsEqualTo><ogc:PropertyName>*[position()=1]</ogc:PropertyName><ogc:Literal>description-f001</ogc:Literal></ogc:PropertyIsEqualTo></ogc:Filter>]]></param> 
+    <p:XMLValidatingParser.GMLSF1/> </request> </xsl:variable> <xsl:choose> <xsl:when test="not($request1/*)"> <ctl:message>FAILURE: 
+    Missing or invalid response entity.</ctl:message> <ctl:fail/> </xsl:when> <xsl:otherwise> <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable> 
+    <ctl:call-test name="ctl:assert-xpath"> <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> 
+    </ctl:call-test> <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1</xsl:variable> 
+    <ctl:call-test name="ctl:assert-xpath"> <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> 
+    </ctl:call-test> <xsl:variable name="expression">//gml:description = 'description-f001'</xsl:variable> <ctl:call-test name="ctl:assert-xpath"> 
+    <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> </ctl:call-test> </xsl:otherwise> 
+    </xsl:choose> </code> </test> -->
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc31.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>A valid filter expression must conform to the content model declared for the ogc:Filter element.
     </assertion>
     <comment>GetFeature with a correctly structured filter element. Pass if all of the following conditions are true:
@@ -1268,7 +1424,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1276,22 +1432,23 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Asf%3D%22http%3A%2F%2Fcite.opengeospatial.org%2Fgmlsf%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsGreaterThan%3E%3Cogc%3APropertyName%3Esf%3AintProperty%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E100%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsGreaterThan%3E%3C%2Fogc%3AFilter%3E]]></param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Asf%3D%22http%3A%2F%2Fcite.opengeospatial.org%2Fgmlsf%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsGreaterThan%3E%3Cogc%3APropertyName%3Esf%3AintProperty%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3E100%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsGreaterThan%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1300,7 +1457,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc32.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>An ogc:Literal element may include simple or complex content. If a child element appears it may belong to
       any target namespace, but a top-level declaration for the item must be available.
     </assertion>
@@ -1315,7 +1472,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1323,33 +1480,37 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <param name="filter">
-            <![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Aname%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Ename-f002%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <param name="filter"><![CDATA[%3Cogc%3AFilter%20xmlns%3Agml%3D%22http%3A%2F%2Fwww.opengis.net%2Fgml%22%20xmlns%3Aogc%3D%22http%3A%2F%2Fwww.opengis.net%2Fogc%22%3E%3Cogc%3APropertyIsEqualTo%3E%3Cogc%3APropertyName%3Egml%3Aname%3C%2Fogc%3APropertyName%3E%3Cogc%3ALiteral%3Ename-f002%3C%2Fogc%3ALiteral%3E%3C%2Fogc%3APropertyIsEqualTo%3E%3C%2Fogc%3AFilter%3E]]></param>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
-          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 1
+          <xsl:variable name="expression">
+            //wfs:FeatureCollection
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
-          <xsl:variable name="expression">//gml:name = 'name-f002'</xsl:variable>
+          <xsl:variable name="expression">(count(//gml:featureMember)
+            + count(//gml:featureMembers/*)) &gt;= 1
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
+          </ctl:call-test>
+          <xsl:variable name="expression">
+            //gml:name = 'name-f002'
+          </xsl:variable>
+          <ctl:call-test name="ctl:assert-xpath">
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1357,54 +1518,25 @@
     </code>
   </test>
 
-  <!--<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc32.2">
-<param name="wfs.GetFeature.get.url"/>
-<assertion>An ogc:Literal element may include simple or complex content. If a child element appears it may belong to any target namespace, but a top-level declaration for the item must be available.</assertion>
-<comment>GetFeature with a complex literal in the filter, which doesn't exist.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) there are no features in the response.</comment>
-<link>filter-1.1.0-common-atc4</link>
-<link>OGC 04-095, 14.2, p.17</link>
-          <code>
-
-                  <xsl:variable name="request1">
-                          <request>
-                                  <url>
-                                          <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                  </url>
-                             <method>get</method>
-                                  <param name="service">WFS</param>
-                                  <param name="version">1.1.0</param>
-                                  <param name="request">GetFeature</param>
-                                  <param name="typename">sf:PrimitiveGeoFeature</param>
-                                  <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                  <param name="filter"><![CDATA[<ogc:Filter%20xmlns:gml="http://www.opengis.net/gml"%20xmlns:ogc="http://www.opengis.net/ogc"><ogc:PropertyIsEqualTo><ogc:PropertyName>gml:name</ogc:PropertyName><ogc:Literal><wfs:Native vendorId="ASDF" safeToIgnore="true"/></ogc:Literal></ogc:PropertyIsEqualTo></ogc:Filter>]]></param>
-                                  <p:XMLValidatingParser.GMLSF1/>
-                          </request>
-                  </xsl:variable>
-
-                  <xsl:choose>
-                          <xsl:when test="not($request1/*)">
-                          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                  <ctl:fail/>
-                      </xsl:when>
-                      <xsl:otherwise>
-                                  <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-                                  <ctl:call-test name="ctl:assert-xpath">
-                                          <ctl:with-param name="expr" select="$expression"/>
-                                          <ctl:with-param name="doc" select="$request1"/>
-                                  </ctl:call-test>
-                                  <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable>
-                                  <ctl:call-test name="ctl:assert-xpath">
-                                          <ctl:with-param name="expr" select="$expression"/>
-                                          <ctl:with-param name="doc" select="$request1"/>
-                                  </ctl:call-test>
-                          </xsl:otherwise>
-                  </xsl:choose>
-
-          </code>
-  </test>-->
+  <!--<test name="wfs:wfs-1.1.0-Basic-GetFeature-tc32.2"> <param name="wfs.GetFeature.get.url"/> <assertion>An ogc:Literal 
+    element may include simple or complex content. If a child element appears it may belong to any target namespace, but a top-level 
+    declaration for the item must be available.</assertion> <comment>GetFeature with a complex literal in the filter, which doesn't 
+    exist. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection 
+    document; (3) there are no features in the response.</comment> <link>filter-1.1.0-common-atc4</link> <link>OGC 04-095, 14.2, 
+    p.17</link> <code> <xsl:variable name="request1"> <request> <url> <xsl:value-of select="$wfs.GetFeature.get.url"/> </url> 
+    <method>get</method> <param name="service">WFS</param> <param name="version">1.1.0</param> <param name="request">GetFeature</param> 
+    <param name="typename">sf:PrimitiveGeoFeature</param> <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param> 
+    <param name="filter"><![CDATA[<ogc:Filter%20xmlns:gml="http://www.opengis.net/gml"%20xmlns:ogc="http://www.opengis.net/ogc"><ogc:PropertyIsEqualTo><ogc:PropertyName>gml:name</ogc:PropertyName><ogc:Literal><wfs:Native 
+    vendorId="ASDF" safeToIgnore="true"/></ogc:Literal></ogc:PropertyIsEqualTo></ogc:Filter>]]></param> <p:XMLValidatingParser.GMLSF1/> 
+    </request> </xsl:variable> <xsl:choose> <xsl:when test="not($request1/*)"> <ctl:message>FAILURE: Missing or invalid response 
+    entity.</ctl:message> <ctl:fail/> </xsl:when> <xsl:otherwise> <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable> 
+    <ctl:call-test name="ctl:assert-xpath"> <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> 
+    </ctl:call-test> <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) = 0</xsl:variable> 
+    <ctl:call-test name="ctl:assert-xpath"> <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> 
+    </ctl:call-test> </xsl:otherwise> </xsl:choose> </code> </test> -->
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc44.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>Version number specified in a given request must correspond to a version supported by the service.
     </assertion>
     <comment>GetFeature with missing version parameter. Pass if the response includes an exception report.</comment>
@@ -1415,7 +1547,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1427,80 +1559,45 @@
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="not($request1//*[@exceptionCode = 'MissingParameterValue'])">
             <ctl:message>
               FAILURE: ows:Exception/@exceptionCode is absent or does not specify 'MissingParameterValue'.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
           <xsl:if test="not($request1//*[lower-case(@locator) = 'version'])">
             <ctl:message>
-              FAILURE: ows:Exception/@locator is absent or does not identify the missing version parameter value.
+              FAILURE: ows:Exception/@locator is absent or does not identify the missing version parameter
+              value.
             </ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
 
     </code>
   </test>
-  <!--
-          <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1">
-        <param name="wfs.GetFeature.get.url"/>
-        <assertion>KVP URI encoding must be properly escaped for escape and special characters.</assertion>
-        <comment>GetFeature by featureType a feature using escaped characters (é = %C3%A9 in URI encoding).  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) the response must have at least the expected features (correct feature type).</comment>
-        <link>wfs-</link>
-        <link></link>
-                  <code>
-
-                          <xsl:variable name="request1">
-                                  <request>
-                                          <url>
-                                                  <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                          </url>
-                                          <method>get</method>
-                                          <param name="service">WFS</param>
-                                          <param name="version">1.1.0</param>
-                                          <param name="request">GetFeature</param>
-                                          <param name="typename">sf:EntitéGénérique</param>
-                                          <param name="typename">sf:Entit%C3%A9G%C3%A9n%C3%A9rique</param>
-                                          <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                          <p:XMLValidatingParser.GMLSF1/>
-                                  </request>
-                          </xsl:variable>
-
-                          <xsl:choose>
-                                  <xsl:when test="not($request1/*)">
-                                  <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                          <ctl:fail/>
-                              </xsl:when>
-                              <xsl:otherwise>
-                                          <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable>
-                                          <ctl:call-test name="ctl:assert-xpath">
-                                                  <ctl:with-param name="expr" select="$expression"/>
-                                                  <ctl:with-param name="doc" select="$request1"/>
-                                          </ctl:call-test>
-                                          <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable>
-                                          <ctl:call-test name="ctl:assert-xpath">
-                                                  <ctl:with-param name="expr" select="$expression"/>
-                                                  <ctl:with-param name="doc" select="$request1"/>
-                                          </ctl:call-test>
-                                          <xsl:variable name="expression">count(//sf:EntitéGénérique) &gt;= 2</xsl:variable>
-                                          <ctl:call-test name="ctl:assert-xpath">
-                                                  <ctl:with-param name="expr" select="$expression"/>
-                                                  <ctl:with-param name="doc" select="$request1"/>
-                                          </ctl:call-test>
-                                  </xsl:otherwise>
-                          </xsl:choose>
-
-                  </code>
-          </test>
-  -->
+  <!-- <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc46.1"> <param name="wfs.GetFeature.get.url"/> <assertion>KVP URI encoding 
+    must be properly escaped for escape and special characters.</assertion> <comment>GetFeature by featureType a feature using 
+    escaped characters (é = %C3%A9 in URI encoding). Pass if all of the following conditions are true: (1) the response is schema 
+    valid; (2) the root document is an wfs:FeatureCollection document; (3) the response must have at least the expected features 
+    (correct feature type).</comment> <link>wfs-</link> <link></link> <code> <xsl:variable name="request1"> <request> <url> <xsl:value-of 
+    select="$wfs.GetFeature.get.url"/> </url> <method>get</method> <param name="service">WFS</param> <param name="version">1.1.0</param> 
+    <param name="request">GetFeature</param> <param name="typename">sf:EntitéGénérique</param> <param name="typename">sf:Entit%C3%A9G%C3%A9n%C3%A9rique</param> 
+    <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param> <p:XMLValidatingParser.GMLSF1/> </request> 
+    </xsl:variable> <xsl:choose> <xsl:when test="not($request1/*)"> <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message> 
+    <ctl:fail/> </xsl:when> <xsl:otherwise> <xsl:variable name="expression">//wfs:FeatureCollection</xsl:variable> <ctl:call-test 
+    name="ctl:assert-xpath"> <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> 
+    </ctl:call-test> <xsl:variable name="expression">(count(//gml:featureMember) + count(//gml:featureMembers/*)) &gt;= 2</xsl:variable> 
+    <ctl:call-test name="ctl:assert-xpath"> <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> 
+    </ctl:call-test> <xsl:variable name="expression">count(//sf:EntitéGénérique) &gt;= 2</xsl:variable> <ctl:call-test name="ctl:assert-xpath"> 
+    <ctl:with-param name="expr" select="$expression"/> <ctl:with-param name="doc" select="$request1"/> </ctl:call-test> </xsl:otherwise> 
+    </xsl:choose> </code> </test> -->
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>IIf a request is unrecognizable or the service cannot process the request, a valid exception report must
       be returned.
     </assertion>
@@ -1514,7 +1611,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1522,20 +1619,22 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:Asdf</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">//ows:ExceptionReport</xsl:variable>
+          <xsl:variable name="expression">
+            //ows:ExceptionReport
+          </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1544,7 +1643,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc47.2">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>IIf a request is unrecognizable or the service cannot process the request, a valid exception report must
       be returned.
     </assertion>
@@ -1559,7 +1658,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1568,22 +1667,22 @@
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="propertyname">sf:asdfProperty</param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.OWS/>
+          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
           <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="expression">
             //ows:ExceptionReport
           </xsl:variable>
           <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
+            <ctl:with-param name="expr" select="$expression" />
+            <ctl:with-param name="doc" select="$request1" />
           </ctl:call-test>
         </xsl:otherwise>
       </xsl:choose>
@@ -1591,81 +1690,28 @@
     </code>
   </test>
 
-  <!--
-  <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1">
-        <param name="wfs.GetFeature.get.url"/>
-        <assertion>Correctly select the objects specified by the list of supplied identifiers. The  identification scheme is service-specific, but valid identifiers must substitute for ogc:_Id.</assertion>
-        <comment>GetFeature to first get more than one feature id (gml:id), then another GetFeature filtering on the gml:ids.  Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root document is an wfs:FeatureCollection document; (3) the response shall have at least the two feature members expected from the request.</comment>
-        <link>filter-1.1.0-objectid-atc2</link>
-        <link>OGC 04-095, 11.1, p.14</link>
-                  <code>
-
-                          <xsl:variable name="request1">
-                                  <request>
-                                          <url>
-                                                  <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                          </url>
-                                          <method>get</method>
-                                          <param name="service">WFS</param>
-                                          <param name="version">1.1.0</param>
-                                          <param name="request">GetFeature</param>
-                                          <param name="typename">sf:Entit%C3%A9G%C3%A9n%C3%A9rique</param>
-                                          <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                          <p:XMLValidatingParser.GMLSF1/>
-                                  </request>
-                          </xsl:variable>
-
-                          <xsl:choose>
-                                  <xsl:when test="not($request1//wfs:FeatureCollection)">
-                                  <ctl:message>FAILURE: Expected valid wfs:FeatureCollection.</ctl:message>
-                                          <ctl:fail/>
-                              </xsl:when>
-                                  <xsl:otherwise>
-
-              <xsl:variable name="gml.id1">
-                <xsl:value-of select="$request1//sf:EntitéGénérique[1]/@gml:id" />
-              </xsl:variable>
-              <xsl:variable name="gml.id2">
-                <xsl:value-of select="$request1//sf:EntitéGénérique[2]/@gml:id" />
-              </xsl:variable>
-                          <xsl:variable name="request2">
-                                  <request>
-                                          <url>
-                                                  <xsl:value-of select="$wfs.GetFeature.get.url"/>
-                                          </url>
-                                          <method>get</method>
-                                          <param name="service">WFS</param>
-                                          <param name="version">1.1.0</param>
-                                          <param name="request">GetFeature</param>
-                                          <param name="featureid"><xsl:value-of select="encode-for-uri($gml.id1)"/>,<xsl:value-of select="encode-for-uri($gml.id2)"/></param>
-                                          <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-                                  </request>
-                          </xsl:variable>
-
-                          <xsl:choose>
-                                  <xsl:when test="not($request2/*)">
-                                  <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
-                                          <ctl:fail/>
-                              </xsl:when>
-                              <xsl:otherwise>
-                      <xsl:for-each select="$request2//sf:EntitéGénérique">
-                        <xsl:variable name="id"><xsl:value-of select="@gml:id"/></xsl:variable>
-                        <xsl:if test="empty(index-of(($gml.id1, $gml.id2), $id))">
-                          <ctl:message>FAILURE: Unexpected gml:id value (<xsl:value-of select="$id"/>)</ctl:message>
-                          <ctl:fail/>
-                        </xsl:if>
-                      </xsl:for-each>
-                                  </xsl:otherwise>
-                          </xsl:choose>
-
-                          </xsl:otherwise>
-                          </xsl:choose>
-
-                  </code>
-          </test>
-  -->
+  <!-- <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc48.1"> <param name="wfs.GetFeature.get.url"/> <assertion>Correctly select 
+    the objects specified by the list of supplied identifiers. The identification scheme is service-specific, but valid identifiers 
+    must substitute for ogc:_Id.</assertion> <comment>GetFeature to first get more than one feature id (gml:id), then another 
+    GetFeature filtering on the gml:ids. Pass if all of the following conditions are true: (1) the response is schema valid; 
+    (2) the root document is an wfs:FeatureCollection document; (3) the response shall have at least the two feature members 
+    expected from the request.</comment> <link>filter-1.1.0-objectid-atc2</link> <link>OGC 04-095, 11.1, p.14</link> <code> <xsl:variable 
+    name="request1"> <request> <url> <xsl:value-of select="$wfs.GetFeature.get.url"/> </url> <method>get</method> <param name="service">WFS</param> 
+    <param name="version">1.1.0</param> <param name="request">GetFeature</param> <param name="typename">sf:Entit%C3%A9G%C3%A9n%C3%A9rique</param> 
+    <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param> <p:XMLValidatingParser.GMLSF1/> </request> 
+    </xsl:variable> <xsl:choose> <xsl:when test="not($request1//wfs:FeatureCollection)"> <ctl:message>FAILURE: Expected valid 
+    wfs:FeatureCollection.</ctl:message> <ctl:fail/> </xsl:when> <xsl:otherwise> <xsl:variable name="gml.id1"> <xsl:value-of 
+    select="$request1//sf:EntitéGénérique[1]/@gml:id" /> </xsl:variable> <xsl:variable name="gml.id2"> <xsl:value-of select="$request1//sf:EntitéGénérique[2]/@gml:id" 
+    /> </xsl:variable> <xsl:variable name="request2"> <request> <url> <xsl:value-of select="$wfs.GetFeature.get.url"/> </url> 
+    <method>get</method> <param name="service">WFS</param> <param name="version">1.1.0</param> <param name="request">GetFeature</param> 
+    <param name="featureid"><xsl:value-of select="encode-for-uri($gml.id1)"/>,<xsl:value-of select="encode-for-uri($gml.id2)"/></param> 
+    <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param> </request> </xsl:variable> <xsl:choose> <xsl:when 
+    test="not($request2/*)"> <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message> <ctl:fail/> </xsl:when> 
+    <xsl:otherwise> <xsl:for-each select="$request2//sf:EntitéGénérique"> <xsl:variable name="id"><xsl:value-of select="@gml:id"/></xsl:variable> 
+    <xsl:if test="empty(index-of(($gml.id1, $gml.id2), $id))"> <ctl:message>FAILURE: Unexpected gml:id value (<xsl:value-of select="$id"/>)</ctl:message> 
+    <ctl:fail/> </xsl:if> </xsl:for-each> </xsl:otherwise> </xsl:choose> </xsl:otherwise> </xsl:choose> </code> </test> -->
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc50.1">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>When the SortBy parameter is used the resulting feature set must be properly sorted according to the sort
       criteria.
     </assertion>
@@ -1681,7 +1727,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1689,26 +1735,26 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="sortby">
-            <xsl:value-of select="encode-for-uri('sf:intProperty')"/>
+            <xsl:value-of select="encode-for-uri('sf:intProperty')" />
           </param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1//wfs:FeatureCollection)">
           <ctl:message>[FAILURE] Expected wfs:FeatureCollection in response.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="features" select="$request1//sf:PrimitiveGeoFeature"/>
-          <xsl:variable name="f1.int" select="xsd:integer($features[1]/sf:intProperty)"/>
-          <xsl:variable name="f2.int" select="xsd:integer($features[2]/sf:intProperty)"/>
-          <xsl:variable name="f3.int" select="xsd:integer($features[3]/sf:intProperty)"/>
+          <xsl:variable name="features" select="$request1//sf:PrimitiveGeoFeature" />
+          <xsl:variable name="f1.int" select="xsd:integer($features[1]/sf:intProperty)" />
+          <xsl:variable name="f2.int" select="xsd:integer($features[2]/sf:intProperty)" />
+          <xsl:variable name="f3.int" select="xsd:integer($features[3]/sf:intProperty)" />
           <xsl:if test="($f1.int gt $f2.int) or ($f2.int gt $f3.int)">
             <ctl:message>FAILURE: Features are not sorted by sf:intProperty in ascending order.</ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -1717,7 +1763,7 @@
   </test>
 
   <test name="wfs:wfs-1.1.0-Basic-GetFeature-tc50.2">
-    <param name="wfs.GetFeature.get.url"/>
+    <param name="wfs.GetFeature.get.url" />
     <assertion>When the SortBy parameter is used the resulting feature set must be properly sorted according to the sort
       criteria.
     </assertion>
@@ -1733,7 +1779,7 @@
       <xsl:variable name="request1">
         <request>
           <url>
-            <xsl:value-of select="$wfs.GetFeature.get.url"/>
+            <xsl:value-of select="$wfs.GetFeature.get.url" />
           </url>
           <method>get</method>
           <param name="service">WFS</param>
@@ -1741,26 +1787,26 @@
           <param name="request">GetFeature</param>
           <param name="typename">sf:PrimitiveGeoFeature</param>
           <param name="sortby">
-            <xsl:value-of select="encode-for-uri('sf:intProperty D')"/>
+            <xsl:value-of select="encode-for-uri('sf:intProperty D')" />
           </param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
-          <p:XMLValidatingParser.GMLSF1/>
+          <p:XMLValidatingParser.GMLSF1 />
         </request>
       </xsl:variable>
 
       <xsl:choose>
         <xsl:when test="not($request1//wfs:FeatureCollection)">
           <ctl:message>[FAILURE] Expected wfs:FeatureCollection in response.</ctl:message>
-          <ctl:fail/>
+          <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="features" select="$request1//sf:PrimitiveGeoFeature"/>
-          <xsl:variable name="f1.int" select="xsd:integer($features[1]/sf:intProperty)"/>
-          <xsl:variable name="f2.int" select="xsd:integer($features[2]/sf:intProperty)"/>
-          <xsl:variable name="f3.int" select="xsd:integer($features[3]/sf:intProperty)"/>
+          <xsl:variable name="features" select="$request1//sf:PrimitiveGeoFeature" />
+          <xsl:variable name="f1.int" select="xsd:integer($features[1]/sf:intProperty)" />
+          <xsl:variable name="f2.int" select="xsd:integer($features[2]/sf:intProperty)" />
+          <xsl:variable name="f3.int" select="xsd:integer($features[3]/sf:intProperty)" />
           <xsl:if test="($f1.int lt $f2.int) or ($f2.int lt $f3.int)">
             <ctl:message>FAILURE: Features are not sorted by sf:intProperty in descending order.</ctl:message>
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
@@ -1769,7 +1815,7 @@
   </test>
 
   <ctl:test name="wfs:GetFeature-output-format-default">
-    <ctl:param name="CAPABILITIES"/>
+    <ctl:param name="CAPABILITIES" />
     <ctl:assertion>The MIME returned for a GetFeature request where no specific output format is requested is "text/xml;
       subtype=gml/3.1.1".
     </ctl:assertion>
@@ -1780,32 +1826,32 @@
         <ctl:request>
           <ctl:url>
             <xsl:value-of
-                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+              select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
           </ctl:url>
           <ctl:method>get</ctl:method>
           <ctl:param name="request">GetFeature</ctl:param>
           <ctl:param name="service">WFS</ctl:param>
           <ctl:param name="version">1.1.0</ctl:param>
           <param name="typename">
-            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
+            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')" />
           </param>
           <parsers:HTTPParser>
             <parsers:parse>
-              <parsers:NullParser/>
+              <parsers:NullParser />
             </parsers:parse>
           </parsers:HTTPParser>
         </ctl:request>
       </xsl:variable>
-      <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']"/>
-      <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')"/>
+      <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+      <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')" />
       <xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/3.1.1'))">
-        <ctl:fail/>
+        <ctl:fail />
       </xsl:if>
     </ctl:code>
   </ctl:test>
 
   <ctl:test name="wfs:GetFeature-output-format-GML2">
-    <ctl:param name="CAPABILITIES"/>
+    <ctl:param name="CAPABILITIES" />
     <ctl:assertion>When output format GML2 is supported, the MIME returned for a GetFeature request where the output
       format requested is GML2 is "text/xml; subtype=gml/2.1.2".
     </ctl:assertion>
@@ -1814,33 +1860,32 @@
     <ctl:code>
       <xsl:choose>
         <xsl:when
-                test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:Parameter[@name='outputFormat' and ows:Value='GML2']">
+          test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:Parameter[@name='outputFormat' and ows:Value='GML2']">
           <xsl:variable name="RESPONSE">
             <ctl:request>
               <ctl:url>
                 <xsl:value-of
-                        select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+                  select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
               </ctl:url>
               <ctl:method>get</ctl:method>
               <ctl:param name="request">GetFeature</ctl:param>
               <ctl:param name="service">WFS</ctl:param>
               <ctl:param name="version">1.1.0</ctl:param>
               <param name="typename">
-                <xsl:value-of
-                        select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
+                <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')" />
               </param>
               <ctl:param name="outputformat">GML2</ctl:param>
               <parsers:HTTPParser>
                 <parsers:parse>
-                  <parsers:NullParser/>
+                  <parsers:NullParser />
                 </parsers:parse>
               </parsers:HTTPParser>
             </ctl:request>
           </xsl:variable>
-          <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']"/>
-          <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')"/>
+          <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+          <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')" />
           <xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/2.1.2'))">
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:when>
         <xsl:otherwise>
@@ -1851,7 +1896,7 @@
   </ctl:test>
 
   <ctl:test name="wfs:GetFeature-output-format-gml-2.1.2">
-    <ctl:param name="CAPABILITIES"/>
+    <ctl:param name="CAPABILITIES" />
     <ctl:assertion>When output format "text/xml; subtype=gml/2.1.2" is supported, the MIME returned for a GetFeature
       request where the output format requested is "text/xml; subtype=gml/2.1.2" is "text/xml; subtype=gml/2.1.2".
     </ctl:assertion>
@@ -1860,35 +1905,34 @@
     <ctl:code>
       <xsl:choose>
         <xsl:when
-                test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:Parameter[@name='outputFormat' and ows:Value='text/xml; subtype=gml/2.1.2']">
+          test="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:Parameter[@name='outputFormat' and ows:Value='text/xml; subtype=gml/2.1.2']">
           <xsl:variable name="RESPONSE">
             <ctl:request>
               <ctl:url>
                 <xsl:value-of
-                        select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+                  select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
               </ctl:url>
               <ctl:method>get</ctl:method>
               <ctl:param name="request">GetFeature</ctl:param>
               <ctl:param name="service">WFS</ctl:param>
               <ctl:param name="version">1.1.0</ctl:param>
               <param name="typename">
-                <xsl:value-of
-                        select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
+                <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')" />
               </param>
               <ctl:param name="outputformat">
-                <xsl:value-of select="wfs:encode('text/xml; subtype=gml/2.1.2','UTF-8')"/>
+                <xsl:value-of select="wfs:encode('text/xml; subtype=gml/2.1.2','UTF-8')" />
               </ctl:param>
               <parsers:HTTPParser>
                 <parsers:parse>
-                  <parsers:NullParser/>
+                  <parsers:NullParser />
                 </parsers:parse>
               </parsers:HTTPParser>
             </ctl:request>
           </xsl:variable>
-          <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']"/>
-          <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')"/>
+          <xsl:variable name="header" select="$RESPONSE/response/headers/header[@name='Content-Type']" />
+          <xsl:variable name="content-type" select="substring-before(concat($header, ';'), ';')" />
           <xsl:if test="not($content-type = 'text/xml' and contains($header, 'subtype=gml/2.1.2'))">
-            <ctl:fail/>
+            <ctl:fail />
           </xsl:if>
         </xsl:when>
         <xsl:otherwise>
@@ -1899,7 +1943,7 @@
   </ctl:test>
 
   <ctl:test name="wfs:GetFeature-extra-param">
-    <ctl:param name="CAPABILITIES"/>
+    <ctl:param name="CAPABILITIES" />
     <ctl:assertion>A valid HTTP Get request with an extra parameter not recognized by the WFS does not return an
       exception.
     </ctl:assertion>
@@ -1910,7 +1954,7 @@
         <ctl:request>
           <ctl:url>
             <xsl:value-of
-                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+              select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
           </ctl:url>
           <ctl:method>get</ctl:method>
           <ctl:param name="request">GetFeature</ctl:param>
@@ -1918,24 +1962,24 @@
           <ctl:param name="version">1.1.0</ctl:param>
           <ctl:param name="extra">Unknown</ctl:param>
           <param name="typename">
-            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
+            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')" />
           </param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
           <parsers:HTTPParser>
             <parsers:parse>
-              <parsers:HTTPParser/>
+              <parsers:HTTPParser />
             </parsers:parse>
           </parsers:HTTPParser>
         </ctl:request>
       </xsl:variable>
       <xsl:if test="$RESPONSE//ows:Exception/*">
-        <ctl:fail/>
+        <ctl:fail />
       </xsl:if>
     </ctl:code>
   </ctl:test>
 
   <ctl:test name="wfs:GetFeature-result-type-results">
-    <ctl:param name="CAPABILITIES"/>
+    <ctl:param name="CAPABILITIES" />
     <ctl:assertion>A GetFeature request with resultType=Results returns the actual features, not just the count of
       number of hits.
     </ctl:assertion>
@@ -1946,7 +1990,7 @@
         <ctl:request>
           <ctl:url>
             <xsl:value-of
-                    select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href"/>
+              select="$CAPABILITIES/ows:OperationsMetadata/ows:Operation[@name='GetFeature']/ows:DCP/ows:HTTP/ows:Get/@xlink:href" />
           </ctl:url>
           <ctl:method>get</ctl:method>
           <ctl:param name="request">GetFeature</ctl:param>
@@ -1954,21 +1998,22 @@
           <ctl:param name="version">1.1.0</ctl:param>
           <ctl:param name="resultType">results</ctl:param>
           <param name="typename">
-            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')"/>
+            <xsl:value-of select="wfs:encode($CAPABILITIES/wfs:FeatureTypeList/wfs:FeatureType[1]/wfs:Name,'UTF-8')" />
           </param>
           <param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</param>
           <parsers:HTTPParser>
             <parsers:parse>
-              <parsers:HTTPParser/>
+              <parsers:HTTPParser />
             </parsers:parse>
           </parsers:HTTPParser>
         </ctl:request>
       </xsl:variable>
       <xsl:if test="not(($RESPONSE//gml:featureMember) or ($RESPONSE//gml:featureMembers/*))">
-        <ctl:fail/>
+        <ctl:fail />
       </xsl:if>
-      <xsl:if test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
-        <ctl:fail/>
+      <xsl:if
+        test="$RESPONSE//wfs:FeatureCollection/@numberOfFeatures and not($RESPONSE//wfs:FeatureCollection/@numberOfFeatures = count($RESPONSE//gml:featureMember) + count($RESPONSE//gml:featureMembers/*))">
+        <ctl:fail />
       </xsl:if>
     </ctl:code>
   </ctl:test>
