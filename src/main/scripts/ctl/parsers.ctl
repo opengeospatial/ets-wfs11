@@ -196,6 +196,17 @@
 		</ctl:java>
 	</ctl:parser>	
 	
+  <ctl:parser name="p:XMLValidatingParser.WFS">
+    <ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
+      <ctl:with-param name="schemas_links">
+        <parsers:schemas>
+          <parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>   
+          <parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+        </parsers:schemas>
+      </ctl:with-param>
+    </ctl:java>
+  </ctl:parser>
+  
 	<ctl:parser name="p:XMLValidatingParser.XMLSchema">
 		<ctl:java class="com.occamlab.te.parsers.XMLValidatingParser" method="parse" initialized="true">
 			<ctl:with-param name="schemas_links">

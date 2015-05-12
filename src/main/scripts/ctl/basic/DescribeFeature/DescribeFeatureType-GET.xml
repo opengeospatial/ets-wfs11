@@ -305,9 +305,10 @@
 
   <ctl:test name="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">
     <ctl:param name="CAPABILITIES"/>
-    <ctl:assertion>The response for a DescribeFeatureType request with an invalid feature type is an exception.
-    </ctl:assertion>
-    <ctl:comment></ctl:comment>
+    <ctl:assertion>The response for an invalid DescribeFeatureType request is an exception.</ctl:assertion>
+    <ctl:comment>DescribeFeatureType with [1] missing service parameter, [2] missing version parameter. Pass if all of
+      the following conditions are true: (1) the response is schema valid; (2) the root document is an ows:ExceptionReport
+      document.</ctl:comment>
     <link title="wfs:wfs-1.1.0-Basic-DescribeFeatureType-tc5">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/DescribeFeatureType/GET/BasicDescribeFeatureType-GET-tc5.html</link>
     <ctl:link>OGC 04-094, 8.4, p.27</ctl:link>
     <ctl:code>
