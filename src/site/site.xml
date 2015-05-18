@@ -26,10 +26,11 @@
 
   <body>
     <links>
-      <item name="Issues" href="https://github.com/opengeospatial/ets-wfs11/issues"/>
+      <item name="Issues" href="http://github.com/opengeospatial/ets-wfs11/issues"/>
     </links>
     <menu name="Documentation">
       <item href="index.html" name="Overview" />
+      <item href="abstract-test-suite.html" name="Abstract Test Suite" />
       <item href="relnotes.html" name="Release Notes" />
     </menu>
     <menu ref="reports" />

@@ -49,11 +49,52 @@
                        </tr>
                     </table>
                  </blockquote>
-
+				
+				<!-- Basic -->
    				<input type="radio" id="conformance.class.basic.option" name="conformance.class" value="basic" checked="checked" 
-   						onclick="if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> Basic<br/>
-    			<input type="radio" id="conformance.class.full.option" name="conformance.class" value="full" 
-    			 		onclick="if(document.getElementById('conformance.class.full.option').checked) document.getElementById('conformance.class.full.options').style.display='block'; else document.getElementById('conformance.class.full.options').style.display='none';"/> Full<br/>
+   						onclick="if(document.getElementById('conformance.class.full.option').checked) { 
+   									document.getElementById('conformance.class.full.options').style.display='block'; 
+   									document.getElementById('conformance.class.basic.options').style.display='none'; 
+   								}else{ 
+   									document.getElementById('conformance.class.full.options').style.display='none';  
+   									document.getElementById('conformance.class.basic.options').style.display='block'
+   								}"/> Basic<br/>
+   								
+					<span id="conformance.class.basic.options" style="margin-left: 30px; display: block;">
+						<h3>Supported Methods</h3>
+						<p>Select the method (GET | POST) to test.</p>
+						<blockquote>
+							<table border="1" frame="box" padding="4" bgcolor="#00ffff">
+								<tr>
+									<td align="center">
+										<input name="conformance.class.method.get" type="checkbox" value="true" checked="checked"/>
+									</td>
+									<td align="left">
+										<strong>GET</strong>
+									</td>
+								</tr>
+								<tr>
+									<td align="center">
+										<input name="conformance.class.method.post" type="checkbox" value="true" checked="checked" />
+									</td>
+									<td align="left">
+										<strong>POST</strong>
+									</td>
+								</tr>
+							</table>
+						</blockquote>
+						<br />
+					</span>
+    			
+    			<!-- Full -->
+    			<input type="radio" id="conformance.class.full.option" name="conformance.class" value="full"
+    			 		onclick="if(document.getElementById('conformance.class.full.option').checked){ 
+    			 					document.getElementById('conformance.class.full.options').style.display='block'; 
+    			 					document.getElementById('conformance.class.basic.options').style.display='none'; 
+    			 				}else{ 
+    			 					document.getElementById('conformance.class.full.options').style.display='none'; 
+    			 					document.getElementById('conformance.class.basic.options').style.display='block'; 
+    			 				}"/> Full<br/>
 
 				<span id="conformance.class.full.options" style="margin-left: 30px; display: none;">
 					
@@ -106,10 +147,10 @@
                        </tr>
                     </table>
                  </blockquote>
-				</span>
 				<p>
 					 <div bgcolor="#ffffcc"><strong> WARNING </strong> Don't forget to add the test data!</div>
                  </p>
+				</span>
                  <br />
                  <input type="submit" value="Start"/>
               </body>
@@ -122,6 +163,8 @@
       <ctl:param name="wfs-xlink"/>
       <ctl:param name="profile"/>
       <ctl:param name="conformance.class"/>
+      <ctl:param name="conformance.class.method.get"/>
+      <ctl:param name="conformance.class.method.post"/>
       <ctl:assertion>WFS 1.1.0 Tests</ctl:assertion>
       <ctl:code>
 
@@ -129,6 +172,8 @@
 		<xsl:variable name="wfs.GetCapabilities.get.url" select="$capabilities-url"/>
 		<xsl:variable name="gmlsf.profile.level" select="$profile"/>
 		<xsl:variable name="conformance.class" select="$conformance.class"/>
+		<xsl:variable name="conformance.class.method.get" select="$conformance.class.method.get"/>
+		<xsl:variable name="conformance.class.method.post" select="$conformance.class.method.post"/>
 
 		<!--TODO: Get GMLSF profile level from DescribeFeatureType and XPath expression (gmlsf conformance level 0 or 1) rather than user input-->
 
@@ -159,11 +204,13 @@
 						</ctl:call-test>
 					</xsl:if> -->
 					<ctl:call-test name="wfs:readiness-tests">
-						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>														
+						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>	
 						<ctl:with-param name="wfs-transaction" select="$wfs-transaction"/>
                         <ctl:with-param name="wfs-xlink" select="$wfs-xlink"/>
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>	
-						<ctl:with-param name="conformance.class" select="$conformance.class"/>	
+						<ctl:with-param name="conformance.class" select="$conformance.class"/>
+						<ctl:with-param name="conformance.class.method.get" select="$conformance.class.method.get"/>
+						<ctl:with-param name="conformance.class.method.post" select="$conformance.class.method.post"/>
 					</ctl:call-test>
  					
 				</xsl:otherwise>
