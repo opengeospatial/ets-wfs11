@@ -1,5 +1,8 @@
 ## Release Notes WFS 1.1.0
 
+### 1.23 (2015-06-03)
+- New test basic profile [#1](https://github.com/opengeospatial/ets-wfs11/issues/1)
+
 ### 1.22 (2015-03-27)
 
 - Fix [#24](https://github.com/opengeospatial/ets-wfs11/issues/24) - Update revision scheme
