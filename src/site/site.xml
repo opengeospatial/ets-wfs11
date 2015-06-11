@@ -30,7 +30,7 @@
     </links>
     <menu name="Documentation">
       <item href="index.html" name="Overview" />
-      <item href="abstract-test-suite.html" name="Abstract Test Suite" />
+      <item href="abstract-test-suite.html" name="Abstract Test Suite (Basic)" />
       <item href="relnotes.html" name="Release Notes" />
     </menu>
     <menu ref="reports" />

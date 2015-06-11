@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-wfs11</artifactId>
   <groupId>org.opengis.cite</groupId>
-  <version>1.23-SNAPSHOT</version>
+  <version>1.24-SNAPSHOT</version>
 
   <name>OGC Web Feature Service 1.1.0 Exectutable Test Suite</name>
   <description>

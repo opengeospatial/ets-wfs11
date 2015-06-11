@@ -13,6 +13,20 @@ SF-1.
 
 ## What is tested
 
+There are two ways to exercise the test:
+
+### Basic
+Requires no test data 
+
+* GetCapabilities, GET and POST methods
+* DescribeFeature, POST and GET methods
+* GetFeature, POST and GET methods
+    
+The Abstract Test Suite (ATS) is available [here](abstract-test-suite.html).   
+
+### Full
+Requires test data 
+
   * **Basic conformance class**
     * GetCapabilities, GET and POST methods
     * DescribeFeature, POST and GET methods
@@ -22,6 +36,8 @@ SF-1.
     * LockFeature, POST method (optional)
     * GetFeatureWithLock, POST method (optional)
   * **XLink conformance class**
+  
+
 
 ## What is not tested
 
@@ -30,7 +46,7 @@ SF-1.
   * Spatial predicates Beyond, DWithin (broken filter schema)
   * Full GML 3.1.1 compliance (uses GMLSF 1.0 profile, Levels 0 and 1)
 
-## Test data
+## Test data for Full test
 
 The [WFS-1.1.0 test data](data-wfs-1.1.0.zip) are available for GMLSF levels 0
 and 1. Loading the feature data into the datastore is a precondition for
