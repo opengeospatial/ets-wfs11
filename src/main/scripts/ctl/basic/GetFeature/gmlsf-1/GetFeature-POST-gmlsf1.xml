@@ -608,8 +608,8 @@
                       <ctl:fail/>
                     </xsl:if>
                     <xsl:for-each select="$request1//sf:ComplexGeoFeature/gml:name">
-
-                      <xsl:if test="not(boolean(text() = 'Vivamus blandit'))">
+                        <xsl:if test="compare(gml:name, 'Vivamus blandit') != 0">
+                    <!--xsl:if test="not(boolean(text() = ''))"-->
                         <ctl:message>FAILURE: gml:name != "Vivamus blandit" (gml:id = <xsl:value-of select="@gml:id"/>)</ctl:message>
                         <ctl:fail/>
                       </xsl:if>
