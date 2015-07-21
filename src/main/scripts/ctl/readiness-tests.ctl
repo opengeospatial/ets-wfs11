@@ -76,81 +76,6 @@
                   <ctl:fail />
               </xsl:when>
               <xsl:otherwise>
-<ctl:message>vopr request</ctl:message>
-                <xsl:variable name="response1">
-				  <ctl:request>
-					<ctl:url>
-						<xsl:value-of select="$GetCapabilities.get.url"/>
-					</ctl:url>
-					<ctl:method>GET</ctl:method>
-					<ctl:param name="service">WFS</ctl:param>
-					<ctl:param name="version">1.1.0</ctl:param>
-					<ctl:param name="request">GetCapabilities</ctl:param>
-					<p:XMLValidatingParser.GMLSF1/>
-				  </ctl:request>
-			    </xsl:variable>
-<ctl:message>nach req1</ctl:message>
-				<xsl:variable name="response2">
-				  <xsl:choose>
-							<xsl:when test="not($GetFeature.post.url = '')">
-							  <ctl:request>
-								<ctl:url>
-									<xsl:value-of select="$GetFeature.post.url"/>
-								</ctl:url>
-								<ctl:method>POST</ctl:method>
-								<ctl:body>
-									<wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs" version="1.1.0" service="WFS">
-										<wfs:Query xmlns:sf="http://cite.opengeospatial.org/gmlsf" typeName="sf:PrimitiveGeoFeature" />
-									</wfs:GetFeature>
-								</ctl:body>
-								<p:XMLValidatingParser.GMLSF1/>
-							  </ctl:request>
-							</xsl:when>
-                            <xsl:otherwise>
-                              <ctl:request>
-								<ctl:url>
-									<xsl:value-of select="$GetFeature.get.url"/>
-								</ctl:url>
-								<ctl:method>GET</ctl:method>
-								<ctl:param name="request">GetFeature</ctl:param>
-								<ctl:param name="service">WFS</ctl:param>
-								<ctl:param name="version">1.1.0</ctl:param>
-								<ctl:param name="typename">sf:PrimitiveGeoFeature</ctl:param>
-								<ctl:param name="namespace">xmlns(sf=http://cite.opengeospatial.org/gmlsf)</ctl:param>
-								<p:XMLValidatingParser.GMLSF1/>
-							  </ctl:request>
-                            </xsl:otherwise>
-				  </xsl:choose>
-<ctl:message>nach req2</ctl:message>
-				</xsl:variable>
-<!--
-                <xsl:choose>
-                  <xsl:when test="not($response1/*)">
-                    <ctl:message>
-                    FAILURE: The response from <xsl:value-of select="$GetCapabilities.get.url"/> could not be read or is invalid.
-                    </ctl:message>
-                    <ctl:fail/>
-                  </xsl:when>
-                  <xsl:when test="not($response2/*)">
-                    <ctl:message>
-                    FAILURE: The GetFeature response could not be read or is invalid.
-                    </ctl:message>
-                    <ctl:fail/>
-                  </xsl:when>
-                  <xsl:when test="not($response1/wfs:WFS_Capabilities)">
-                    <ctl:message>
-                    FAILURE: The response entity is NOT a wfs:WFS_Capabilities document.
-                    The document element has [local name] = <xsl:value-of select="local-name($response1/*[1])"/> and [namespace name] = <xsl:value-of select="namespace-uri($response1/*[1])"/>.
-                    </ctl:message>
-                    <ctl:fail/>
-                  </xsl:when>
-                  <xsl:when test="(count($response2//gml:featureMember) + count($response2//gml:featureMembers/*)) &lt; 4">
-                    <ctl:message>
-                    FAILURE: The resulting wfs:FeatureCollection must include at least 4 sf:PrimitiveGeoFeature instances from the test data set.
-                    </ctl:message>
-                    <ctl:fail/>
-                  </xsl:when>
-                  <xsl:otherwise>-->
 					 <ctl:call-test name="wfs:basic-main">
 						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>
@@ -170,8 +95,6 @@
 							<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
 						</ctl:call-test>
                      </xsl:if>
-				<!--  </xsl:otherwise>
-				</xsl:choose>-->
               </xsl:otherwise>
             </xsl:choose>
 		</ctl:code>
