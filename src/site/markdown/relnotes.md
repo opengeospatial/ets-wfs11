@@ -1,5 +1,9 @@
 ## Release Notes WFS 1.1.0
 
+### 1.24 (2015-07-30)
+- Update pom.xml to build with Maven 2 and minor edits
+- Update of basic profile
+
 ### 1.23 (2015-06-03)
 - New test basic profile [#1](https://github.com/opengeospatial/ets-wfs11/issues/1)
 
