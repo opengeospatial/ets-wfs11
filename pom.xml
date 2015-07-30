@@ -33,7 +33,7 @@
     <ets-code>wfs</ets-code>
     <spec-version>1.1.0</spec-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <teamengine.version>4.0.5</teamengine.version>
+    <teamengine.version>4.2</teamengine.version>
   </properties>  
   <reporting>
     <plugins>
@@ -58,6 +58,7 @@
     
     <plugin>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>2.5</version>
         <executions>
           <execution>
             <id>default-jar</id>
@@ -66,6 +67,7 @@
     </plugin>
     <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
+         <version>2.18.1</version>
         <configuration>
           <skipTests>true</skipTests>
         </configuration>
@@ -132,8 +134,13 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>ets-gml32</artifactId>
-      <version>3.2.1-r18</version>
+      <version>1.21</version>
     </dependency>
+     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+     </dependency>
   </dependencies>
   
 </project>
