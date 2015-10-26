@@ -9,9 +9,9 @@ Execute the following Test Steps:
 * Send the following GetCapabilities request by GET: wfs.GetCapabilities.get.url?REQUEST=GetCapabilities&SERVICE=WFS
 
 **Conditions**
-
-* Response complies to xml schema: http://schemas.opengis.net/wfs/1.1.0/wfs.xsd 
-* Response contains [wfs:WFS_Capabilities/@version='1.1.0'](#wfs:WFS_Capabilities/@version='1.1.0') 
+ 
+* Response contains [WFS_Capabilities/@version='1.1.0'](#WFS_Capabilities/@version='1.1.0') if 1.1.0 is the highest supported version ([ServiceTypeVersion](#ServiceTypeVersion))
+* Response contains [WFS_Capabilities/@version='2.0.0'](#WFS_Capabilities/@version='2.0.0') if 2.2.0 is the highest supported version ([ServiceTypeVersion](#ServiceTypeVersion))
 
 **Reference(s)**: OGC 05-008c1, 7.3.2, p.16
 
@@ -28,4 +28,6 @@ The namespace prefixes used as described in [README.md](./README.md#namespaces).
 
 Abbreviation                                   |  XPath expression (relative to wfs:WFS_Capabilities)
 -----------------------------------------------| -------------------------------------------------------------------------
-wfs:WFS_Capabilities/@version='1.1.0' <a name="wfs:WFS_Capabilities"></a>   | /wfs:WFS_Capabilities/@version='1.1.0'
+WFS_Capabilities/@version='1.1.0' <a name="WFS_Capabilities"></a>   | /WFS_Capabilities/@version='1.1.0'
+WFS_Capabilities/@version='2.0.0' <a name="WFS_Capabilities"></a>   | /WFS_Capabilities/@version='2.0.0'
+ServiceTypeVersion | //ServiceTypeVersion

@@ -918,9 +918,8 @@
     <param name="wfs.GetCapabilities.get.url"/>
     <assertion>If AcceptVersion is not specified, the service must respond with highest supported version.</assertion>
     <comment>GetCapabilities with no version and service of 'WFS'. Without AcceptVersion, using version negotiation,
-      sends
-      latest copy. Pass if all of the following conditions are true: (1) the response is schema valid; (2) the root
-      document is an wfs:WFS_Capabilities document; (3) the response version must be 1.1.0.
+      sends latest copy. Pass if all of the following conditions are true: (1) the response is valid xml; 
+      (2) the response version must be the highest supported version
     </comment>
     <link title="wfs-1.1.0-Basic-GetCapabilities-tc12">http://cite.opengeospatial.org/te2/about/wfs/1.1.0/site/ats-wfs11-basic-cc/GetCapabilities/GET/BasicGetCapabilities-GET-tc12.html</link>
     <link>OGC 05-008c1, 7.3.2, p.16</link>
@@ -933,7 +932,6 @@
           <method>get</method>
           <param name="service">WFS</param>
           <param name="request">GetCapabilities</param>
-          <p:XMLValidatingParser.GMLSF1/>
         </request>
       </xsl:variable>
       <xsl:choose>
@@ -942,13 +940,19 @@
           <ctl:fail/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="expression">
-            //wfs:WFS_Capabilities/@version='1.1.0'
+          <xsl:variable name="version"><xsl:value-of select="$request1//*[local-name()='WFS_Capabilities']/@version" /></xsl:variable>
+          <xsl:variable name="is200Supported"><xsl:value-of select="$request1//*[local-name()='ServiceTypeVersion'] = '2.0.0'" /></xsl:variable>
+          <xsl:variable name="is110Supported"><xsl:value-of select="$request1//*[local-name()='ServiceTypeVersion'] = '1.1.0'" /></xsl:variable>
+          <xsl:variable name="version110IsReturnedAndHighestVersion">
+            <xsl:value-of select="$version = '1.1.0' and $is110Supported and not($is200Supported)" />
           </xsl:variable>
-          <ctl:call-test name="ctl:assert-xpath">
-            <ctl:with-param name="expr" select="$expression"/>
-            <ctl:with-param name="doc" select="$request1"/>
-          </ctl:call-test>
+          <xsl:variable name="version200IsReturnedAndHighestVersion">
+            <xsl:value-of select="$version= '2.0.0' and $is200Supported" />
+          </xsl:variable>
+          <xsl:if test="not($version110IsReturnedAndHighestVersion or $version200IsReturnedAndHighestVersion)">
+            <ctl:message>FAILURE: capabilities version is <xsl:value-of select="$version" /> but this is not the hightest supported version.</ctl:message>
+            <ctl:fail />
+          </xsl:if>
         </xsl:otherwise>
       </xsl:choose>
     </code>
