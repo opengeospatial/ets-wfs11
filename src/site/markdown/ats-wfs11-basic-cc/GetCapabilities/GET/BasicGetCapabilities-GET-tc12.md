@@ -11,7 +11,7 @@ Execute the following Test Steps:
 **Conditions**
  
 * Response contains [WFS_Capabilities/@version='1.1.0'](#WFS_Capabilities/@version='1.1.0') if 1.1.0 is the highest supported version ([ServiceTypeVersion](#ServiceTypeVersion))
-* Response contains [WFS_Capabilities/@version='2.0.0'](#WFS_Capabilities/@version='2.0.0') if 2.2.0 is the highest supported version ([ServiceTypeVersion](#ServiceTypeVersion))
+* Response contains [WFS_Capabilities/@version='2.0.0'](#WFS_Capabilities/@version='2.0.0') if 2.0.0 is the highest supported version ([ServiceTypeVersion](#ServiceTypeVersion))
 
 **Reference(s)**: OGC 05-008c1, 7.3.2, p.16
 
