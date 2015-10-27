@@ -49,45 +49,9 @@
                        </tr>
                     </table>
                  </blockquote>
-				
-				<!-- Basic -->
-   				<input type="radio" id="conformance.class.basic.option" name="conformance.class" value="basic" checked="checked" 
-   						onclick="if(document.getElementById('conformance.class.full.option').checked) { 
-   									document.getElementById('conformance.class.full.options').style.display='block'; 
-   									document.getElementById('conformance.class.basic.options').style.display='none'; 
-   								}else{ 
-   									document.getElementById('conformance.class.full.options').style.display='none';  
-   									document.getElementById('conformance.class.basic.options').style.display='block'
-   								}"/> Basic<br/>
-   								
-					<span id="conformance.class.basic.options" style="margin-left: 30px; display: block;">
-						<h3>Supported Methods</h3>
-						<p>Select the method (GET | POST) to test.</p>
-						<blockquote>
-							<table border="1" frame="box" padding="4" bgcolor="#00ffff">
-								<tr>
-									<td align="center">
-										<input name="conformance.class.method.get" type="checkbox" value="true" checked="checked"/>
-									</td>
-									<td align="left">
-										<strong>GET</strong>
-									</td>
-								</tr>
-								<tr>
-									<td align="center">
-										<input name="conformance.class.method.post" type="checkbox" value="true" checked="checked" />
-									</td>
-									<td align="left">
-										<strong>POST</strong>
-									</td>
-								</tr>
-							</table>
-						</blockquote>
-						<br />
-					</span>
-    			
+
     			<!-- Full -->
-    			<input type="radio" id="conformance.class.full.option" name="conformance.class" value="full"
+    			<input type="radio" id="conformance.class.full.option" name="conformance.class" value="full" checked="checked"
     			 		onclick="if(document.getElementById('conformance.class.full.option').checked){ 
     			 					document.getElementById('conformance.class.full.options').style.display='block'; 
     			 					document.getElementById('conformance.class.basic.options').style.display='none'; 
@@ -96,7 +60,7 @@
     			 					document.getElementById('conformance.class.basic.options').style.display='block'; 
     			 				}"/> Full<br/>
 
-				<span id="conformance.class.full.options" style="margin-left: 30px; display: none;">
+				<span id="conformance.class.full.options" style="margin-left: 30px; display: block;">
 					
                  <h3>Supported conformance classes</h3>
                  <p>
@@ -150,7 +114,44 @@
 				<p>
 					 <div bgcolor="#ffffcc"><strong> WARNING </strong> Don't forget to add the test data!</div>
                  </p>
+				<br />
 				</span>
+
+				<!-- Basic -->
+   				<input type="radio" id="conformance.class.basic.option" name="conformance.class" value="basic"
+   						onclick="if(document.getElementById('conformance.class.full.option').checked) {
+   									document.getElementById('conformance.class.full.options').style.display='block';
+   									document.getElementById('conformance.class.basic.options').style.display='none';
+   								}else{
+   									document.getElementById('conformance.class.full.options').style.display='none';
+   									document.getElementById('conformance.class.basic.options').style.display='block'
+   								}"/> Basic <font color="red"><em>(Warning: This test suite is still in beta status. Use it with caution!)</em></font><br/>
+
+					<span id="conformance.class.basic.options" style="margin-left: 30px; display: none;">
+						<h3>Supported Methods</h3>
+						<p>Select the method (GET | POST) to test.</p>
+						<blockquote>
+							<table border="1" frame="box" padding="4" bgcolor="#00ffff">
+								<tr>
+									<td align="center">
+										<input name="conformance.class.method.get" type="checkbox" value="true" checked="checked"/>
+									</td>
+									<td align="left">
+										<strong>GET</strong>
+									</td>
+								</tr>
+								<tr>
+									<td align="center">
+										<input name="conformance.class.method.post" type="checkbox" value="true" checked="checked" />
+									</td>
+									<td align="left">
+										<strong>POST</strong>
+									</td>
+								</tr>
+							</table>
+						</blockquote>
+					</span>
+
                  <br />
                  <input type="submit" value="Start"/>
               </body>
