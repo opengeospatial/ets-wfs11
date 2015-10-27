@@ -1,5 +1,9 @@
 ## Release Notes WFS 1.1.0
 
+### 1.25 (2015-07-30)
+- wfs:wfs-1.1.0-Basic-GetCapabilities-tc12 fails if server supports WFS 2.0 (https://github.com/opengeospatial/ets-wfs11/issues/45)
+- Move to bottom information about selecting the basic test and mark it with warning in the main ctl (https://github.com/opengeospatial/ets-wfs11/issues/47)
+
 ### 1.24 (2015-07-30)
 - Update pom.xml to build with Maven 2 and minor edits
 - Update of basic profile
