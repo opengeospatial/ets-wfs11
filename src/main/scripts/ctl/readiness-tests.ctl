@@ -16,6 +16,7 @@
 	<ctl:test name="wfs:readiness-tests">
 		<ctl:param name="wfs.GetCapabilities.document"/>
 		<ctl:param name="wfs-transaction"/>
+        <ctl:param name="wfs-locking"/>
         <ctl:param name="wfs-xlink"/>
 		<ctl:param name="gmlsf.profile.level"/>
 		<ctl:param name="conformance.class"/>
@@ -90,6 +91,12 @@
 							<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>
 						</ctl:call-test>
 					 </xsl:if>
+                     <xsl:if test="string-length($wfs-locking) gt 0">
+                      <ctl:call-test name="wfs:locking-main">
+                        <ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
+                        <ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>
+                      </ctl:call-test>
+                     </xsl:if>
 					 <xsl:if test="string-length($wfs-xlink) gt 0">
                        <ctl:call-test name="wfs:XLinkTests">
 							<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>
