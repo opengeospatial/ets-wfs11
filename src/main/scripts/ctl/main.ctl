@@ -16,8 +16,10 @@
 	<xi:include href="functions.ctl"/>
 	<xi:include href="parsers.ctl"/>
 	<xi:include href="readiness-tests.ctl"/>
+    <xi:include href="asserts.ctl"/>
 	<xi:include href="basic/basic-main.xml"/>
 	<xi:include href="wfs-transaction/transaction-tests.ctl"/>
+    <xi:include href="wfs-locking/locking-tests.ctl"/>
 	<xi:include href="wfs-xlink/xlink-main.xml"/>
 	
 	<ctl:suite name="ctl:wfs-1.1.0-compliance-suite" version="1.1.0.2-M1">
@@ -76,7 +78,13 @@
                           <td align="center">
                              <input name="wfs-transaction" type="checkbox" value="Transaction" />
                           </td>
-                          <td align="left"><strong>WFS-Transaction</strong> : Implements the <em>Transaction</em> request (<em>LockFeature</em> and <em>GetFeatureWithLock</em> are optional)</td>
+                          <td align="left"><strong>WFS-Transaction</strong> : Implements the <em>Transaction</em> request</td>
+                       </tr>
+                       <tr>
+                          <td align="center">
+                             <input name="wfs-locking" type="checkbox" value="Locking" />
+                          </td>
+                          <td align="left"><strong>WFS-Locking</strong> : Implements optional <em>LockFeature</em> and <em>GetFeatureWithLock</em></td>
                        </tr>
                        <tr>
                           <td align="center">
@@ -161,6 +169,7 @@
    <ctl:test name="wfs:wfs-main">
       <ctl:param name="capabilities-url"/>
       <ctl:param name="wfs-transaction"/>
+      <ctl:param name="wfs-locking"/>
       <ctl:param name="wfs-xlink"/>
       <ctl:param name="profile"/>
       <ctl:param name="conformance.class"/>
@@ -207,6 +216,7 @@
 					<ctl:call-test name="wfs:readiness-tests">
 						<ctl:with-param name="wfs.GetCapabilities.document" select="$wfs.GetCapabilities.document"/>	
 						<ctl:with-param name="wfs-transaction" select="$wfs-transaction"/>
+                        <ctl:with-param name="wfs-locking" select="$wfs-locking"/>
                         <ctl:with-param name="wfs-xlink" select="$wfs-xlink"/>
 						<ctl:with-param name="gmlsf.profile.level" select="$gmlsf.profile.level"/>	
 						<ctl:with-param name="conformance.class" select="$conformance.class"/>
