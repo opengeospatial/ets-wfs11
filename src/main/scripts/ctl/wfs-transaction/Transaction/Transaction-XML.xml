@@ -1073,27 +1073,24 @@
                         <ctl:fail/>
                     </xsl:if>
                     <!-- check all three features were deleted -->
-
-		      <xsl:for-each select="$response//wfs:InsertResults/wfs:Feature/ogc:FeatureId">
                         <ctl:call-test name="wfs:GetFeatureByName">
                           <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                           <ctl:with-param name="type" select="'sf:PrimitiveGeoFeature'"/>
                           <ctl:with-param name="name.value" select="'cite.gmlsf0-f16'" />
                           <ctl:with-param name="empty.response" select="'true'" />
                         </ctl:call-test>
-			<ctl:call-test name="wfs:GetFeatureByName">
+                        <ctl:call-test name="wfs:GetFeatureByName">
                           <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                           <ctl:with-param name="type" select="'sf:PrimitiveGeoFeature'"/>
                           <ctl:with-param name="name.value" select="'cite.gmlsf0-f17'" />
                           <ctl:with-param name="empty.response" select="'true'" />
                         </ctl:call-test>
-			<ctl:call-test name="wfs:GetFeatureByName">
+                        <ctl:call-test name="wfs:GetFeatureByName">
                           <ctl:with-param name="wfs.GetFeature.post.url" select="$wfs.GetFeature.post.url"/>
                           <ctl:with-param name="type" select="'sf:EntitéGénérique'"/>
                           <ctl:with-param name="name.value" select="'cite.gmlsf0-f18'" />
                           <ctl:with-param name="empty.response" select="'true'" />
                         </ctl:call-test>
-                      </xsl:for-each>
             </xsl:otherwise>
             </xsl:choose>
 
