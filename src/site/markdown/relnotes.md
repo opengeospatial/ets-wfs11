@@ -1,5 +1,8 @@
 ## Release Notes WFS 1.1.0
 
+### 1.27 (2016-05-DD)
+- Fix [#59](https://github.com/opengeospatial/ets-wfs11/issues/59): Confirming that features were deleted (Transaction-tc13.1)
+
 ### 1.26 (2016-04-29)
 - Seperated locking from transaction CC (https://github.com/opengeospatial/ets-wfs11/issues/18)
 
