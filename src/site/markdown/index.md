@@ -15,17 +15,10 @@ SF-1.
 
 There are two ways to exercise the test:
 
-### Basic
-Requires no test data 
-
-* GetCapabilities, GET and POST methods
-* DescribeFeature, POST and GET methods
-* GetFeature, POST and GET methods
-    
-The Abstract Test Suite (ATS) is available [here](abstract-test-suite.html).   
-
 ### Full
-Requires test data 
+Requires test data!
+
+Following conformance classes are tested:
 
   * **Basic conformance class**
     * GetCapabilities, GET and POST methods
@@ -33,11 +26,21 @@ Requires test data
     * GetFeature, POST and GET methods
   * **Transaction conformance class**
     * Transaction, POST method
-    * LockFeature, POST method (optional)
-    * GetFeatureWithLock, POST method (optional)
+  * **Locking conformance class**
+    * LockFeature, POST method
+    * GetFeatureWithLock, POST method
   * **XLink conformance class**
-  
 
+### Core
+Requires no test data!
+
+Basic conformance class is tested:
+
+* GetCapabilities, GET and POST methods
+* DescribeFeature, POST and GET methods
+* GetFeature, POST and GET methods
+
+The Abstract Test Suite (ATS) is available [here](abstract-test-suite.html).
 
 ## What is not tested
 

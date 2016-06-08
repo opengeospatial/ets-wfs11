@@ -133,7 +133,7 @@
    								}else{
    									document.getElementById('conformance.class.full.options').style.display='none';
    									document.getElementById('conformance.class.basic.options').style.display='block'
-   								}"/> Basic <font color="red"><em>(Warning: This test suite is still in beta status. Use it with caution!)</em></font><br/>
+   								}"/> Core (No test data are required. Bases on Basic WFS conformance class.)<br/>
 
 					<span id="conformance.class.basic.options" style="margin-left: 30px; display: none;">
 						<h3>Supported Methods</h3>
