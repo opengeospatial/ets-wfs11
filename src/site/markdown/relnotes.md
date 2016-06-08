@@ -1,6 +1,8 @@
 ## Release Notes WFS 1.1.0
 
-### 1.27 (2016-05-DD)
+### 1.27 (2016-06-08)
+- Fix [#61](https://github.com/opengeospatial/ets-wfs11/issues/61): Update Test Notes - Overview and Structure of the test
+- Fix [#42](https://github.com/opengeospatial/ets-wfs11/issues/42): Complete WFS 1.1.0 Basic Test
 - Fix [#59](https://github.com/opengeospatial/ets-wfs11/issues/59): Confirming that features were deleted (Transaction-tc13.1)
 
 ### 1.26 (2016-04-29)
