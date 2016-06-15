@@ -971,7 +971,7 @@
   <ctl:test name="wfs:DescribeFeatureType-output-format-gml-3.1.1">
     <ctl:param name="CAPABILITIES"/>
     <ctl:assertion>The MIME returned for a DescribeFeatureType request where the output format requested is "text/xml;
-      subtype=gml/3.1.1" is "text/xml; subtype=gml/3.1.1".
+      subtype=gml/3.1.1" contains "text/xml" and "subtype=gml/3.1.1".
     </ctl:assertion>
     <ctl:comment></ctl:comment>
     <ctl:link>OGC 04-094, 6.4, p.11</ctl:link>
@@ -997,7 +997,7 @@
           </parsers:HTTPParser>
         </ctl:request>
       </xsl:variable>
-      <xsl:if test="not(starts-with($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml; subtype=gml/3.1.1'))">
+      <xsl:if test="not(contains($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'text/xml')) or not(contains($RESPONSE/response/headers/header[lower-case(@name) = 'content-type'], 'subtype=gml/3.1.1'))">
         <ctl:fail/>
       </xsl:if>
     </ctl:code>
