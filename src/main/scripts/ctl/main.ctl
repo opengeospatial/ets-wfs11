@@ -66,19 +66,25 @@
                           <td align="center">
                              <input name="wfs-transaction" type="checkbox" value="Transaction" />
                           </td>
-                          <td align="left"><strong>WFS-Transaction</strong> : Implements the <em>Transaction</em> request</td>
+                          <td align="left"><strong>WFS-Transaction</strong> : Implements the <em>Transaction</em> request
+                            <div style="color: red;">Don't forget to add the test data!</div>
+                          </td>
                        </tr>
                        <tr>
                           <td align="center">
                              <input name="wfs-locking" type="checkbox" value="Locking" />
                           </td>
-                          <td align="left"><strong>WFS-Locking</strong> : Implements optional <em>LockFeature</em> and <em>GetFeatureWithLock</em></td>
+                          <td align="left"><strong>WFS-Locking</strong> : Implements optional <em>LockFeature</em> and <em>GetFeatureWithLock</em>
+                            <div style="color: red;">Don't forget to add the test data!</div>
+                           </td>
                        </tr>
                        <tr>
                           <td align="center">
                              <input name="wfs-xlink" type="checkbox" value="XLink" />
                           </td>
-                          <td align="left"><strong>WFS-XLink</strong> : Implements the <em>GetGmlObject</em> request and supports (local) XLink processing in GetFeature requests.</td>
+                          <td align="left"><strong>WFS-XLink</strong> : Implements the <em>GetGmlObject</em> request and supports (local) XLink processing in GetFeature requests.
+                            <div style="color: red;">Don't forget to add the test data!</div>
+                          </td>
                        </tr>
                     </table>
                  </blockquote>
@@ -108,7 +114,7 @@
                     </table>
                  </blockquote>
 				<p>
-					 <div bgcolor="#ffffcc"><strong> WARNING </strong> Don't forget to add the test data!</div>
+					 <div bgcolor="#ffffcc"><strong> WARNING </strong> WFS-Transaction, WFS-Locking and WFS-XLink requires test data, don't forget to add them! WFS-Basic is data agnostic.</div>
                  </p>
 				<br />
                  <input type="submit" value="Start"/>
