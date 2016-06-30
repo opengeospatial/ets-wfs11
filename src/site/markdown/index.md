@@ -13,32 +13,20 @@ SF-1.
 
 ## What is tested
 
-There are two ways to exercise the test:
-
-### Full
-Requires test data!
-
 Following conformance classes are tested:
 
-  * **Basic conformance class**
+  * **Basic conformance class (Requires no test data)**
     * GetCapabilities, GET and POST methods
     * DescribeFeature, POST and GET methods
     * GetFeature, POST and GET methods
-  * **Transaction conformance class**
+  * **Transaction conformance class (Requires test data)**
     * Transaction, POST method
-  * **Locking conformance class**
+  * **Locking conformance class (Requires test data)**
     * LockFeature, POST method
     * GetFeatureWithLock, POST method
-  * **XLink conformance class**
+  * **XLink conformance class (Requires test data)**
 
-### Core
-Requires no test data!
-
-Basic conformance class is tested:
-
-* GetCapabilities, GET and POST methods
-* DescribeFeature, POST and GET methods
-* GetFeature, POST and GET methods
+WFS-Transaction, WFS-Locking and WFS-XLink requires test data, don't forget to add them! WFS-Basic is data agnostic.
 
 The Abstract Test Suite (ATS) is available [here](abstract-test-suite.html).
 
