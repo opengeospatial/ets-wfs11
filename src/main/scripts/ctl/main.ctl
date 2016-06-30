@@ -60,7 +60,9 @@
                     <table border="1" frame="box" padding="4" bgcolor="#00ffff">
                        <tr>
                           <td align="center"></td>
-                          <td align="left"><strong>WFS-Basic</strong> (Required) : Implements <em>GetCapabilities</em>, <em>DescribeFeatureType</em> and <em>GetFeature</em> requests</td>
+                          <td align="left"><strong>WFS-Basic</strong> (Required) : Implements <em>GetCapabilities</em>, <em>DescribeFeatureType</em> and <em>GetFeature</em> requests
+                            <div>Does not require test data</div>
+                          </td>
                        </tr>
                        <tr>
                           <td align="center">
