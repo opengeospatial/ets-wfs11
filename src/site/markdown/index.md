@@ -40,7 +40,3 @@ The Abstract Test Suite (ATS) is available [here](abstract-test-suite.html).
 The [WFS-1.1.0 test data](data-wfs-1.1.0.zip) are available for GMLSF levels 0
 and 1. Loading the feature data into the datastore is a precondition for
 compliance testing.
-
-Note that GMLSF Levels 0 and 1 **DO NOT** support the use of feature
-collections through WFS interfaces. The collections defined here are provided
-for convenience only and they cannot themselves be treated as GML features.
