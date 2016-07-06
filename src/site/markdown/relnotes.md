@@ -1,5 +1,9 @@
 ## Release Notes WFS 1.1.0
 
+### 1.28 (2016-07-06)
+- Fix [#64](https://github.com/opengeospatial/ets-wfs11/issues/64): Replace Basic-WFS CC with Core test suite
+- Fix [#60](https://github.com/opengeospatial/ets-wfs11/issues/60): DescribeFeatureType GET tests fail as Content-Type is evaluated too strict
+
 ### 1.27 (2016-06-08)
 - Fix [#61](https://github.com/opengeospatial/ets-wfs11/issues/61): Update Test Notes - Overview and Structure of the test
 - Fix [#42](https://github.com/opengeospatial/ets-wfs11/issues/42): Complete WFS 1.1.0 Basic Test
