@@ -9,7 +9,7 @@
    <xi:include href="GetGmlObject/GetGmlObject-POST-XML.xml"/>
    <xi:include href="GetFeature/GetFeature(XLink)-POST-XML.xml"/>
 
-   <ctl:test name="wfs:XLinkTests">
+   <ctl:test name="wfs:XLinkTests" isConformanceClass="true" isBasic="false">
       <ctl:param name="wfs.GetCapabilities.document"/>
       <ctl:assertion>The implementation under test satisfies all applicable
       assertions pertaining to the XLink conformance class.</ctl:assertion>

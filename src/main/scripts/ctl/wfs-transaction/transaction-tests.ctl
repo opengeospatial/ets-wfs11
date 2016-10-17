@@ -16,7 +16,7 @@
   <!-- include test groups for the WFS-Transaction conformance class -->
   <xi:include href="Transaction/Transaction-XML.xml"/>
 
-	<ctl:test name="wfs:transaction-main">
+	<ctl:test name="wfs:transaction-main" isConformanceClass="true" isBasic="false">
       <ctl:param name="wfs.GetCapabilities.document"/>
       <ctl:param name="gmlsf.profile.level"/>
       <ctl:assertion>Run test group for the WFS-Transaction conformance class.</ctl:assertion>

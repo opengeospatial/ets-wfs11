@@ -19,7 +19,7 @@
 	<xi:include href="GetFeature/GetFeature-GET.xml"/>
 	<xi:include href="GetFeature/GetFeature-POST.xml"/>
 
-	<ctl:test name="wfs:basic-main">
+	<ctl:test name="wfs:basic-main" isConformanceClass="true" isBasic="true">
       <ctl:param name="wfs.GetCapabilities.document"/>
       <ctl:param name="gmlsf.profile.level"/>
 	  <ctl:param name="wfs-xlink"/>
