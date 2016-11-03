@@ -1,5 +1,8 @@
 ## Release Notes WFS 1.1.0
 
+### 1.29 (2016-11-03)
+- Fix [#66](https://github.com/opengeospatial/ets-wfs11/issues/66): XPath-issue with ows:Exception
+
 ### 1.28 (2016-07-06)
 - Fix [#64](https://github.com/opengeospatial/ets-wfs11/issues/64): Replace Basic-WFS CC with Core test suite
 - Fix [#60](https://github.com/opengeospatial/ets-wfs11/issues/60): DescribeFeatureType GET tests fail as Content-Type is evaluated too strict
