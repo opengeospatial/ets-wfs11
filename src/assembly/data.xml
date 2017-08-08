@@ -9,7 +9,6 @@
   </formats>
   <includeBaseDirectory>true</includeBaseDirectory>
   <baseDirectory>data-ets-wfs-1.1.0</baseDirectory>
-  <includeSiteDirectory>true</includeSiteDirectory>
   <fileSets>
     <fileSet>
       <directory>${project.basedir}/src/main/resources/data</directory>
