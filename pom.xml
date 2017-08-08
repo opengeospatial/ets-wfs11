@@ -102,6 +102,16 @@
               <goal>single</goal>
             </goals>
           </execution>
+          <execution>
+            <id>data</id>
+            <configuration>
+              <descriptor>src/assembly/data.xml</descriptor>
+            </configuration>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
       <plugin>
