@@ -127,7 +127,7 @@
 							<parsers:schema type="resource">xsd/ogc/cite/gmlsf2.xsd</parsers:schema>					
 							<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter.xsd</parsers:schema>
 							<parsers:schema type="resource">xsd/ogc/cite/cite-gmlsf2.xsd</parsers:schema>				
-							<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>				
+							<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
 						</parsers:schemas>
 					</ctl:with-param>
 				</ctl:call-test>
@@ -147,7 +147,7 @@
 							<parsers:schema type="resource">xsd/ogc/cite/gmlsf.xsd</parsers:schema>					
 							<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter.xsd</parsers:schema>
 							<parsers:schema type="resource">xsd/ogc/cite/cite-gmlsf1.xsd</parsers:schema>				
-							<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+							<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
 						</parsers:schemas>
 					</ctl:with-param>
 				</ctl:call-test>
@@ -164,7 +164,7 @@
 					<parsers:schema type="resource">xsd/ogc/cite/gmlsf2.xsd</parsers:schema>					
 					<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter.xsd</parsers:schema>
 					<parsers:schema type="resource">xsd/ogc/cite/cite-gmlsf2.xsd</parsers:schema>				
-					<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>					
+					<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
 				</parsers:schemas>
 			</ctl:with-param>
 		</ctl:java>
@@ -179,7 +179,7 @@
 					<parsers:schema type="resource">xsd/ogc/cite/gmlsf.xsd</parsers:schema>					
 					<parsers:schema type="resource">xsd/ogc/filter/1.1.0/filter.xsd</parsers:schema>
 					<parsers:schema type="resource">xsd/ogc/cite/cite-gmlsf1.xsd</parsers:schema>				
-					<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+					<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
 				</parsers:schemas>
 			</ctl:with-param>
 		</ctl:java>
@@ -201,7 +201,7 @@
       <ctl:with-param name="schemas_links">
         <parsers:schemas>
           <parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>   
-          <parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+          <parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
         </parsers:schemas>
       </ctl:with-param>
     </ctl:java>
