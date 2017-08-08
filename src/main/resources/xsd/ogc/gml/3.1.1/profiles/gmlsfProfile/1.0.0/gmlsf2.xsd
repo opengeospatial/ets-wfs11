@@ -17,6 +17,8 @@
    <!-- =========================================================== -->
    <!-- === includes and imports                                === -->
    <!-- =========================================================== -->
+   <!-- ETS WFS 1.1: required for validation! -->
+   <include schemaLocation="../../../../../cite/gmlsf-deps.xsd"/>
    <import namespace="http://www.w3.org/1999/xlink"
    schemaLocation="../../../../../../w3c/xlink/1999/xlink.xsd"/>
    <!-- =========================================================== -->
