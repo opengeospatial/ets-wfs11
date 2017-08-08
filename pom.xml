@@ -83,6 +83,16 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
+            <id>data</id>
+            <configuration>
+              <descriptor>src/assembly/data.xml</descriptor>
+            </configuration>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+          <execution>
             <id>ctl</id>
             <configuration>
               <descriptor>src/assembly/ctl.xml</descriptor>
@@ -96,16 +106,6 @@
             <id>deps</id>
             <configuration>
               <descriptor>src/assembly/deps.xml</descriptor>
-            </configuration>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>data</id>
-            <configuration>
-              <descriptor>src/assembly/data.xml</descriptor>
             </configuration>
             <phase>package</phase>
             <goals>
