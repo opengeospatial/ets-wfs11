@@ -22,7 +22,7 @@ Four conformance classes can be tested.
     * GetFeatureWithLock, POST method
   * **XLink conformance class (Requires test data)**
 
-The Basic conformane class  is the minimum class to get OGC certification and the test is data agnostic. WFS-Transaction, WFS-Locking and WFS-XLink requires test data that needs to be added before executing the test.
+The Basic conformane class  is the minimum class to get OGC certification and the test is data agnostic. WFS-Transaction, WFS-Locking and WFS-XLink requires test data that needs to be added before executing the test. The Locking conformance class expects that the feature types **sf:PrimitiveGeoFeature**, **sf:AggregateGeoFeature** and **sf:EntitéGénérique** are lockable. It is **not** checked if locking is enabled per feature type or not. 
 
 The test, including the test data, is based on simple features profile (i.e. levels SF-0 and SF-1). GML complex properties conforming to SF-2 are not tested.
 
