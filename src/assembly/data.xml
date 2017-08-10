@@ -17,6 +17,9 @@
     <fileSet>
       <directory>${project.basedir}/src/main/resources/xsd/ogc/cite</directory>
       <outputDirectory>/schemas</outputDirectory>
+      <excludes>
+        <exclude>gmlsf-deps.xsd</exclude>
+      </excludes>
     </fileSet>
   </fileSets>
 </assembly>
