@@ -15,7 +15,7 @@
       <outputDirectory>/</outputDirectory>
     </fileSet>
     <fileSet>
-      <directory>${project.basedir}/src/main/resources/xsd</directory>
+      <directory>${project.basedir}/src/main/resources/xsd/ogc/cite</directory>
       <outputDirectory>/schemas</outputDirectory>
     </fileSet>
   </fileSets>
