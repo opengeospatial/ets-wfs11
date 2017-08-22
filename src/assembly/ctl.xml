@@ -28,5 +28,10 @@
       <source>${project.basedir}/src/main/config/config.xml</source>
       <filtered>true</filtered>
     </file>
+    <file>
+      <source>${project.build.directory}/${project.artifactId}-${project.version}-data.zip</source>
+      <outputDirectory>site</outputDirectory>
+      <destName>data-wfs-1.1.0.zip</destName>
+    </file>
   </files>
 </assembly>

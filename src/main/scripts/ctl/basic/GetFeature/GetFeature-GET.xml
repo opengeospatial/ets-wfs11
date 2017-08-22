@@ -288,7 +288,7 @@
             <ctl:with-param name="schemas_links">
               <parsers:schemas>
 				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
-				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+				<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
                 <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
               </parsers:schemas>
             </ctl:with-param>
@@ -349,7 +349,7 @@
             <ctl:with-param name="schemas_links">
               <parsers:schemas>
 				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
-				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+				<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
                 <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
               </parsers:schemas>
             </ctl:with-param>
@@ -421,7 +421,7 @@
             <ctl:with-param name="schemas_links">
               <parsers:schemas>
 				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
-				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+				<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
                 <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
               </parsers:schemas>
             </ctl:with-param>
@@ -652,7 +652,7 @@
                 <ctl:with-param name="schemas_links">
                   <parsers:schemas>
                     <parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>
-                    <parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+                    <parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
                     <parsers:schema type="url">
                       <xsl:value-of
                         select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')" />
@@ -785,7 +785,7 @@
             <ctl:with-param name="schemas_links">
               <parsers:schemas>
 				<parsers:schema type="resource">xsd/w3c/xlink/1999/xlink.xsd</parsers:schema>			
-				<parsers:schema type="resource">xsd/ogc/cite/wfs.xsd</parsers:schema>
+				<parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
                 <parsers:schema type="url"> <xsl:value-of select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')"/></parsers:schema>
               </parsers:schemas>
             </ctl:with-param>
