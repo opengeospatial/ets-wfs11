@@ -1,5 +1,9 @@
 ## Release Notes WFS 1.1.0
 
+### 1.30 (2017-08-22)
+- Fix [#69](https://github.com/opengeospatial/ets-wfs11/issues/69): WFS 1.1.0 DataSet
+- Fix [#18](https://github.com/opengeospatial/ets-wfs11/issues/18): LockFeature Tests are issued even though the Lock attribute is not in FeatureTypeList
+
 ### 1.29 (2016-11-03)
 - Fix [#66](https://github.com/opengeospatial/ets-wfs11/issues/66): XPath-issue with ows:Exception
 
