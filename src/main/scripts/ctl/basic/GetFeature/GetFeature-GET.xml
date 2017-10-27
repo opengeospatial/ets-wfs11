@@ -605,7 +605,7 @@
             <xsl:value-of select="$result/FeatureData/Property/localName" />
           </xsl:variable>
           <xsl:variable name="value">
-            <xsl:value-of select="$result/FeatureData/value" />
+            <xsl:value-of select="encode-for-uri($result/FeatureData/value)" />
           </xsl:variable>
 
           <xsl:variable name="request">
