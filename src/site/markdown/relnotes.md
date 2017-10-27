@@ -1,5 +1,8 @@
 ## Release Notes WFS 1.1.0
 
+### 1.31 (2017-10-27)
+- Fix [#74](https://github.com/opengeospatial/ets-wfs11/issues/74): Test wfs-1.1.0-Basic-GetFeature-tc5 fails as property value is not encoded in filter
+
 ### 1.30 (2017-08-22)
 - Fix [#69](https://github.com/opengeospatial/ets-wfs11/issues/69): WFS 1.1.0 DataSet
 - Fix [#18](https://github.com/opengeospatial/ets-wfs11/issues/18): LockFeature Tests are issued even though the Lock attribute is not in FeatureTypeList
