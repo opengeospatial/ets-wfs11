@@ -5,8 +5,12 @@
         xmlns:ctl="http://www.occamlab.com/ctl"
         xmlns:parsers="http://www.occamlab.com/te/parsers"
         xmlns:p="http://teamengine.sourceforge.net/parsers"
+        xmlns:saxon="http://saxon.sf.net/"
         xmlns:wfs="http://www.opengis.net/wfs"
->
+        xmlns:ows="http://www.opengis.net/ows"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
   <ctl:test name="wfs:run-GetCapabilities-GET">
     <param name="wfs.GetCapabilities.document"/>
