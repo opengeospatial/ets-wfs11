@@ -639,11 +639,26 @@
           <p:XMLValidatingParser.GMLSF1/>
         </request>
       </xsl:variable>
+      <xsl:variable name="request2QueryParams">version=1.1.0#request=GetCapabilities,service=WFS</xsl:variable>
       <xsl:variable name="request2">
         <request>
           <url>
-            <xsl:value-of
-                    select="concat($wfs.GetCapabilities.get.url,'version=1.1.0#request=GetCapabilities,service=WFS')"/>
+            <xsl:choose>
+              <!-- append question mark if url does not contain a question mark -->
+              <xsl:when test="not(contains( $wfs.GetCapabilities.get.url, '?'))">
+                <xsl:value-of
+                        select="concat($wfs.GetCapabilities.get.url,'?', $request2QueryParams)" />
+              </xsl:when>
+              <!-- append ampersand if url contains a question mark but does not end with question mark or ampersand -->
+              <xsl:when
+                      test="contains( $wfs.GetCapabilities.get.url, '?') and not(ends-with($wfs.GetCapabilities.get.url, '?') or ends-with($wfs.GetCapabilities.get.url, '&amp;')) ">
+                <xsl:value-of
+                        select="concat($wfs.GetCapabilities.get.url,'&amp;', $request2QueryParams)" />
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="concat($wfs.GetCapabilities.get.url,$request2QueryParams)" />
+              </xsl:otherwise>
+            </xsl:choose>
           </url>
           <method>get</method>
           <p:XMLValidatingParser.GMLSF1/>
