@@ -105,4 +105,28 @@
       <ctl:java class="java.lang.Thread" method="sleep"/>
    </ctl:function>
 
+  <ctl:function name="wfs:fix-request-url">
+    <ctl:param name="request-url">The request url to fix</ctl:param>
+    <ctl:return>The fixed request url.</ctl:return>
+    <ctl:description>Appends a '?' or '&amp;' at the end of the request url if missing.</ctl:description>
+    <ctl:code>
+      <xsl:choose>
+        <!-- append question mark if url does not contain a question mark -->
+        <xsl:when test="not(contains( $wfs.GetCapabilities.get.url, '?'))">
+          <xsl:value-of
+                  select="concat($wfs.GetCapabilities.get.url,'?', $request2QueryParams)" />
+        </xsl:when>
+        <!-- append ampersand if url contains a question mark but does not end with question mark or ampersand -->
+        <xsl:when
+                test="contains( $wfs.GetCapabilities.get.url, '?') and not(ends-with($wfs.GetCapabilities.get.url, '?') or ends-with($wfs.GetCapabilities.get.url, '&amp;')) ">
+          <xsl:value-of
+                  select="concat($wfs.GetCapabilities.get.url,'&amp;', $request2QueryParams)" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat($wfs.GetCapabilities.get.url,$request2QueryParams)" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </ctl:code>
+  </ctl:function>
+
 </ctl:package>

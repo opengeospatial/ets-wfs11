@@ -589,7 +589,6 @@
       <xsl:variable name="result">
         <xsl:copy-of select="gfExt:findFeatureTypeAndPropertyName($wfs.GetCapabilities.document)" />
       </xsl:variable>
-
       <xsl:choose>
         <xsl:when test="$result != ''">
           <xsl:variable name="ftNamespace">
@@ -607,7 +606,6 @@
           <xsl:variable name="value">
             <xsl:value-of select="encode-for-uri($result/FeatureData/value)" />
           </xsl:variable>
-
           <xsl:variable name="request">
             <request>
               <url>
@@ -655,7 +653,7 @@
                     <parsers:schema type="resource">xsd/ogc/wfs/1.1.0/wfs.xsd</parsers:schema>
                     <parsers:schema type="url">
                       <xsl:value-of
-                        select="concat($wfs.DescribeFeatureType.get.url, 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')" />
+                              select="concat(wfs:fix-request-url($wfs.DescribeFeatureType.get.url), 'service=WFS&amp;request=DescribeFeatureType&amp;version=1.1.0')" />
                     </parsers:schema>
                   </parsers:schemas>
                 </ctl:with-param>
