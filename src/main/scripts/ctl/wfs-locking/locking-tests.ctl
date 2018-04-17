@@ -17,7 +17,7 @@
   <xi:include href="LockFeature/LockFeature-XML.xml"/>
   <xi:include href="GetFeatureWithLock/GetFeatureWithLock-XML.xml"/>
 
-	<ctl:test name="wfs:locking-main">
+	<ctl:test name="wfs:locking-main" isConformanceClass="true" >
       <ctl:param name="wfs.GetCapabilities.document"/>
       <ctl:param name="gmlsf.profile.level"/>
       <ctl:assertion>Run test group for the WFS-Locking conformance class.</ctl:assertion>
