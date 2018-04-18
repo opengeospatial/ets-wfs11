@@ -108,7 +108,7 @@ public class WFSClient {
 
 	private String buildGetFeatureGetRequest(QName typeName, String getUrl) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getUrl);
+		sb.append( fixGetUrl( getUrl ) );
 		sb.append("service=WFS&version=1.1.0&request=GetFeature&");
 		sb.append("typename=");
 		String namespaceURI = typeName.getNamespaceURI();
@@ -171,7 +171,7 @@ public class WFSClient {
 
 	private String buildGetFeatureTypeGetRequest(String getUrl) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getUrl);
+		sb.append(fixGetUrl( getUrl ));
 		sb.append("service=WFS&version=1.1.0&request=DescribeFeatureType");
 		return sb.toString();
 	}
@@ -192,5 +192,15 @@ public class WFSClient {
 		writer.close();
 		return connection.getInputStream();
 	}
+
+    private String fixGetUrl( String getUrl ) {
+        if ( getUrl != null ) {
+            if ( getUrl.indexOf( "?" ) == -1 )
+                return getUrl + "?";
+            if ( !getUrl.endsWith( "?" ) && !getUrl.endsWith( "&" ) )
+                return getUrl + "&";
+        }
+        return getUrl;
+    }
 
 }
