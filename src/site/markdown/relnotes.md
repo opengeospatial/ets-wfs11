@@ -1,5 +1,10 @@
 ## Release Notes WFS 1.1.0
 
+### 1.32 (2018-05-16)
+- Fix [#68](https://github.com/opengeospatial/ets-wfs11/issues/68): Add conformance class configuration into the wfs11 test
+- Fix [#78](https://github.com/opengeospatial/ets-wfs11/issues/78): wfs:wfs-1.1.0-Basic-GetCapabilities-tc7 fails with InvocationTargetException
+- Fix [#73](https://github.com/opengeospatial/ets-wfs11/issues/73): wfs:wfs-1.1.0-Basic-GetFeature-tc5 fails with missing testdata if DCP Urls has a qeury string but does not end with a '&'
+
 ### 1.31 (2017-10-27)
 - Fix [#74](https://github.com/opengeospatial/ets-wfs11/issues/74): Test wfs-1.1.0-Basic-GetFeature-tc5 fails as property value is not encoded in filter
 
