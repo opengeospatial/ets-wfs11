@@ -54,9 +54,9 @@
     <ets-code>wfs</ets-code>
     <spec-version>1.1.0</spec-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <teamengine.version>4.2</teamengine.version>
+    <teamengine.version>5.3</teamengine.version>
   </properties>
-
+  
   <reporting>
     <plugins>
       <plugin>
@@ -78,13 +78,21 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>2.5</version>
-        <executions>
-          <execution>
-            <id>default-jar</id>
-          </execution>
-        </executions>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+            </manifest>
+            <manifestEntries>
+              <Build-Host>${hostname}</Build-Host>
+              <Build-Time>${maven.build.timestamp}</Build-Time>
+              <Build-Revision>${buildNumber}</Build-Revision>
+            </manifestEntries>
+          </archive>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -95,32 +103,21 @@
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.opengis.cite.wfs11.CtlController</mainClass>
+            </manifest>
+          </archive>
+          <descriptors>
+            <descriptor>${basedir}/src/assembly/data.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/ctl.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/aio.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/deps.xml</descriptor>
+          </descriptors>
+        </configuration>
         <executions>
           <execution>
-            <id>data</id>
-            <configuration>
-              <descriptor>src/assembly/data.xml</descriptor>
-            </configuration>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>ctl</id>
-            <configuration>
-              <descriptor>src/assembly/ctl.xml</descriptor>
-            </configuration>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>deps</id>
-            <configuration>
-              <descriptor>src/assembly/deps.xml</descriptor>
-            </configuration>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
@@ -149,7 +146,7 @@
             <id>site-package</id>
             <phase>prepare-package</phase>
             <goals>
-              <goal>site</goal>
+              <goal>jar</goal>
             </goals>
           </execution>
         </executions>
@@ -164,10 +161,10 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
+        <version>3.6.0</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
@@ -196,9 +193,24 @@
         </executions>
       </plugin>
     </plugins>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/scripts</directory>
+        <targetPath>${ets-code}/${spec-version}</targetPath>
+      </resource>
+    </resources>
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>org.opengis.cite.teamengine</groupId>
+      <artifactId>teamengine-spi-ctl</artifactId>
+      <version>${teamengine.version}</version>
+    </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>ets-gml32</artifactId>
