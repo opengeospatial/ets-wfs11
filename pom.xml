@@ -203,6 +203,11 @@
         <directory>${basedir}/src/main/scripts</directory>
         <targetPath>${ets-code}/${spec-version}</targetPath>
       </resource>
+      <resource>
+        <directory>src/main/javadoc</directory>
+        <filtering>true</filtering>
+        <targetPath>doc/${ets-code}/${project.version}</targetPath>
+      </resource>
     </resources>
   </build>
 
