@@ -258,11 +258,11 @@ declare namespace cite="http://cite.opengeospatial.org/";
   <con:properties>
     <con:property>
       <con:name>teamengine.endpoint</con:name>
-      <con:value>http://cite.opengeospatial.org/te2</con:value>
+      <con:value>http://localhost:8080/teamengine</con:value>
     </con:property>
     <con:property>
       <con:name>ets.version</con:name>
-      <con:value>1.32</con:value>
+      <con:value>1.33-SNAPSHOT</con:value>
     </con:property>
     <con:property>
       <con:name>iut</con:name>
