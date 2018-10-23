@@ -273,6 +273,13 @@
     </profile>
   </profiles>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>smartbear-sweden-plugin-repository</id>
+      <url>http://www.soapui.org/repository/maven2/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  
   <distributionManagement>
     <repository>
       <id>sonatype-nexus-staging</id>

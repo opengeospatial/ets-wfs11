@@ -51,7 +51,7 @@
           <con:settings>
             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
           </con:settings>
-          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs11/${#Project#ets.version}</con:endpoint>
+          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs/${#Project#ets.version}</con:endpoint>
           <con:request/>
           <con:assertion type="Valid HTTP Status Codes" id="0b7f5046-5ac7-41d0-829e-17315ac969ba" name="Valid HTTP Status Codes">
             <con:settings/>
@@ -61,7 +61,7 @@
           </con:assertion>
           <con:assertion type="Simple Contains" id="fa99f93d-9a50-47b2-a991-1d999d30e858" name="Contains test suite">
             <con:configuration>
-              <token>OGC Web Feature Service (WFS) 1.1.0</token>
+              <token>Web Feature Service 1.1.0</token>
               <ignoreCase>false</ignoreCase>
               <useRegEx>false</useRegEx>
             </con:configuration>
@@ -77,11 +77,11 @@
       </con:testStep>
       <con:testStep type="httprequest" name="Accept application/xml" id="fac1761f-2d6f-4c1b-8b8d-e8578e61e72f">
         <con:settings/>
-        <con:config method="GET" xsi:type="con:HttpRequest" id="f079fc99-814a-4fdc-8576-595034292027" name="Accept application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config method="GET" xsi:type="con:HttpRequest" id="f079fc99-814a-4fdc-8576-595034292027" name="Accept application/xml" timeout="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:settings>
             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/xml" xmlns="http://eviware.com/soapui/config"/></con:setting>
           </con:settings>
-          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs11/${#Project#ets.version}/run</con:endpoint>
+          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs/${#Project#ets.version}/run</con:endpoint>
           <con:request/>
           <con:assertion type="Valid HTTP Status Codes" id="0b7f5046-5ac7-41d0-829e-17315ac969ba" name="Valid HTTP Status Codes">
             <con:settings/>
@@ -112,7 +112,7 @@ assert headers != null &amp;&amp; headers[0] != null &amp;&amp; headers[0].index
           <con:jmsPropertyConfig/>
           <con:parameters>
             <con:parameter>
-              <con:name>uri</con:name>
+              <con:name>capabilities-url</con:name>
               <con:value>${#Project#iut}</con:value>
               <con:style>QUERY</con:style>
             </con:parameter>
@@ -121,11 +121,11 @@ assert headers != null &amp;&amp; headers[0] != null &amp;&amp; headers[0].index
       </con:testStep>
       <con:testStep type="httprequest" name="Accept application/zip" id="e5a8ccb9-0ca0-4b1c-844b-efd93d2e95a3">
         <con:settings/>
-        <con:config method="GET" xsi:type="con:HttpRequest" id="f079fc99-814a-4fdc-8576-595034292027" name="Accept application/zip" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config method="GET" xsi:type="con:HttpRequest" id="f079fc99-814a-4fdc-8576-595034292027" name="Accept application/zip" timeout="0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:settings>
             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/zip" xmlns="http://eviware.com/soapui/config"/></con:setting>
           </con:settings>
-          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs11/${#Project#ets.version}/run</con:endpoint>
+          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs/${#Project#ets.version}/run</con:endpoint>
           <con:request/>
           <con:assertion type="Valid HTTP Status Codes" id="0b7f5046-5ac7-41d0-829e-17315ac969ba" name="Valid HTTP Status Codes">
             <con:settings/>
@@ -156,7 +156,7 @@ assert headers != null &amp;&amp; headers[0] != null &amp;&amp; headers[0].index
           <con:jmsPropertyConfig/>
           <con:parameters>
             <con:parameter>
-              <con:name>uri</con:name>
+              <con:name>capabilities-url</con:name>
               <con:value>${#Project#iut}</con:value>
               <con:style>QUERY</con:style>
             </con:parameter>
@@ -169,7 +169,7 @@ assert headers != null &amp;&amp; headers[0] != null &amp;&amp; headers[0].index
           <con:settings>
             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;entry key="Accept" value="application/rdf+xml" xmlns="http://eviware.com/soapui/config"/></con:setting>
           </con:settings>
-          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs11/${#Project#ets.version}/run</con:endpoint>
+          <con:endpoint>${#Project#teamengine.endpoint}/rest/suites/wfs/${#Project#ets.version}/run</con:endpoint>
           <con:request/>
           <con:assertion type="Valid HTTP Status Codes" id="0b7f5046-5ac7-41d0-829e-17315ac969ba" name="Valid HTTP Status Codes">
             <con:settings/>
@@ -241,7 +241,7 @@ declare namespace cite="http://cite.opengeospatial.org/";
           <con:jmsPropertyConfig/>
           <con:parameters>
             <con:parameter>
-              <con:name>uri</con:name>
+              <con:name>capabilities-url</con:name>
               <con:value>${#Project#iut}</con:value>
               <con:style>QUERY</con:style>
             </con:parameter>
