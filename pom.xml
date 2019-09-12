@@ -54,9 +54,8 @@
     <ets-code>wfs</ets-code>
     <spec-version>1.1.0</spec-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <teamengine.version>4.2</teamengine.version>
-    <soapui.teamengine.endpoint>http://cite.opengeospatial.org/te2</soapui.teamengine.endpoint>
-    <soapui.ets.version>1.32</soapui.ets.version>
+    <teamengine.version>5.4</teamengine.version>
+    <soapui.teamengine.endpoint>http://localhost:8081/teamengine</soapui.teamengine.endpoint>
     <soapui.iut>http://cite.deegree.org/deegree-webservices-3.4.0/services/wfs110?service=WFS&amp;request=GetCapabilities</soapui.iut>
     <soapui.tests.passed>72</soapui.tests.passed>
     <soapui.tests.skipped>0</soapui.tests.skipped>
@@ -204,7 +203,7 @@
       <plugin>
         <groupId>com.smartbear.soapui</groupId>
         <artifactId>soapui-maven-plugin</artifactId>
-        <version>5.4.0</version>
+        <version>5.5.0</version>
         <dependencies>
           <dependency>
             <groupId>com.jgoodies</groupId>
@@ -218,7 +217,6 @@
           <testFailIgnore>true</testFailIgnore>
           <projectProperties>
             <value>teamengine.endpoint=${soapui.teamengine.endpoint}</value>
-            <value>ets.version=${soapui.ets.version}</value>
             <value>iut=${soapui.iut}</value>
             <value>tests.passed=${soapui.tests.passed}</value>
             <value>tests.skipped=${soapui.tests.skipped}</value>
