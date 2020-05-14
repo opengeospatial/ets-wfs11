@@ -159,6 +159,11 @@ public class WFSClient {
 	private DocumentBuilder createDocumentBuilder()
 			throws ParserConfigurationException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		String FEATURE = null;
+		// This is the PRIMARY defense. If DTDs (doctypes) are disallowed, almost all XML entity attacks are prevented
+		// Xerces 2 only - http://xerces.apache.org/xerces2-j/features.html#disallow-doctype-decl
+		FEATURE = "http://apache.org/xml/features/disallow-doctype-decl";
+		factory.setFeature(FEATURE, true);
 		factory.setNamespaceAware(true);
 		return factory.newDocumentBuilder();
 	}
