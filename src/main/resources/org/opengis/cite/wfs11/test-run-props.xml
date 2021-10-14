@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version="1.0">
+    <comment>Test run arguments for ets-wfs11</comment>
+    <entry key="capabilities-url"></entry>
+    <entry key="wfs-transaction"></entry>
+    <entry key="wfs-locking"></entry>
+    <entry key="wfs-xlink"></entry>
+    <entry key="profile">sf-0</entry>
+</properties>
