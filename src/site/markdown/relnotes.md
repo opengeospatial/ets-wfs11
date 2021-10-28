@@ -1,5 +1,12 @@
 ## Release Notes WFS 1.1.0
 
+### 1.33 (2021-10-28)
+- [#84](https://github.com/opengeospatial/ets-wfs11/issues/84): Enable test execution using a RESTful API
+- [#93](https://github.com/opengeospatial/ets-wfs11/issues/93): Enable Docker support
+- [#92](https://github.com/opengeospatial/ets-wfs11/pull/92): Bump junit from 4.12 to 4.13.1
+- [#83](https://github.com/opengeospatial/ets-wfs11/pull/83): Fixed Fortify Issues for DISASTIG
+- [#82](https://github.com/opengeospatial/ets-wfs11/issues/82): Create SoapUI tests and integrate them into Maven and Jenkinsfile
+
 ### 1.32 (2018-05-16)
 - Fix [#68](https://github.com/opengeospatial/ets-wfs11/issues/68): Add conformance class configuration into the wfs11 test
 - Fix [#78](https://github.com/opengeospatial/ets-wfs11/issues/78): wfs:wfs-1.1.0-Basic-GetCapabilities-tc7 fails with InvocationTargetException
