@@ -497,7 +497,7 @@
 
       <xsl:choose>
         <xsl:when test="not($request1/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:message>FAILURE: Missing or invalid response entity for request1 (good request).</ctl:message>
           <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
@@ -513,7 +513,7 @@
 
       <xsl:choose>
         <xsl:when test="not($request2/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:message>FAILURE: Missing or invalid response entity for request2 (no service=).</ctl:message>
           <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
@@ -522,9 +522,9 @@
             <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
             <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
           </ctl:call-test>
-          <xsl:if test="not(lower-case($request2//ows:Exception/@locator) = 'request')">
+          <xsl:if test="not(lower-case($request2//ows:Exception/@locator) = 'service')">
             <ctl:message>
-              FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
+              FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute - service.
             </ctl:message>
             <ctl:fail />
           </xsl:if>
@@ -533,18 +533,16 @@
 
       <xsl:choose>
         <xsl:when test="not($request3/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:message>FAILURE: Missing or invalid response entity for request3 (no version=).</ctl:message>
           <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
-          <ctl:call-test name="ctl:SchematronValidatingParser">
-            <ctl:with-param name="doc" select="$request3" />
-            <ctl:with-param name="schema">/sch/ows/1.0.0/ExceptionReport.sch</ctl:with-param>
-            <ctl:with-param name="phase">MissingParameterValuePhase</ctl:with-param>
-          </ctl:call-test>
-          <xsl:if test="not(lower-case($request3//ows:Exception/@locator) = 'request')">
+          <!-- Without a VERSION parameter, some systems will return a WFS 2.0 ExceptionReport (ows/1.1)
+          NOT an ows 1.0.0.  This makes schema validation more difficult.  This just checks that the
+           server responded with "ExceptionReport" text in the response. -->
+          <xsl:if test="not(contains($request3, 'version')">
             <ctl:message>
-              FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
+              FAILURE: expected an ExceptionReport for a request with no version=.
             </ctl:message>
             <ctl:fail />
           </xsl:if>
@@ -553,7 +551,7 @@
 
       <xsl:choose>
         <xsl:when test="not($request4/*)">
-          <ctl:message>FAILURE: Missing or invalid response entity.</ctl:message>
+          <ctl:message>FAILURE: Missing or invalid response entity for request4 (no request=).</ctl:message>
           <ctl:fail />
         </xsl:when>
         <xsl:otherwise>
@@ -564,7 +562,7 @@
           </ctl:call-test>
           <xsl:if test="not(lower-case($request4//ows:Exception/@locator) = 'request')">
             <ctl:message>
-              FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute.
+              FAILURE: ows:Exception/@locator is absent or does not identify the missing request attribute - request.
             </ctl:message>
             <ctl:fail />
           </xsl:if>
