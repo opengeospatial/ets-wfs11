@@ -540,7 +540,7 @@
           <!-- Without a VERSION parameter, some systems will return a WFS 2.0 ExceptionReport (ows/1.1)
           NOT an ows 1.0.0.  This makes schema validation more difficult.  This just checks that the
            server responded with "ExceptionReport" text in the response. -->
-          <xsl:if test="not(contains($request3, 'version')">
+          <xsl:if test="not(contains($request3, 'ExceptionReport'))">
             <ctl:message>
               FAILURE: expected an ExceptionReport for a request with no version=.
             </ctl:message>
