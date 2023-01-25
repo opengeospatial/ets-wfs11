@@ -54,8 +54,8 @@
     <ets-code>wfs</ets-code>
     <spec-version>1.1.0</spec-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <teamengine.version>5.4.1</teamengine.version>
-    <docker.teamengine.version>5.4.1</docker.teamengine.version>
+    <teamengine.version>5.5.2</teamengine.version>
+    <docker.teamengine.version>5.5.2</docker.teamengine.version>
     <soapui.teamengine.endpoint>http://localhost:8081/teamengine</soapui.teamengine.endpoint>
     <soapui.iut>http://cite.deegree.org/deegree-webservices-3.4.0/services/wfs110?service=WFS&amp;request=GetCapabilities</soapui.iut>
     <soapui.tests.passed>72</soapui.tests.passed>
