@@ -1,5 +1,9 @@
 ## Release Notes WFS 1.1.0
 
+### 1.34 (2022-01-26)
+- [#96](https://github.com/opengeospatial/ets-wfs11/issues/96): wfs:wfs-1.1.0-Basic-GetFeature-tc4 -- checks look incorrect (wrong value)
+- [#99](https://github.com/opengeospatial/ets-wfs11/pull/99): Set TEAM Engine dependencies to v5.5.2
+
 ### 1.33 (2021-10-28)
 - [#84](https://github.com/opengeospatial/ets-wfs11/issues/84): Enable test execution using a RESTful API
 - [#93](https://github.com/opengeospatial/ets-wfs11/issues/93): Enable Docker support
