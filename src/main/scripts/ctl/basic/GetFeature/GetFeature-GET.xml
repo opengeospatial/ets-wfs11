@@ -469,7 +469,6 @@
                 select="concat('xmlns(', substring-before( $wfs.FeatureType.names.first, ':' ), '=', $wfs.FeatureType.names.first.namespace, ')')" />
             </xsl:if>
           </param>
-          <p:XMLValidatingParser.OWS />
         </request>
       </xsl:variable>
 
