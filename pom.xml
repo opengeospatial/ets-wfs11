@@ -326,7 +326,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>ets-gml32</artifactId>
-      <version>1.21</version>
+      <version>1.31</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
