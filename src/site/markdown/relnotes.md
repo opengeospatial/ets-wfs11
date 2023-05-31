@@ -1,5 +1,10 @@
 ## Release Notes WFS 1.1.0
 
+### 1.35 (2023-05-31)
+- [#100](https://github.com/opengeospatial/ets-wfs11/pull/100): remove validating parser for bad version (VeERSION) test - wfs-1.1.0-…Basic-GetFeature-tc4
+- [#98](https://github.com/opengeospatial/ets-wfs11/issues/98): Update dependency ets-gml32 to latest version
+- [#101](https://github.com/opengeospatial/ets-wfs11/pull/101): Upgrade TEAM Engine dependencies to v5.6.1
+
 ### 1.34 (2022-01-26)
 - [#96](https://github.com/opengeospatial/ets-wfs11/issues/96): wfs:wfs-1.1.0-Basic-GetFeature-tc4 -- checks look incorrect (wrong value)
 - [#99](https://github.com/opengeospatial/ets-wfs11/pull/99): Set TEAM Engine dependencies to v5.5.2
