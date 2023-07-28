@@ -1,5 +1,8 @@
 ## Release Notes WFS 1.1.0
 
+### 1.36 (2023-07-28)
+- [#103](https://github.com/opengeospatial/ets-wfs11/issues/103): Version 1.35 produces error during start up on Beta environment
+
 ### 1.35 (2023-05-31)
 - [#100](https://github.com/opengeospatial/ets-wfs11/pull/100): remove validating parser for bad version (VeERSION) test - wfs-1.1.0-…Basic-GetFeature-tc4
 - [#98](https://github.com/opengeospatial/ets-wfs11/issues/98): Update dependency ets-gml32 to latest version
