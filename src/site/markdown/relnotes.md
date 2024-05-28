@@ -1,5 +1,9 @@
 ## Release Notes WFS 1.1.0
 
+### 1.37 (2024-05-28)
+- [#106](https://github.com/opengeospatial/ets-wfs11/issues/106): Two tests finish with status "Continue" when using TEAM Engine 5.7
+- [#105](https://github.com/opengeospatial/ets-wfs11/pull/105): Upgrade and clean up dependencies
+
 ### 1.36 (2023-07-28)
 - [#103](https://github.com/opengeospatial/ets-wfs11/issues/103): Version 1.35 produces error during start up on Beta environment
 
