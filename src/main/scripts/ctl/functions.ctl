@@ -112,18 +112,18 @@
     <ctl:code>
       <xsl:choose>
         <!-- append question mark if url does not contain a question mark -->
-        <xsl:when test="not(contains( $wfs.GetCapabilities.get.url, '?'))">
+        <xsl:when test="not(contains( $request-url, '?'))">
           <xsl:value-of
-                  select="concat($wfs.GetCapabilities.get.url,'?', $request2QueryParams)" />
+                  select="concat($request-url,'?')" />
         </xsl:when>
         <!-- append ampersand if url contains a question mark but does not end with question mark or ampersand -->
         <xsl:when
-                test="contains( $wfs.GetCapabilities.get.url, '?') and not(ends-with($wfs.GetCapabilities.get.url, '?') or ends-with($wfs.GetCapabilities.get.url, '&amp;')) ">
+                test="contains( $request-url, '?') and not(ends-with($request-url, '?') or ends-with($request-url, '&amp;')) ">
           <xsl:value-of
-                  select="concat($wfs.GetCapabilities.get.url,'&amp;', $request2QueryParams)" />
+                  select="concat($request-url,'&amp;')" />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="concat($wfs.GetCapabilities.get.url,$request2QueryParams)" />
+          <xsl:value-of select="$request-url" />
         </xsl:otherwise>
       </xsl:choose>
     </ctl:code>
