@@ -17,12 +17,9 @@
       <scope>runtime</scope>
       <excludes>
         <exclude>org.opengis.cite.teamengine:teamengine-spi</exclude>
-        <exclude>com.sun.jersey:jersey-core</exclude>
         <exclude>xerces:xercesImpl</exclude>
-        <exclude>net.sourceforge.saxon:saxon9*</exclude>
         <exclude>xml-resolver:xml-resolver</exclude>
         <exclude>com.thaiopensource:jing</exclude>
-        <exclude>javax.ws.rs:jsr311-api</exclude>
         <exclude>com.beust:jcommander</exclude>
       </excludes>
       <useTransitiveDependencies>true</useTransitiveDependencies>
