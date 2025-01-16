@@ -32,56 +32,46 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 public class GetFeatureTestConditions {
 
 	/**
-	 * Checks if all of the feature members matches the filter condition in the
-	 * feature data (PropertyIsEqualTo)
-	 * 
-	 * @param featureCollection
-	 *            the GetFeature response, never <code>null</code>
-	 * @param featureData
-	 *            the featureData used to request the features, never
-	 *            <code>null</code>
-	 * @return <code>true</code> if at least one feature member does not match
-	 *         the filter conditionor if the feature collection does not contain
-	 *         a feature, <code>false</code> otherwise
-	 * @throws Exception
-	 *             if an error occurred
+	 * Checks if all of the feature members matches the filter condition in the feature
+	 * data (PropertyIsEqualTo)
+	 * @param featureCollection the GetFeature response, never <code>null</code>
+	 * @param featureData the featureData used to request the features, never
+	 * <code>null</code>
+	 * @return <code>true</code> if at least one feature member does not match the filter
+	 * conditionor if the feature collection does not contain a feature,
+	 * <code>false</code> otherwise
+	 * @throws java.lang.Exception if an error occurred
 	 */
-	public static boolean checkFeaturesMatchingFilter(Node featureCollection,
-			Node featureData) throws Exception {
+	public static boolean checkFeaturesMatchingFilter(Node featureCollection, Node featureData) throws Exception {
 		try {
 			FeatureData parsedFeatureData = parseFeatureData(reloadNode(featureData));
 
-			NodeList featureMembers = findFeatureMembers(
-					reloadNode(featureCollection), parsedFeatureData);
+			NodeList featureMembers = findFeatureMembers(reloadNode(featureCollection), parsedFeatureData);
 			for (int i = 0; i < featureMembers.getLength(); i++) {
 				Node featureMember = featureMembers.item(i);
 				if (!hasProperty(featureMember, parsedFeatureData))
 					return false;
 			}
 			return true;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
 	/**
-	 * Checks if all featureTypes in the capabilities document are available in
-	 * the DescribeFeatureType response
-	 * 
-	 * @param capabilitiesResponse
-	 *            never <code>null</code>
-	 * @param describeFeatureTypeResponse
-	 *            never <code>null</code>
-	 * @return <code>true</code> if all feature types in the capabilities
-	 *         document are available in the DescribeFeatureType response or the
-	 *         capabilities document does not contain a feature type,
-	 *         <code>false</code> otherwise
-	 * @throws Exception
+	 * Checks if all featureTypes in the capabilities document are available in the
+	 * DescribeFeatureType response
+	 * @param capabilitiesResponse never <code>null</code>
+	 * @param describeFeatureTypeResponse never <code>null</code>
+	 * @return <code>true</code> if all feature types in the capabilities document are
+	 * available in the DescribeFeatureType response or the capabilities document does not
+	 * contain a feature type, <code>false</code> otherwise
+	 * @throws java.lang.Exception
 	 */
-	public static boolean checkFeatureTypesDescribedInSchema(
-			Node capabilitiesResponse, Node describeFeatureTypeResponse)
-			throws Exception {
+	public static boolean checkFeatureTypesDescribedInSchema(Node capabilitiesResponse,
+			Node describeFeatureTypeResponse) throws Exception {
 		try {
 			XSModel model = parseSchema(reloadNode(describeFeatureTypeResponse));
 
@@ -90,98 +80,83 @@ public class GetFeatureTestConditions {
 				Node featureTypeNameNode = featureTypeNames.item(i);
 				QName featureTypeName = buildQName(featureTypeNameNode);
 
-				XSElementDeclaration elementDeclaration = model
-						.getElementDeclaration(featureTypeName.getLocalPart(),
-								featureTypeName.getNamespaceURI());
+				XSElementDeclaration elementDeclaration = model.getElementDeclaration(featureTypeName.getLocalPart(),
+						featureTypeName.getNamespaceURI());
 				if (elementDeclaration == null)
 					return false;
 			}
 			return true;
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
 
 	private static XSModel parseSchema(Node node) throws Exception {
-		DOMImplementationRegistry registry = DOMImplementationRegistry
-				.newInstance();
-		XSImplementation impl = (XSImplementation) registry
-				.getDOMImplementation("XS-Loader");
+		DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+		XSImplementation impl = (XSImplementation) registry.getDOMImplementation("XS-Loader");
 		XSLoader schemaLoader = impl.createXSLoader(null);
 		DOMInputImpl lsInput = new DOMInputImpl();
-		ByteArrayInputStream bis = new ByteArrayInputStream(XmlUtils.asString(
-				node).getBytes());
+		ByteArrayInputStream bis = new ByteArrayInputStream(XmlUtils.asString(node).getBytes());
 		try {
 			lsInput.setByteStream(bis);
 			return schemaLoader.load(lsInput);
-		} finally {
+		}
+		finally {
 			bis.close();
 		}
 	}
 
-	private static NodeList parseFeatureTypeNames(Node capabilities)
-			throws XPathExpressionException {
-		NamespaceBindings nsBindings = new NamespaceBindingBuilder().add("wfs",
-				WFS_NAMESPACE).build();
+	private static NodeList parseFeatureTypeNames(Node capabilities) throws XPathExpressionException {
+		NamespaceBindings nsBindings = new NamespaceBindingBuilder().add("wfs", WFS_NAMESPACE).build();
 		String xPath = "//wfs:FeatureTypeList/wfs:FeatureType/wfs:Name";
 
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		xpath.setNamespaceContext(nsBindings);
-		return (NodeList) xpath.evaluate(xPath, capabilities,
-				XPathConstants.NODESET);
+		return (NodeList) xpath.evaluate(xPath, capabilities, XPathConstants.NODESET);
 	}
 
-	private static FeatureData parseFeatureData(Node featureData)
-			throws XPathExpressionException {
-		String featureTypeName = evaluate(
-				"//FeatureData/FeatureType/localName", featureData);
-		String featureTypeNamespace = evaluate(
-				"//FeatureData/FeatureType/namespace", featureData);
-		String propertyName = evaluate("//FeatureData/Property/localName",
-				featureData);
-		String propertyNamespace = evaluate("//FeatureData/Property/namespace",
-				featureData);
+	private static FeatureData parseFeatureData(Node featureData) throws XPathExpressionException {
+		String featureTypeName = evaluate("//FeatureData/FeatureType/localName", featureData);
+		String featureTypeNamespace = evaluate("//FeatureData/FeatureType/namespace", featureData);
+		String propertyName = evaluate("//FeatureData/Property/localName", featureData);
+		String propertyNamespace = evaluate("//FeatureData/Property/namespace", featureData);
 		String value = evaluate("//FeatureData/value", featureData);
-		return new FeatureData(
-				new QName(featureTypeNamespace, featureTypeName), new QName(
-						propertyNamespace, propertyName), value);
+		return new FeatureData(new QName(featureTypeNamespace, featureTypeName),
+				new QName(propertyNamespace, propertyName), value);
 	}
 
-	private static NodeList findFeatureMembers(Node featureCollection,
-			FeatureData featureData) throws XPathExpressionException {
+	private static NodeList findFeatureMembers(Node featureCollection, FeatureData featureData)
+			throws XPathExpressionException {
 		String typeNamespace = featureData.getFeatureType().getNamespaceURI();
 		String typeName = featureData.getFeatureType().getLocalPart();
 
-		NamespaceBindings nsBindings = new NamespaceBindingBuilder()
-				.add("n1", typeNamespace).add("wfs", WFS_NAMESPACE)
-				.add("gml", GML_NAMESPACE).build();
+		NamespaceBindings nsBindings = new NamespaceBindingBuilder().add("n1", typeNamespace)
+			.add("wfs", WFS_NAMESPACE)
+			.add("gml", GML_NAMESPACE)
+			.build();
 
 		StringBuilder xPathBuilder = new StringBuilder();
 		xPathBuilder.append("//wfs:FeatureCollection/gml:featureMember/");
-		xPathBuilder.append(nsBindings.getPrefix(typeNamespace)).append(":")
-				.append(typeName);
+		xPathBuilder.append(nsBindings.getPrefix(typeNamespace)).append(":").append(typeName);
 		xPathBuilder.append(" | ");
 		xPathBuilder.append("//wfs:FeatureCollection/gml:featureMembers/");
-		xPathBuilder.append(nsBindings.getPrefix(typeNamespace)).append(":")
-				.append(typeName);
+		xPathBuilder.append(nsBindings.getPrefix(typeNamespace)).append(":").append(typeName);
 
 		String xPath = xPathBuilder.toString();
 
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		xpath.setNamespaceContext(nsBindings);
-		return (NodeList) xpath.evaluate(xPath, featureCollection,
-				XPathConstants.NODESET);
+		return (NodeList) xpath.evaluate(xPath, featureCollection, XPathConstants.NODESET);
 	}
 
-	private static boolean hasProperty(Node featureMember,
-			FeatureData featureData) throws XPathExpressionException {
+	private static boolean hasProperty(Node featureMember, FeatureData featureData) throws XPathExpressionException {
 		String propertyNamespace = featureData.getPropName().getNamespaceURI();
 		String propertyName = featureData.getPropName().getLocalPart();
 		String value = featureData.getData();
 
-		NodeList featureProperties = parseProperties(featureMember,
-				propertyNamespace, propertyName);
+		NodeList featureProperties = parseProperties(featureMember, propertyNamespace, propertyName);
 
 		for (int i = 0; i < featureProperties.getLength(); i++) {
 			Node property = featureProperties.item(i);
@@ -192,12 +167,12 @@ public class GetFeatureTestConditions {
 		return false;
 	}
 
-	private static NodeList parseProperties(Node featureMember,
-			String propertyNamespace, String propertyName)
+	private static NodeList parseProperties(Node featureMember, String propertyNamespace, String propertyName)
 			throws XPathExpressionException {
-		NamespaceBindings nsBindings = new NamespaceBindingBuilder()
-				.add("n1", propertyNamespace).add("wfs", WFS_NAMESPACE)
-				.add("gml", GML_NAMESPACE).build();
+		NamespaceBindings nsBindings = new NamespaceBindingBuilder().add("n1", propertyNamespace)
+			.add("wfs", WFS_NAMESPACE)
+			.add("gml", GML_NAMESPACE)
+			.build();
 
 		StringBuilder xPathBuilder = new StringBuilder();
 		xPathBuilder.append("//");
@@ -210,14 +185,11 @@ public class GetFeatureTestConditions {
 		XPath xpath = XPathFactory.newInstance().newXPath();
 		xpath.setNamespaceContext(nsBindings);
 
-		return (NodeList) xpath.evaluate(xPath, featureMember,
-				XPathConstants.NODESET);
+		return (NodeList) xpath.evaluate(xPath, featureMember, XPathConstants.NODESET);
 	}
 
-	private static String evaluate(String xPath, Node featureData)
-			throws XPathExpressionException {
-		return (String) XPathFactory.newInstance().newXPath()
-				.evaluate(xPath, featureData, XPathConstants.STRING);
+	private static String evaluate(String xPath, Node featureData) throws XPathExpressionException {
+		return (String) XPathFactory.newInstance().newXPath().evaluate(xPath, featureData, XPathConstants.STRING);
 	}
 
 }
