@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <parent>
     <groupId>org.opengis.cite</groupId>
     <artifactId>ets-common</artifactId>
     <version>15-SNAPSHOT</version>
   </parent>
-  
+
   <modelVersion>4.0.0</modelVersion>
   <artifactId>ets-wfs11</artifactId>
   <version>1.38-SNAPSHOT</version>
@@ -20,13 +21,13 @@
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
-      <url>http://opensource.org/licenses/Apache-2.0</url>
+      <url>https://opensource.org/licenses/Apache-2.0</url>
     </license>
   </licenses>
 
   <organization>
     <name>Open Geospatial Consortium</name>
-    <url>http://www.opengeospatial.org</url>
+    <url>https://www.ogc.org</url>
   </organization>
 
   <scm>
@@ -59,145 +60,23 @@
   <properties>
     <ets-code>wfs</ets-code>
     <spec-version>1.1.0</spec-version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <soapui.teamengine.endpoint>http://localhost:8081/teamengine</soapui.teamengine.endpoint>
+    <soapui.teamengine.user>ogctest</soapui.teamengine.user>
+    <soapui.teamengine.password>ogctest</soapui.teamengine.password>
     <soapui.iut>https://cite.deegree.org/deegree-webservices-3.5.6/services/wfs110?service=WFS&amp;request=GetCapabilities</soapui.iut>
     <soapui.tests.passed>72</soapui.tests.passed>
     <soapui.tests.skipped>0</soapui.tests.skipped>
     <soapui.tests.failed>0</soapui.tests.failed>
   </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>org.opengis.cite.wfs11.CtlController</mainClass>
-            </manifest>
-          </archive>
-          <descriptors>
-            <descriptor>${basedir}/src/assembly/data.xml</descriptor>
-            <descriptor>${basedir}/src/assembly/ctl.xml</descriptor>
-            <descriptor>${basedir}/src/assembly/aio.xml</descriptor>
-            <descriptor>${basedir}/src/assembly/deps.xml</descriptor>
-          </descriptors>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>com.smartbear.soapui</groupId>
-        <artifactId>soapui-maven-plugin</artifactId>
-        <configuration>
-          <projectFile>src/test/resources/soapui/ets-wfs11-soapui-project.xml</projectFile>
-          <projectProperties>
-            <value>teamengine.endpoint=${soapui.teamengine.endpoint}</value>
-            <value>iut=${soapui.iut}</value>
-            <value>tests.passed=${soapui.tests.passed}</value>
-            <value>tests.skipped=${soapui.tests.skipped}</value>
-            <value>tests.failed=${soapui.tests.failed}</value>
-          </projectProperties>
-        </configuration>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <directory>${basedir}/src/main/resources</directory>
-        <filtering>true</filtering>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/main/scripts</directory>
-        <targetPath>${ets-code}/${spec-version}</targetPath>
-      </resource>
-      <resource>
-        <directory>src/main/javadoc</directory>
-        <filtering>true</filtering>
-        <targetPath>doc/${ets-code}/${project.version}</targetPath>
-      </resource>
-    </resources>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>io.fabric8</groupId>
-          <artifactId>docker-maven-plugin</artifactId>
-          <configuration>
-          <dockerHost>http://localhost:2375</dockerHost>
-            <images>
-              <image>
-                <name>ogccite/${project.artifactId}</name>
-                <build>
-                  <dockerFileDir>${project.basedir}/src/docker</dockerFileDir>
-                  <tags>
-                    <tag>${project.version}-teamengine-${teamengine.version}</tag>
-                  </tags>
-                  <assembly>
-                    <inline>
-                      <fileSets>
-                        <fileSet>
-                          <directory>${project.build.directory}</directory>
-                          <outputDirectory>.</outputDirectory>
-                          <includes>
-                            <include>dependency/*teamengine-*.war</include>
-                            <include>dependency/*teamengine-*.zip</include>
-                            <include>*ets-*.zip</include>
-                          </includes>
-                        </fileSet>
-                      </fileSets>
-                    </inline>
-                  </assembly>
-                </build>
-                <run>
-                  <ports>
-                    <port>8081:8080</port>
-                    <port>8000:8000</port>
-                  </ports>
-                  <wait>
-                    <http>
-                      <url>http://localhost:8081/teamengine</url>
-                    </http>
-                    <time>120000</time>
-                  </wait>
-                </run>
-              </image>
-            </images>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
-
   <dependencies>
     <dependency>
       <groupId>org.opengis.cite.teamengine</groupId>
       <artifactId>teamengine-spi-ctl</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>xercesImpl</artifactId>
-          <groupId>xerces</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>junit</artifactId>
-          <groupId>junit</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.opengis.cite.teamengine</groupId>
       <artifactId>teamengine-spi</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>xercesImpl</artifactId>
-          <groupId>xerces</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -222,6 +101,89 @@
       <artifactId>jakarta.xml.ws-api</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.opengis.cite.wfs11.CtlController</mainClass>
+            </manifest>
+          </archive>
+          <descriptors>
+            <descriptor>${basedir}/src/assembly/data.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/ctl-scripts.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/aio.xml</descriptor>
+            <descriptor>${basedir}/src/assembly/deps.xml</descriptor>
+          </descriptors>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+      </plugin>
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>io.fabric8</groupId>
+          <artifactId>docker-maven-plugin</artifactId>
+          <configuration>
+            <images>
+              <image>
+                <run>
+                  <ports>
+                    <port>8081:8080</port>
+                  </ports>
+                  <wait>
+                    <http>
+                      <url>http://localhost:8081/teamengine</url>
+                    </http>
+                    <time>120000</time>
+                  </wait>
+                </run>
+              </image>
+            </images>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>com.smartbear.soapui</groupId>
+          <artifactId>soapui-maven-plugin</artifactId>
+          <configuration>
+            <projectFile>src/test/resources/soapui/ets-wfs11-soapui-project.xml</projectFile>
+            <settingsFile>src/test/resources/soapui/ets-wfs11-soapui-settings.xml</settingsFile>
+            <projectProperties>
+              <value>teamengine.endpoint=${soapui.teamengine.endpoint}</value>
+              <value>teamengine.user=${soapui.teamengine.user}</value>
+              <value>teamengine.password=${soapui.teamengine.password}</value>
+              <value>iut=${soapui.iut}</value>
+              <value>tests.passed=${soapui.tests.passed}</value>
+              <value>tests.skipped=${soapui.tests.skipped}</value>
+              <value>tests.failed=${soapui.tests.failed}</value>
+            </projectProperties>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/main/scripts</directory>
+        <targetPath>${ets-code}/${spec-version}</targetPath>
+      </resource>
+      <resource>
+        <directory>src/main/javadoc</directory>
+        <filtering>true</filtering>
+        <targetPath>doc/${ets-code}/${project.version}</targetPath>
+      </resource>
+    </resources>
+  </build>
 
   <profiles>
     <profile>
@@ -264,15 +226,11 @@
   <pluginRepositories>
     <pluginRepository>
       <id>smartbear-sweden-plugin-repository</id>
-      <url>http://www.soapui.org/repository/maven2/</url>
+      <url>https://www.soapui.org/repository/maven2/</url>
     </pluginRepository>
   </pluginRepositories>
-  
+
   <distributionManagement>
-    <repository>
-      <id>sonatype-nexus-staging</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
     <site>
       <id>site</id>
       <url>scm:git:git@github.com:opengeospatial/ets-wfs11.git</url>
