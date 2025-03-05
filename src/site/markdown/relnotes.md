@@ -1,5 +1,11 @@
 ## Release Notes WFS 1.1.0
 
+### 1.38 (2025-03-05)
+
+Attention: Java 17 and Tomcat 10.1 are required.
+
+- [#108](https://github.com/opengeospatial/ets-wfs11/issues/108): Migrate test suite to TEAM Engine 6 (Java 17)
+
 ### 1.37 (2024-05-28)
 - [#106](https://github.com/opengeospatial/ets-wfs11/issues/106): Two tests finish with status "Continue" when using TEAM Engine 5.7
 - [#105](https://github.com/opengeospatial/ets-wfs11/pull/105): Upgrade and clean up dependencies
