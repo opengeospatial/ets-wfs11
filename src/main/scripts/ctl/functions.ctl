@@ -91,12 +91,10 @@
       </ctl:code>
    </ctl:function>
 
+   <!-- the encoding was removed, as the encode method is overloaded now and this does not seem to work anymore -->
    <ctl:function name="wfs:encode">
       <ctl:param name="s">String to encode</ctl:param>
-      <ctl:param name="encoding">UTF-8</ctl:param>
       <ctl:java class="java.net.URLEncoder" method="encode">
-        <ctl:with-param select="s" />
-        <ctl:with-param select="encoding" />
       </ctl:java>
    </ctl:function>
 

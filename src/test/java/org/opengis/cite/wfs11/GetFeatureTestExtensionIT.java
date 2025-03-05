@@ -27,23 +27,12 @@ public class GetFeatureTestExtensionIT {
 	public void testTest() throws Exception {
 		Node wfsCapabilities = parseWfsCapabilities();
 
-		Node result = GetFeatureTestExtension
-				.findFeatureTypeAndPropertyName(wfsCapabilities);
+		Node result = GetFeatureTestExtension.findFeatureTypeAndPropertyName(wfsCapabilities);
 
-		assertThat(
-				result,
-				hasValue("//FeatureData/FeatureType/localName",
-						"AggregateGeoFeature"));
-		assertThat(
-				result,
-				hasValue("//FeatureData/FeatureType/namespace",
-						"http://cite.opengeospatial.org/gmlsf"));
-		assertThat(result,
-				hasValue("//FeatureData/Property/localName", "doubleProperty"));
-		assertThat(
-				result,
-				hasValue("//FeatureData/Property/namespace",
-						"http://cite.opengeospatial.org/gmlsf"));
+		assertThat(result, hasValue("//FeatureData/FeatureType/localName", "AggregateGeoFeature"));
+		assertThat(result, hasValue("//FeatureData/FeatureType/namespace", "http://cite.opengeospatial.org/gmlsf"));
+		assertThat(result, hasValue("//FeatureData/Property/localName", "doubleProperty"));
+		assertThat(result, hasValue("//FeatureData/Property/namespace", "http://cite.opengeospatial.org/gmlsf"));
 		assertThat(result, hasValue("//FeatureData/value", "2012.78"));
 	}
 
@@ -57,8 +46,7 @@ public class GetFeatureTestExtensionIT {
 			}
 
 			public void describeTo(Description description) {
-				description.appendText("XML must contain the value '" + value
-						+ " at " + xPath);
+				description.appendText("XML must contain the value '" + value + " at " + xPath);
 			}
 		};
 	}
@@ -66,15 +54,14 @@ public class GetFeatureTestExtensionIT {
 	private static String extractValue(Node result, String xPath) {
 		try {
 			XPath xpath = XPathFactory.newInstance().newXPath();
-			return (String) xpath
-					.evaluate(xPath, result, XPathConstants.STRING);
-		} catch (XPathExpressionException e) {
+			return (String) xpath.evaluate(xPath, result, XPathConstants.STRING);
+		}
+		catch (XPathExpressionException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private Node parseWfsCapabilities() throws ParserConfigurationException,
-			SAXException, IOException {
+	private Node parseWfsCapabilities() throws ParserConfigurationException, SAXException, IOException {
 		String wfsCapabilitiesUrl = "http://cite.lat-lon.de/deegree-webservices-3.3.6/services/wfs110?request=GetCapabilities&service=WFS";
 
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
